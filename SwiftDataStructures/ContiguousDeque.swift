@@ -3,7 +3,7 @@ A [Deque](https://en.wikipedia.org/wiki/Double-ended_queue) is a data structure 
 of two queues, with the first queue beginning at the start of the Deque, and the second
 beginning at the end (in reverse):
 
-```
+```swift
 First queue   Second queue
 v              v
 [0, 1, 2, 3] | [3, 2, 1, 0]
