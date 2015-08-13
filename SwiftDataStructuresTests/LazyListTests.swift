@@ -1,4 +1,5 @@
 import XCTest
+import Foundation
 @testable import SwiftDataStructures
 
 class LazyListTests: XCTestCase {
@@ -86,6 +87,19 @@ class LazyListTests: XCTestCase {
     
   }
   
+  func testCount() {
+    
+    let seq = 0..<Int(arc4random_uniform(30))
+    
+    let expectation = Array(seq)
+    
+    let reality = LazyList(seq)
+    
+    XCTAssert(expectation.count == reality.count)
+    
+    
+  }
+  
   func testExtended() {
     
     let expectation = [1, 2, 3, 0, 1]
@@ -116,6 +130,78 @@ class LazyListTests: XCTestCase {
     
   }
   
+  func testDropLast() {
+    
+    let seq = 0...Int(arc4random_uniform(30))
+
+    let expectation = Array(seq).dropLast()
+    
+    let reality = LazyList(seq).dropLast()
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+  }
+  
+  func testDropLastN() {
+    
+    let n = Int(arc4random_uniform(30))
+    
+    let seq = 0...n
+    
+    let drop = Int(arc4random_uniform(UInt32(n)))
+    
+    let expectation = Array(seq).dropLast(drop)
+    
+    let reality = LazyList(seq).dropLast(drop)
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+  }
+  
+  func testSuffixN() {
+    
+    let n = Int(arc4random_uniform(30))
+    
+    let seq = 0...n
+    
+    let drop = Int(arc4random_uniform(UInt32(n)))
+    
+    let expectation = Array(seq).suffix(drop)
+    
+    let reality = LazyList(seq).suffix(drop)
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+  }
+  
+  func testSplit() {
+    
+    let maxSplits = (0...20)
+    let splitFuncs = (0...10).map {
+      _ -> (Int -> Bool) in
+      let n = Int(arc4random_uniform(5)) + 1
+      return { $0 % n == 0 }
+    }
+    let allows = [true, false]
+    let arrays = (0...10).map { (a: Int) -> [Int] in
+      (0..<a).map { _ in Int(arc4random_uniform(100)) }
+    }
+    let lists = arrays.map{LazyList($0)}
+    for (array, list) in zip(arrays, lists) {
+      for maxSplit in maxSplits {
+        for splitFunc in splitFuncs {
+          for allow in allows {
+            let listSplit = list.split(maxSplit, allowEmptySlices: allow, isSeparator: splitFunc)
+            let araySplit = array.split(maxSplit, allowEmptySlices: allow, isSeparator: splitFunc)
+            for (a, b) in zip(listSplit, araySplit) {
+              XCTAssert(a.elementsEqual(b), a.debugDescription + " " + b.debugDescription)
+            }
+          }
+        }
+      }
+    }
+  }
+
   func testTake() {
     
     let expectation = [1, 2, 3]

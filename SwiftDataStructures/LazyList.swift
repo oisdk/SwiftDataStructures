@@ -160,7 +160,7 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
     }
   }
   /**
-  Returns a `LazyList` containing all but the first element.
+  Returns a `LazyList` containing all but the last element.
   
   - Complexity: O(`count`)
   */
@@ -169,7 +169,7 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
     case .Nil: return .Nil
     case let .Cons(head, tail):
       let tail = tail()
-      if tail.isEmpty { return [head] }
+      if tail.isEmpty { return .Nil }
       return head |> tail.dropLast()
     }
   }
@@ -248,19 +248,7 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   public func extended<S : SequenceType where S.Generator.Element == Element>(@autoclosure(escaping) with: () -> S) -> LazyList<Element> {
     return extended(LazyList(with()))
   }
-  
-  /**
-  Returns `self` with `n` elements dropped.
-  
-  - Complexity: `n`
-  */
-  
-  public func suffixFrom(n: Int) -> LazyList<Element> {
-    switch (n, self) {
-    case (0, _), (_, .Nil): return self
-    case let (_, .Cons(_, tail)): return tail().suffixFrom(n - 1)
-    }
-  }
+
   
   /**
   Returns a `LazyList` of the initial elements of `self`, of maximum length `n`.
@@ -278,7 +266,7 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   */
   
   public func suffix(n: Int) -> LazyList<Element> {
-    return reverse().prefix(n).reverse()
+    return zip(0..<n, reverse()).reduce(LazyList.Nil) { $1.1 |> $0 }
   }
   
   private func divide(@noescape isSplit: Element -> Bool) -> (LazyList<Element>, LazyList<Element>) {
@@ -304,14 +292,10 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   - Requires: maxSplit >= 0
   */
   public func split(maxSplit: Int, allowEmptySlices: Bool, @noescape isSeparator: Element -> Bool) -> [LazyList<Element>] {
-    if maxSplit == 0 { return [self] }
-    switch self {
-    case .Nil: return []
-    default:
-      let (front, back) = divide(isSeparator)
-      let rest = back.split(maxSplit - 1, allowEmptySlices: allowEmptySlices, isSeparator: isSeparator)
-      return (!front.isEmpty || allowEmptySlices) ? [front] + rest : rest
-    }
+    if isEmpty || maxSplit == 0 { return [] }
+    let (front, back) = divide(isSeparator)
+    let rest = back.split(maxSplit - 1, allowEmptySlices: allowEmptySlices, isSeparator: isSeparator)
+    return (!front.isEmpty || allowEmptySlices) ? [front] + rest : rest
   }
   /// :nodoc:
   public func map<T>(transform: Element -> T) -> LazyList<T> {
