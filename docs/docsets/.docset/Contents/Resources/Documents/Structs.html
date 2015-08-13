@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structs  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a title="Structs  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html"> Docs</a> (100% documented)</p>
+        <p class="header-right"><a href=""><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html"> Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Structs  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+          <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/LazyList.html">LazyList</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_GVS_14ContiguousListQ___GS0_Q__">|&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_GVS_19ContiguousListSliceQ___GS0_Q__">|&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_8LazyListQ___GS0_Q__">|&gt;(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/ContiguousDeque.html">ContiguousDeque</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ContiguousDequeSlice.html">ContiguousDequeSlice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ContiguousList.html">ContiguousList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ContiguousListIndex.html">ContiguousListIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ContiguousListSlice.html">ContiguousListSlice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Trie.html">Trie</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Structs</h1>
+            <p>The following structs are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:V19SwiftDataStructures19ContiguousListIndex"></a>
+                    <a name="//apple_ref/swift/Struct/ContiguousListIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:V19SwiftDataStructures19ContiguousListIndex">ContiguousListIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An index type for a <code>ContiguousList</code> and <code>ContiguousListSlice</code>.</p>
+
+                        <a href="Structs/ContiguousListIndex.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ContiguousListIndex</span> <span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Comparable</span><span class="p">,</span> <span class="kt">RandomAccessIndexType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:V19SwiftDataStructures14ContiguousList"></a>
+                    <a name="//apple_ref/swift/Struct/ContiguousList" class="dashAnchor"></a>
+                    <a class="token" href="#/s:V19SwiftDataStructures14ContiguousList">ContiguousList</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>ContiguousList</code> is a list-like data structure, implemented via a reversed
+<code>ContiguousArray</code>. It has performance characteristics similar to an array, except that
+operations on the <em>beginning</em> generally have complexity of amortized O(1), whereas
+operations on the <em>end</em> are usually O(<code>count</code>).</p>
+
+<p>Discussion of this specific implementation is available
+<a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
+
+                        <a href="Structs/ContiguousList.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ContiguousList</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">CustomDebugStringConvertible</span><span class="p">,</span> <span class="kt">ArrayLiteralConvertible</span><span class="p">,</span> <span class="kt">Indexable</span><span class="p">,</span> <span class="kt">SequenceType</span><span class="p">,</span> <span class="kt">CollectionType</span><span class="p">,</span> <span class="kt">RangeReplaceableCollectionType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:V19SwiftDataStructures15ContiguousDeque"></a>
+                    <a name="//apple_ref/swift/Struct/ContiguousDeque" class="dashAnchor"></a>
+                    <a class="token" href="#/s:V19SwiftDataStructures15ContiguousDeque">ContiguousDeque</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://en.wikipedia.org/wiki/Double-ended_queue">Deque</a> is a data structure comprised
+of two queues, with the first queue beginning at the start of the Deque, and the second
+beginning at the end (in reverse):</p>
+
+<pre class="highlight plaintext"><code>First queue   Second queue
+v              v
+[0, 1, 2, 3] | [3, 2, 1, 0]
+</code></pre>
+
+<p>This allows for O(<em>1</em>) prepending, appending, and removal of first and last elements.</p>
+
+<p>This implementation of a Deque uses two reversed <code>ContiguousArray</code>s as the queues. (this
+means that the first array has reversed semantics, while the second does not) This allows
+for O(<em>1</em>) indexing.</p>
+
+<p>Discussion of this specific implementation is available
+<a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
+
+                        <a href="Structs/ContiguousDeque.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ContiguousDeque</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">CustomDebugStringConvertible</span><span class="p">,</span> <span class="kt">ArrayLiteralConvertible</span><span class="p">,</span> <span class="kt">SequenceType</span><span class="p">,</span> <span class="kt">Indexable</span><span class="p">,</span> <span class="kt">MutableSliceable</span><span class="p">,</span> <span class="kt">RangeReplaceableCollectionType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:V19SwiftDataStructures4Trie"></a>
+                    <a name="//apple_ref/swift/Struct/Trie" class="dashAnchor"></a>
+                    <a class="token" href="#/s:V19SwiftDataStructures4Trie">Trie</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://en.wikipedia.org/wiki/Trie">Trie</a> is a prefix tree data structure. It has
+set-like operations and properties. Instead of storing hashable elements, however, it
+stores <em>sequences</em> of hashable elements. As well as set operations, the Trie can be
+searched by prefix. Insertion, deletion, and searching are all O(<code>n</code>), where <code>n</code> is the
+length of the sequence being searched for.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Trie_example.svg" alt="Trie" title="Trie"></p>
+
+<p>Discussion of this specific implementation is available
+<a href="https://bigonotetaking.wordpress.com/2015/08/11/a-trie-in-swift/">here</a>.</p>
+
+                        <a href="Structs/Trie.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">CustomDebugStringConvertible</span><span class="p">,</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">SequenceType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:V19SwiftDataStructures19ContiguousListSlice"></a>
+                    <a name="//apple_ref/swift/Struct/ContiguousListSlice" class="dashAnchor"></a>
+                    <a class="token" href="#/s:V19SwiftDataStructures19ContiguousListSlice">ContiguousListSlice</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>ContiguousListSlice</code> is a list-like data structure, implemented via a reversed
+<code>ArraySlice</code>. It has performance characteristics similar to an array, except that
+operations on the <em>beginning</em> generally have complexity of amortized O(1), whereas
+operations on the <em>end</em> are usually O(<code>count</code>).</p>
+
+<p>Because an <code>ArraySlice</code> presents a view onto the storage of some larger array even after
+the original array&rsquo;s lifetime ends, storing the slice may prolong the lifetime of elements
+that are no longer accessible, which can manifest as apparent memory and object leakage.
+To prevent this effect, use <code>ContiguousListSlice</code> only for transient computation.</p>
+
+<p>Discussion of this specific implementation is available
+<a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
+
+                        <a href="Structs/ContiguousListSlice.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ContiguousListSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">CustomDebugStringConvertible</span><span class="p">,</span> <span class="kt">ArrayLiteralConvertible</span><span class="p">,</span> <span class="kt">Indexable</span><span class="p">,</span> <span class="kt">SequenceType</span><span class="p">,</span> <span class="kt">CollectionType</span><span class="p">,</span> <span class="kt">RangeReplaceableCollectionType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:V19SwiftDataStructures20ContiguousDequeSlice"></a>
+                    <a name="//apple_ref/swift/Struct/ContiguousDequeSlice" class="dashAnchor"></a>
+                    <a class="token" href="#/s:V19SwiftDataStructures20ContiguousDequeSlice">ContiguousDequeSlice</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <a href="https://en.wikipedia.org/wiki/Double-ended_queue">Deque</a> is a data structure comprised
+of two queues, with the first queue beginning at the start of the Deque, and the second
+beginning at the end (in reverse):</p>
+
+<pre class="highlight plaintext"><code>First queue   Second queue
+v              v
+[0, 1, 2, 3] | [3, 2, 1, 0]
+</code></pre>
+
+<p>This allows for O(<em>1</em>) prepending, appending, and removal of first and last elements.</p>
+
+<p>This implementation of a Deque uses two reversed <code>ArraySlice</code>s as the queues. (this
+means that the first array has reversed semantics, while the second does not) This allows
+for O(<em>1</em>) indexing.</p>
+
+<p>Because an <code>ArraySlice</code> presents a view onto the storage of some larger array even after
+the original array&rsquo;s lifetime ends, storing the slice may prolong the lifetime of elements
+that are no longer accessible, which can manifest as apparent memory and object leakage.
+To prevent this effect, use <code>ContiguousDequeSlice</code> only for transient computation.</p>
+
+<p>Discussion of this specific implementation is available
+<a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
+
+                        <a href="Structs/ContiguousDequeSlice.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">CustomDebugStringConvertible</span><span class="p">,</span> <span class="kt">ArrayLiteralConvertible</span><span class="p">,</span> <span class="kt">SequenceType</span><span class="p">,</span> <span class="kt">Indexable</span><span class="p">,</span> <span class="kt">MutableSliceable</span><span class="p">,</span> <span class="kt">RangeReplaceableCollectionType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-08-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
