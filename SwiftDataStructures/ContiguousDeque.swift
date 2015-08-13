@@ -294,21 +294,17 @@ public struct ContiguousDeque<Element> : CustomDebugStringConvertible, ArrayLite
     @noescape isSeparator: Element -> Bool
     ) -> [ContiguousDequeSlice<Element>] {
       var result: [ContiguousDequeSlice<Element>] = []
-      var curent:  ContiguousDequeSlice<Element>  = []
-      curent.front.reserveCapacity(1)
-      curent.back.reserveCapacity(maxSplit - 1)
-      for element in self {
-        if isSeparator(element) {
-          if !curent.isEmpty || allowEmptySlices {
-            result.append(curent)
-            curent.removeAll(true)
-          }
-        } else {
-          curent.append(element)
+      var i = startIndex
+      for j in indices where isSeparator(self[i]) {
+        let slice = self[i..<j]
+        i = j.successor()
+        if (!slice.isEmpty || allowEmptySlices) {
+          result.append(slice)
         }
-      }
-      if !curent.isEmpty || allowEmptySlices {
-        result.append(curent)
+        if result.count > maxSplit {
+          result.append(self[i..<endIndex])
+          return result
+        }
       }
       return result
   }

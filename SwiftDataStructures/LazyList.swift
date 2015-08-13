@@ -281,12 +281,12 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
     return reverse().prefix(n).reverse()
   }
   
-  private func divide(maxSplit: Int, @noescape isSplit: Element -> Bool) -> (LazyList<Element>, LazyList<Element>) {
-    switch (maxSplit, self) {
-    case (0, _), (_, .Nil): return (.Nil, self)
-    case (_, let .Cons(head, tail)):
+  private func divide(@noescape isSplit: Element -> Bool) -> (LazyList<Element>, LazyList<Element>) {
+    switch self {
+    case .Nil: return (.Nil, .Nil)
+    case let .Cons(head, tail):
       if isSplit(head) { return (.Nil, tail()) }
-      let (front, back) = tail().divide(maxSplit - 1, isSplit: isSplit)
+      let (front, back) = tail().divide(isSplit)
       return (head |> front, back)
     }
   }
@@ -304,11 +304,12 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   - Requires: maxSplit >= 0
   */
   public func split(maxSplit: Int, allowEmptySlices: Bool, @noescape isSeparator: Element -> Bool) -> [LazyList<Element>] {
+    if maxSplit == 0 { return [self] }
     switch self {
     case .Nil: return []
     default:
-      let (front, back) = divide(maxSplit, isSplit: isSeparator)
-      let rest = back.split(maxSplit, allowEmptySlices: allowEmptySlices, isSeparator: isSeparator)
+      let (front, back) = divide(isSeparator)
+      let rest = back.split(maxSplit - 1, allowEmptySlices: allowEmptySlices, isSeparator: isSeparator)
       return (!front.isEmpty || allowEmptySlices) ? [front] + rest : rest
     }
   }

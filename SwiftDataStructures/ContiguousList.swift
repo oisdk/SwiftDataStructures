@@ -187,20 +187,17 @@ public struct ContiguousList<Element> : CustomDebugStringConvertible, ArrayLiter
     @noescape isSeparator: Element -> Bool
     ) -> [ContiguousListSlice<Element>] {
       var result: [ContiguousListSlice<Element>] = []
-      var curent:  ContiguousListSlice<Element>  = []
-      curent.reserveCapacity(maxSplit)
-      for element in self {
-        if isSeparator(element) {
-          if !curent.isEmpty || allowEmptySlices {
-            result.append(curent)
-            curent.removeAll(keepCapacity: true)
-          }
-        } else {
-          curent.append(element)
+      var i = startIndex
+      for j in indices where isSeparator(self[i]) {
+        let slice = self[i..<j]
+        i = j.successor()
+        if (!slice.isEmpty || allowEmptySlices) {
+          result.append(slice)
         }
-      }
-      if !curent.isEmpty || allowEmptySlices {
-        result.append(curent)
+        if result.count > maxSplit {
+          result.append(self[i..<endIndex])
+          return result
+        }
       }
       return result
   }
