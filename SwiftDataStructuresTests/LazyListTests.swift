@@ -316,6 +316,81 @@ class LazyListTests: XCTestCase {
     
   }
   
+  func testPopFirst() {
+    
+    let expectation = [2, 3]
+    
+    var reality = LazyList([1, 2, 3])
+    
+    XCTAssert(reality.popFirst() == 1)
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+    var empty: LazyList<Int> = .Nil
+    
+    XCTAssert(empty.popFirst() == nil)
+    
+  }
+  
+  func testPrextend() {
+    
+    let expectation = [1, 2, 3, 4, 5, 6]
+    
+    let reality = LazyList([3, 4, 5, 6]).prextended([1, 2])
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+  }
+  
+  func testScan() {
+    
+    let nums: LazyList = [1, 2, 3]
+    let reality = nums.scan(0, combine: +)
+    let expectation = [1, 3, 6]
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+  }
+  
+  
+  func testScan1() {
+    
+    let nums: LazyList = [1, 2, 3]
+    let reality = nums.scan(+)
+    let expectation = [3, 6]
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+  }
+  
+  func testReduce() {
+    
+    XCTAssert(LazyList(1...5).reduce(0, combine: +) == 15)
+    
+    XCTAssert(LazyList(1...5).reduce(+) == 15)
+    
+  }
+  
+  func testPrefixWhile() {
+    
+    let expectation = 1...10
+    
+    let reality = LazyList(1...100).prefixWhile { $0 <= 10 }
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+  }
+  
+  func testDropWhile() {
+    
+    let expectation = 10...20
+    
+    let reality = LazyList(1...20).dropWhile { $0 < 10 }
+    
+    XCTAssert(expectation.elementsEqual(reality))
+    
+  }
+  
   func testFilter() {
     
     let expectation = [2, 4, 6, 8]
