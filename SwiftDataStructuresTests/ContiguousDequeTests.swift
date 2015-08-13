@@ -253,27 +253,29 @@ class ContiguousDequeTests: XCTestCase {
   
   func testSplit() {
     
+    let maxSplits = (0...20)
     let splitFuncs = (0...10).map {
-      (_: Int) -> (Int -> Bool) in
-      let divr = Int(arc4random_uniform(10)) + 1
-      return { $0 % divr == 0 }
+      _ -> (Int -> Bool) in
+      let n = Int(arc4random_uniform(5)) + 1
+      return { $0 % n == 0 }
     }
-    
-    (0...10)
-      .map(randomArray)
-      .map(makeDequeTuple).flatMap { (ar, de)  in
-        splitFuncs.flatMap { splitFunc in
-          [true, false].flatMap { empties   in
-            (0...20).flatMap { maxLength -> Zip2Sequence<[ArraySlice<Int>], [ContiguousDequeSlice<Int>]> in
-              let arSplitted = ar.split(maxLength, allowEmptySlices: empties, isSeparator: splitFunc)
-              let deSplitted = de.split(maxLength, allowEmptySlices: empties, isSeparator: splitFunc)
-              return zip(arSplitted, deSplitted)
+    let allows = [true, false]
+    let arrays = (0...10).map { (a: Int) -> [Int] in
+      (0..<a).map { _ in Int(arc4random_uniform(100)) }
+    }
+    let deques = arrays.map{ContiguousDeque($0)}
+    for (array, deque) in zip(arrays, deques) {
+      for maxSplit in maxSplits {
+        for splitFunc in splitFuncs {
+          for allow in allows {
+            let dequeSplit = deque.split(maxSplit, allowEmptySlices: allow, isSeparator: splitFunc)
+            let araySplit = array.split(maxSplit, allowEmptySlices: allow, isSeparator: splitFunc)
+            for (a, b) in zip(dequeSplit, araySplit) {
+              XCTAssert(a.elementsEqual(b), a.debugDescription + " " + b.debugDescription)
             }
           }
         }
-      }.forEach { (ar, de)  in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+      }
     }
   }
   

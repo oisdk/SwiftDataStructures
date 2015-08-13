@@ -166,21 +166,30 @@ class ContiguousListTests: XCTestCase {
   
   func testSplit() {
     
-    let divr = Int(arc4random_uniform(10)) + 2
-    
-    let splitFunc = { $0 % divr == 0 }
-    
-    (0...10)
-      .map(randomArray)
-      .map(makeListTuple)
-      .flatMap { (ar, de) in
-        [true, false].flatMap { empties in
-          (0...10).flatMap { zip(
-            ar.split($0, allowEmptySlices: empties, isSeparator: splitFunc),
-            de.split($0, allowEmptySlices: empties, isSeparator: splitFunc))
+    let maxSplits = (0...20)
+    let splitFuncs = (0...10).map {
+      _ -> (Int -> Bool) in
+      let n = Int(arc4random_uniform(5)) + 1
+      return { $0 % n == 0 }
+    }
+    let allows = [true, false]
+    let arrays = (0...10).map { (a: Int) -> [Int] in
+      (0..<a).map { _ in Int(arc4random_uniform(100)) }
+    }
+    let deques = arrays.map{ContiguousList($0)}
+    for (array, deque) in zip(arrays, deques) {
+      for maxSplit in maxSplits {
+        for splitFunc in splitFuncs {
+          for allow in allows {
+            let dequeSplit = deque.split(maxSplit, allowEmptySlices: allow, isSeparator: splitFunc)
+            let araySplit = array.split(maxSplit, allowEmptySlices: allow, isSeparator: splitFunc)
+            for (a, b) in zip(dequeSplit, araySplit) {
+              XCTAssert(a.elementsEqual(b), a.debugDescription + " " + b.debugDescription)
+            }
           }
         }
-      }.forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
+      }
+    }
   }
   
   func testIndexing() {

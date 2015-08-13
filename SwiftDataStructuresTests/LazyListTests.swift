@@ -175,7 +175,6 @@ class LazyListTests: XCTestCase {
   }
   
   func testSplit() {
-    
     let maxSplits = (0...20)
     let splitFuncs = (0...10).map {
       _ -> (Int -> Bool) in
