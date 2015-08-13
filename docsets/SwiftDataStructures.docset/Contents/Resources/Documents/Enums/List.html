@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>List Enum Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/List" class="dashAnchor"></a>
+    <a title="List Enum Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (80% documented)</p>
+        <p class="header-right"><a href=""><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        List Enum Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+          <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/LazyList.html">LazyList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List.html">List</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_8LazyListQ___GS0_Q__">|&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_GOS_4ListQ___GS0_Q__">|&gt;(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousDeque.html">ContiguousDeque</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousDequeGenerator.html">ContiguousDequeGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousDequeSlice.html">ContiguousDequeSlice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousDequeSliceGenerator.html">ContiguousDequeSliceGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousList.html">ContiguousList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousListIndex.html">ContiguousListIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousListSlice.html">ContiguousListSlice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Deque.html">Deque</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DequeGenerator.html">DequeGenerator</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>List</h1>
+            <p>A singly-linked, recursive list. Head-tail decomposition can be accomplished with a
+<code>switch</code> statement:
+<code>swift
+extension List {
+  public func map&lt;T&gt;(@noescape f: Element -&gt; T) -&gt; List&lt;T&gt; {
+    switch self {
+    case .Nil: return .Nil
+    case let .Cons(x, xs): return f(x) |&gt; xs.map(f)
+    }
+  }
+}
+</code>
+Where <code>|&gt;</code> is the <a href="https://en.wikipedia.org/wiki/Cons">cons</a> operator.</p>
+
+<p>Operations on the beginning of the list are <em>O(1)</em>, whereas other operations are <em>O(n)</em>.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vO19SwiftDataStructures4List16debugDescriptionSS"></a>
+                    <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vO19SwiftDataStructures4List16debugDescriptionSS">debugDescription</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4ListcU__FMGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4ListcU__FMGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___">init(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4ListcU__FMGS0_Q__Ft12arrayLiteralGSaQ___GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/init(arrayLiteral:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4ListcU__FMGS0_Q__Ft12arrayLiteralGSaQ___GS0_Q__">init(arrayLiteral:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List4nextU__FRGS0_Q__FT_GSqQ__"></a>
+                    <a name="//apple_ref/swift/Method/next()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List4nextU__FRGS0_Q__FT_GSqQ__">next()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List9prependedU__FGS0_Q__FQ_GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/prepended(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List9prependedU__FGS0_Q__FQ_GS0_Q__">prepended(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>returns <code>self</code> prepended with <code>with</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prepended</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List8appendedU__FGS0_Q__FQ_GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/appended(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List8appendedU__FGS0_Q__FQ_GS0_Q__">appended(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>returns <code>self</code> appended with <code>with</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appended</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List8extendedU__FGS0_Q__FGS0_Q__GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/extended(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List8extendedU__FGS0_Q__FGS0_Q__GS0_Q__">extended(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>returns <code>self</code> extended with <code>with</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">extended</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List8extendedU__FGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___"></a>
+                    <a name="//apple_ref/swift/Method/extended(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List8extendedU__FGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___">extended(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>returns <code>self</code> extended with <code>with</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">extended</span><span class="o">&lt;</span>
+    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
+    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
+    <span class="o">&gt;</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List4dropU__FGS0_Q__FSiGS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/drop(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List4dropU__FGS0_Q__FSiGS0_Q__">drop(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>self</code> with the first <code>n</code> elements dropped</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">drop</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List4takeU__FGS0_Q__FSiGS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/take(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List4takeU__FGS0_Q__FSiGS0_Q__">take(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a <code>List</code> of the first <code>n</code> elements of <code>self</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">take</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vO19SwiftDataStructures4List7isEmptySb"></a>
+                    <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vO19SwiftDataStructures4List7isEmptySb">isEmpty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vO19SwiftDataStructures4List5firstGSqQ__"></a>
+                    <a name="//apple_ref/swift/Property/first" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vO19SwiftDataStructures4List5firstGSqQ__">first</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the first element of <code>self</code>, or <code>nil</code> if <code>self</code> is empty.
+- complexity: O(1)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">first</span><span class="p">:</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vO19SwiftDataStructures4List4lastGSqQ__"></a>
+                    <a name="//apple_ref/swift/Property/last" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vO19SwiftDataStructures4List4lastGSqQ__">last</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the last element of <code>self</code>, or <code>nil</code> if <code>self</code> is empty.
+- complexity: O(<code>count</code>)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">last</span><span class="p">:</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List3mapU__FGS0_Q__U__FFQd__Q_GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/map(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List3mapU__FGS0_Q__U__FFQd__Q_GS0_Q__">map(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a <code>List</code> containing the results of mapping <code>transform</code> over <code>self</code>.
+- Complexity: O(N)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">@noescape</span> <span class="nv">transform</span><span class="p">:</span> <span class="kt">Element</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List7flatMapU__FGS0_Q__U__FFQd__GS0_Q__GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/flatMap(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List7flatMapU__FGS0_Q__U__FFQd__GS0_Q__GS0_Q__">flatMap(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a <code>List</code> containing concatenated results of mapping <code>transform</code> over <code>self</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">flatMap</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">@noescape</span> <span class="nv">transform</span><span class="p">:</span> <span class="kt">Element</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List7flatMapU__FGS0_Q__USs12SequenceType_USs13GeneratorType___FFQd__Q_GS0_QQQ_9Generator7Element_"></a>
+                    <a name="//apple_ref/swift/Method/flatMap(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List7flatMapU__FGS0_Q__USs12SequenceType_USs13GeneratorType___FFQd__Q_GS0_QQQ_9Generator7Element_">flatMap(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a <code>List</code> containing concatenated results of mapping <code>transform</code> over <code>self</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">flatMap</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="o">&gt;</span><span class="p">(</span><span class="k">@noescape</span> <span class="nv">transform</span><span class="p">:</span> <span class="kt">Element</span> <span class="o">-&gt;</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List7flatMapU__FGS0_Q__U__FFQd__GSqQ__GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/flatMap(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List7flatMapU__FGS0_Q__U__FFQd__GSqQ__GS0_Q__">flatMap(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a <code>List</code> containing the non-nil results of mapping <code>transform</code> over <code>self</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">flatMap</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">@noescape</span> <span class="nv">transform</span><span class="p">:</span> <span class="kt">Element</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vO19SwiftDataStructures4List4tailGS0_Q__"></a>
+                    <a name="//apple_ref/swift/Property/tail" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vO19SwiftDataStructures4List4tailGS0_Q__">tail</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>self</code> with the first element removed</p>
+
+<ul>
+<li>precondition: <code>self</code> cannot be empty</li>
+<li>complexity: <em>O(1)</em></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">tail</span><span class="p">:</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List11removeFirstU__FRGS0_Q__FT_Q_"></a>
+                    <a name="//apple_ref/swift/Method/removeFirst()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List11removeFirstU__FRGS0_Q__FT_Q_">removeFirst()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the first element of <code>self</code> and returns it</p>
+
+<ul>
+<li>precondition: <code>self</code> cannot be empty</li>
+<li>complexity: O(<em>1</em>)</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeFirst</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Element</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List6filterU__FGS0_Q__FFQ_SbGS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/filter(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List6filterU__FGS0_Q__FFQ_SbGS0_Q__">filter(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List7reverseU__FGS0_Q__FT_GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/reverse()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List7reverseU__FGS0_Q__FT_GS0_Q__">reverse()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-08-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

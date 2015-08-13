@@ -1,0 +1,10 @@
+version: "Apple Swift version 1.2 (swiftlang-602.0.53.1 clang-602.0.53)"
+options: "8fa13851ed0430340042c4ec7d6943ec"
+inputs: 
+- !dirty "/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/SwiftDataStructures/ContiguousListIndex.swift"
+- !dirty "/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/SwiftDataStructures/ContiguousList.swift"
+- !dirty "/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/SwiftDataStructures/ContiguousDeque.swift"
+- !dirty "/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/SwiftDataStructures/Trie.swift"
+- !dirty "/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/SwiftDataStructures/ContiguousListSlice.swift"
+- !dirty "/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/SwiftDataStructures/LazyList.swift"
+- !dirty "/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/SwiftDataStructures/ContiguousDequeSlice.swift"

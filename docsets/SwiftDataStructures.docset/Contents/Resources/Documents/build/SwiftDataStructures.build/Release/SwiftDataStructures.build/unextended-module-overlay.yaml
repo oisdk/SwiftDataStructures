@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': '/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/build/Release/SwiftDataStructures.framework/Modules'
+    'contents': [{
+      'type': 'file',
+      'name': 'module.modulemap',
+      'external-contents': '/Users/oisinkidney/Desktop/Code/Projects/SwiftDataStructures/build/SwiftDataStructures.build/Release/SwiftDataStructures.build/unextended-module.modulemap',
+    }]
+  }]
+}

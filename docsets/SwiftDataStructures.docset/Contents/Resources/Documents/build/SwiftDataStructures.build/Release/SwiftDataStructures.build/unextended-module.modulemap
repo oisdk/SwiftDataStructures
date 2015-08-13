@@ -1,0 +1,10 @@
+framework module SwiftDataStructures {
+  umbrella header "SwiftDataStructures.h"
+
+  export *
+  module * { export * }
+}
+
+module SwiftDataStructures.__Swift {
+    exclude header "SwiftDataStructures-Swift.h"
+}
