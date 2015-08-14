@@ -18,8 +18,7 @@ class DequeSliceTests: XCTestCase {
     
     let reality = DequeSlice([1, 2, 3, 4, 5]).debugDescription
     
-    XCTAssert(expectation == reality)
-    
+    XCTAssertEqual(expectation, reality)
   }
   
   func testBalance() {
@@ -29,47 +28,47 @@ class DequeSliceTests: XCTestCase {
       balancedB: [1, 2, 3]
     )
     
-    XCTAssert(frontEmpty.balance == .FrontEmpty)
+    XCTAssertTrue(frontEmpty.balance == .FrontEmpty)
     frontEmpty.check()
-    XCTAssert(frontEmpty.isBalanced)
+    XCTAssertTrue(frontEmpty.isBalanced)
     
     var backEmpty = DequeSlice(
       balancedF: [1, 2, 3],
       balancedB: []
     )
     
-    XCTAssert(backEmpty.balance == .BackEmpty)
+    XCTAssertTrue(backEmpty.balance == .BackEmpty)
     backEmpty.check()
-    XCTAssert(backEmpty.isBalanced)
+    XCTAssertTrue(backEmpty.isBalanced)
     
     let bothEmpty = DequeSlice<Int>(
       balancedF: [],
       balancedB: []
     )
     
-    XCTAssert(bothEmpty.isBalanced)
+    XCTAssertTrue(bothEmpty.isBalanced)
     
     let oneBackEmpty = DequeSlice(
       balancedF: [1],
       balancedB: []
     )
     
-    XCTAssert(oneBackEmpty.isBalanced)
+    XCTAssertTrue(oneBackEmpty.isBalanced)
     
     let oneFrontEmpty = DequeSlice(
       balancedF: [],
       balancedB: [1]
     )
     
-    XCTAssert(oneFrontEmpty.isBalanced)
+    XCTAssertTrue(oneFrontEmpty.isBalanced)
     
     let selfBalanceBack  = DequeSlice([1, 2, 3], [])
     
-    XCTAssert(selfBalanceBack.isBalanced)
+    XCTAssertTrue(selfBalanceBack.isBalanced)
     
     let selfBalanceFront = DequeSlice([], [1, 2, 3])
     
-    XCTAssert(selfBalanceFront.isBalanced)
+    XCTAssertTrue(selfBalanceFront.isBalanced)
     
   }
   
@@ -79,7 +78,7 @@ class DequeSliceTests: XCTestCase {
     
     let reality: DequeSlice = [2, 3, 4, 5, 6]
     
-    XCTAssert(expectation.elementsEqual(reality))
+    XCTAssertTrue(expectation.elementsEqual(reality))
     
   }
   
@@ -89,8 +88,8 @@ class DequeSliceTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeSliceTuple)
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
     
   }
@@ -102,9 +101,9 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .forEach {
         (a, b) in
-        XCTAssert(a.front.elementsEqual(b.front))
-        XCTAssert(a.back.elementsEqual(b.back))
-        XCTAssert(a.isBalanced)
+        XCTAssertTrue(a.front.elementsEqual(b.front))
+        XCTAssertTrue(a.back.elementsEqual(b.back))
+        XCTAssertTrue(a.isBalanced)
     }
   }
   
@@ -115,8 +114,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .map{ (ar, de) in (ar.dropFirst(), de.dropFirst()) }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
     
   }
@@ -128,8 +127,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .flatMap { (ar, de) in (0...20).map { (ar.dropFirst($0), de.dropFirst($0)) } }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -140,8 +139,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .map { ($0.0.dropLast(), $0.1.dropLast()) }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -152,8 +151,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .flatMap { (ar, de) in (0...20).map { (ar.dropLast($0), de.dropLast($0)) } }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -164,8 +163,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .flatMap { (ar, de) in (0...20).map { (ar.prefix($0), de.prefix($0)) } }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -176,8 +175,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .flatMap { (ar, de) in ar.indices.map { (ar.prefixUpTo($0), de.prefixUpTo($0)) } }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -191,8 +190,8 @@ class DequeSliceTests: XCTestCase {
           .dropLast()
           .map { (ar.prefixThrough($0), de.prefixThrough($0)) }
       }.forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -204,8 +203,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .flatMap { (ar, de) in (0...20).map { (ar.suffix($0), de.suffix($0)) } }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -216,8 +215,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .flatMap { (ar, de) in ar.indices.map { (ar.suffixFrom($0), de.suffixFrom($0)) } }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -241,7 +240,7 @@ class DequeSliceTests: XCTestCase {
             let dequeSplit = deque.split(maxSplit, allowEmptySlices: allow, isSeparator: splitFunc)
             let araySplit = array.split(maxSplit, allowEmptySlices: allow, isSeparator: splitFunc)
             for (a, b) in zip(dequeSplit, araySplit) {
-              XCTAssert(a.elementsEqual(b), a.debugDescription + " " + b.debugDescription)
+              XCTAssertTrue(a.elementsEqual(b), a.debugDescription + " " + b.debugDescription)
             }
           }
         }
@@ -255,15 +254,15 @@ class DequeSliceTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeSliceTuple)
       .forEach { (ar, de) in
-        XCTAssert(ar.startIndex == de.startIndex)
-        XCTAssert(ar.endIndex == de.endIndex)
+        XCTAssertEqual(ar.startIndex, de.startIndex)
+        XCTAssertEqual(ar.endIndex, de.endIndex)
         ar.indices
           .forEach { i in
-            XCTAssert(ar[i] == de[i])
+            XCTAssertTrue(ar[i] == de[i])
             var (array, deque) = (ar, de)
             let n = Int(arc4random_uniform(10000))
             (array[i], deque[i]) = (n, n)
-            XCTAssert(array.elementsEqual(deque))
+            XCTAssertTrue(array.elementsEqual(deque))
         }
     }
   }
@@ -273,7 +272,7 @@ class DequeSliceTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeSliceTuple)
       .forEach { (ar, de) in
-        XCTAssert(ar.count == de.count)
+        XCTAssertEqual(ar.count, de.count)
     }
   }
   
@@ -282,7 +281,7 @@ class DequeSliceTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeSliceTuple)
       .forEach { (ar, de) in
-        XCTAssert(ar.first == de.first)
+        XCTAssertTrue(ar.first == de.first)
     }
   }
   
@@ -291,7 +290,7 @@ class DequeSliceTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeSliceTuple)
       .forEach { (ar, de) in
-        XCTAssert(ar.last == de.last)
+        XCTAssertTrue(ar.last == de.last)
     }
   }
   
@@ -301,7 +300,7 @@ class DequeSliceTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeSliceTuple)
       .forEach { (ar, de) in
-        XCTAssert(ar.isEmpty == de.isEmpty)
+        XCTAssertEqual(ar.isEmpty, de.isEmpty)
     }
   }
   
@@ -312,9 +311,9 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .forEach { (var ar, var de) in
         while let deqEl = de.popLast() {
-          XCTAssert(ar.popLast() == deqEl)
-          XCTAssert(ar.elementsEqual(de))
-          XCTAssert(de.isBalanced)
+          XCTAssertTrue(ar.popLast() == deqEl)
+          XCTAssertTrue(ar.elementsEqual(de))
+          XCTAssertTrue(de.isBalanced)
         }
     }
   }
@@ -326,9 +325,9 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .forEach { (var ar, var de) in
         while let deqEl = de.popFirst() {
-          XCTAssert(ar.popFirst() == deqEl)
-          XCTAssert(ar.elementsEqual(de))
-          XCTAssert(de.isBalanced)
+          XCTAssertTrue(ar.popFirst() == deqEl)
+          XCTAssertTrue(ar.elementsEqual(de))
+          XCTAssertTrue(de.isBalanced)
         }
     }
   }
@@ -339,8 +338,8 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .map { (ar, de) in (ar.reverse(), de.reverse()) }
       .forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -356,8 +355,8 @@ class DequeSliceTests: XCTestCase {
           }
         }
       }.forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -374,8 +373,8 @@ class DequeSliceTests: XCTestCase {
             let replacement = randomArray(end - start)
             array[start..<end] = ArraySlice(replacement)
             deque[start..<end] = DequeSlice(replacement)
-            XCTAssert(array.elementsEqual(deque))
-            XCTAssert(deque.isBalanced)
+            XCTAssertTrue(array.elementsEqual(deque))
+            XCTAssertTrue(deque.isBalanced)
           }
         }
     }
@@ -383,7 +382,7 @@ class DequeSliceTests: XCTestCase {
   
   func testEmptyInit() {
     
-    XCTAssert(DequeSlice<Int>().isEmpty)
+    XCTAssertTrue(DequeSlice<Int>().isEmpty)
     
   }
   
@@ -403,8 +402,8 @@ class DequeSliceTests: XCTestCase {
           return (array, deque)
         }
       }.forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -424,8 +423,8 @@ class DequeSliceTests: XCTestCase {
           return (array, deque)
         }
       }.forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -444,8 +443,8 @@ class DequeSliceTests: XCTestCase {
           return (array, deque)
         }
       }.forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -465,8 +464,8 @@ class DequeSliceTests: XCTestCase {
           return (array, deque)
         }
       }.forEach { (ar: [Int], de: DequeSlice<Int>) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -484,15 +483,15 @@ class DequeSliceTests: XCTestCase {
           return (array, deque)
         }
       }.forEach { (ar: [Int], de: DequeSlice<Int>) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
   func testRemoveAll() {
     var deque = DequeSlice(randomArray(8))
     deque.removeAll()
-    XCTAssert(deque.isEmpty)
+    XCTAssertTrue(deque.isEmpty)
   }
   
   func testRemove() {
@@ -500,14 +499,14 @@ class DequeSliceTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeSliceTuple)
       .forEach { (ar, de) in
-        XCTAssert(ar.startIndex == de.startIndex)
-        XCTAssert(ar.endIndex == de.endIndex)
+        XCTAssertEqual(ar.startIndex, de.startIndex)
+        XCTAssertEqual(ar.endIndex, de.endIndex)
         ar.indices
           .forEach { i in
             var (array, deque) = (ar, de)
-            XCTAssert(array.removeAtIndex(i) == deque.removeAtIndex(i))
-            XCTAssert(array.elementsEqual(deque))
-            XCTAssert(deque.isBalanced)
+            XCTAssertEqual(array.removeAtIndex(i), deque.removeAtIndex(i))
+            XCTAssertTrue(array.elementsEqual(deque))
+            XCTAssertTrue(deque.isBalanced)
         }
     }
   }
@@ -519,9 +518,9 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .forEach { (var ar, var de) in
         while !de.isEmpty {
-          XCTAssert(ar.removeFirst() == de.removeFirst())
-          XCTAssert(ar.elementsEqual(de))
-          XCTAssert(de.isBalanced)
+          XCTAssertEqual(ar.removeFirst(), de.removeFirst())
+          XCTAssertTrue(ar.elementsEqual(de))
+          XCTAssertTrue(de.isBalanced)
         }
     }
   }
@@ -533,9 +532,9 @@ class DequeSliceTests: XCTestCase {
       .map(makeDequeSliceTuple)
       .forEach { (var ar, var de) in
         while !de.isEmpty {
-          XCTAssert(ar.removeLast() == de.removeLast())
-          XCTAssert(ar.elementsEqual(de))
-          XCTAssert(de.isBalanced)
+          XCTAssertEqual(ar.removeLast(), de.removeLast())
+          XCTAssertTrue(ar.elementsEqual(de))
+          XCTAssertTrue(de.isBalanced)
         }
     }
   }
@@ -553,8 +552,8 @@ class DequeSliceTests: XCTestCase {
           return (array, deque)
         }
       }.forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de))
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de))
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -571,8 +570,8 @@ class DequeSliceTests: XCTestCase {
           return (array, deque)
         }
       }.forEach { (ar, de) in
-        XCTAssert(ar.elementsEqual(de), ar.debugDescription + " != " + de.debugDescription)
-        XCTAssert(de.isBalanced)
+        XCTAssertTrue(ar.elementsEqual(de), ar.debugDescription + " != " + de.debugDescription)
+        XCTAssertTrue(de.isBalanced)
     }
   }
   
@@ -587,8 +586,8 @@ class DequeSliceTests: XCTestCase {
             var deque: DequeSlice<Int> = de
             array.removeRange(start..<end)
             deque.removeRange(start..<end)
-            XCTAssert(array.elementsEqual(deque), array.debugDescription + " != " + deque.debugDescription)
-            XCTAssert(deque.isBalanced)
+            XCTAssertTrue(array.elementsEqual(deque), array.debugDescription + " != " + deque.debugDescription)
+            XCTAssertTrue(deque.isBalanced)
           }
         }
     }
@@ -606,8 +605,8 @@ class DequeSliceTests: XCTestCase {
             let replacement = randomArray(Int(arc4random_uniform(20)))
             array.replaceRange(start..<end, with: replacement)
             deque.replaceRange(start..<end, with: replacement)
-            XCTAssert(array.elementsEqual(deque), array.debugDescription + " != " + deque.debugDescription)
-            XCTAssert(deque.isBalanced)
+            XCTAssertTrue(array.elementsEqual(deque), array.debugDescription + " != " + deque.debugDescription)
+            XCTAssertTrue(deque.isBalanced)
           }
         }
     }

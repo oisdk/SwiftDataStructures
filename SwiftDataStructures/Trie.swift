@@ -47,9 +47,8 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     S.Generator.Element == IS,
     IS.Generator.Element == Element
     >(_ seq: S) {
-      var trie = Trie()
-      for word in seq { trie.insert(word) }
-      self = trie
+      self.init()
+      for word in seq { insert(word) }
   }
   
   /// Construct from an arbitrary sequence with elements of type `Element`.
