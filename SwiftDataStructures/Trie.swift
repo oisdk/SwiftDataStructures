@@ -321,34 +321,26 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
 /// :nodoc:
 public struct TrieGenerator<Element : Hashable> : GeneratorType {
   private var children: DictionaryGenerator<Element, Trie<Element>>
-  private var curHead : Element?
-  private var curEnd  : Bool = false
-  private var innerGen: (() -> [Element]?)?
-  private mutating func update() {
-    guard let (head, child) = children.next() else { innerGen = nil; return }
-    curHead = head
-    var g = child.generate()
-    innerGen = {g.next()}
-    curEnd = child.endHere
-  }
+  private var curHead : [Element]
+  private var innerGen: () -> [Element]?
   /// Advance to the next element and return it, or `nil` if no next
   /// element exists.
   ///
   /// - Requires: No preceding call to `self.next()` has returned `nil`.
   public mutating func next() -> [Element]? {
-    for ; innerGen != nil; update() {
-      if let next = innerGen!() {
-        return [curHead!] + next
-      } else if curEnd {
-        curEnd = false
-        return [curHead!]
-      }
+    for ;; {
+      if let next = innerGen() { return curHead + next }
+      guard let (head, child) = children.next() else { return nil }
+      curHead = [head]
+      var g = child.generate()
+      innerGen = {g.next()}
+      if child.endHere { return curHead }
     }
-    return nil
   }
   private init(_ from: Trie<Element>) {
     children = from.children.generate()
-    update()
+    innerGen = {nil}
+    curHead  = []
   }
 }
 private enum RemoveState {

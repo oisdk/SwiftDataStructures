@@ -210,5 +210,17 @@ class TrieTests: XCTestCase {
     
   }
   
+  func testSeqType() {
+    
+    let seqs = (1...10).map { n in (0..<n).map { _ in Int(arc4random_uniform(1000)) } }
+    
+    let expectation = Set(seqs.map { $0.debugDescription })
+    
+    let reality = Set(Trie(seqs).map { $0.debugDescription })
+    
+    XCTAssert(expectation == reality)
+    
+  }
+  
   
 }
