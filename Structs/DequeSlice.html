@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ContiguousDeque Struct Reference</title>
+    <title>DequeSlice Struct Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,8 +9,8 @@
     <script src="../js/jazzy.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/ContiguousDeque" class="dashAnchor"></a>
-    <a title="ContiguousDeque Struct Reference"></a>
+    <a name="//apple_ref/swift/Struct/DequeSlice" class="dashAnchor"></a>
+    <a title="DequeSlice Struct Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">SwiftDataStructures Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">SwiftDataStructures Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ContiguousDeque Struct Reference
+        DequeSlice Struct Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -31,7 +31,7 @@
           <a href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/LazyList.html">LazyList</a>
+                <a href="../Enums/List.html">List</a>
               </li>
             </ul>
           </li>
@@ -39,13 +39,7 @@
           <a href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_GVS_14ContiguousListQ___GS0_Q__">|&gt;(_:_:)</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_GVS_19ContiguousListSliceQ___GS0_Q__">|&gt;(_:_:)</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_8LazyListQ___GS0_Q__">|&gt;(_:_:)</a>
+                <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_4ListQ___GS0_Q__">|&gt;(_:_:)</a>
               </li>
             </ul>
           </li>
@@ -53,19 +47,19 @@
           <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/ContiguousDeque.html">ContiguousDeque</a>
+                <a href="../Structs/Deque.html">Deque</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ContiguousDequeSlice.html">ContiguousDequeSlice</a>
+                <a href="../Structs/DequeSlice.html">DequeSlice</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ContiguousList.html">ContiguousList</a>
+                <a href="../Structs/Stack.html">Stack</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ContiguousListIndex.html">ContiguousListIndex</a>
+                <a href="../Structs/StackIndex.html">StackIndex</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ContiguousListSlice.html">ContiguousListSlice</a>
+                <a href="../Structs/StackSlice.html">StackSlice</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Trie.html">Trie</a>
@@ -77,7 +71,7 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ContiguousDeque</h1>
+            <h1>DequeSlice</h1>
             <p>A <a href="https://en.wikipedia.org/wiki/Double-ended_queue">Deque</a> is a data structure comprised
 of two queues, with the first queue beginning at the start of the Deque, and the second
 beginning at the end (in reverse):</p>
@@ -89,9 +83,14 @@ v              v
 
 <p>This allows for O(<em>1</em>) prepending, appending, and removal of first and last elements.</p>
 
-<p>This implementation of a Deque uses two reversed <code>ContiguousArray</code>s as the queues. (this
+<p>This implementation of a Deque uses two reversed <code>ArraySlice</code>s as the queues. (this
 means that the first array has reversed semantics, while the second does not) This allows
 for O(<em>1</em>) indexing.</p>
+
+<p>Because an <code>ArraySlice</code> presents a view onto the storage of some larger array even after
+the original array&rsquo;s lifetime ends, storing the slice may prolong the lifetime of elements
+that are no longer accessible, which can manifest as apparent memory and object leakage.
+To prevent this effect, use <code>DequeSlice</code> only for transient computation.</p>
 
 <p>Discussion of this specific implementation is available
 <a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
@@ -103,9 +102,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:sV19SwiftDataStructures15ContiguousDeque9subscriptFGVSs5RangeSi_GVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:sV19SwiftDataStructures10DequeSlice9subscriptFSiQ_"></a>
                     <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:sV19SwiftDataStructures15ContiguousDeque9subscriptFGVSs5RangeSi_GVS_20ContiguousDequeSliceQ__">subscript(_:)</a>
+                    <a class="token" href="#/s:sV19SwiftDataStructures10DequeSlice9subscriptFSiQ_">subscript(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -113,7 +112,38 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Access the elements at the given subRange.</p>
+                        <p>Access the <code>element</code> at <code>position</code>.</p>
+
+<ul>
+<li>Requires: <code>position</code> is a valid <code>position</code> in <code>self</code> and <code>position != endIndex</code>.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">idx</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:sV19SwiftDataStructures10DequeSlice9subscriptFGVSs5RangeSi_GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:sV19SwiftDataStructures10DequeSlice9subscriptFGVSs5RangeSi_GS0_Q__">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Accesses the elements at the given subRange</p>
 
 <ul>
 <li>Complexity: O(1)</li>
@@ -124,38 +154,7 @@ for O(<em>1</em>) indexing.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">idxs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:sV19SwiftDataStructures15ContiguousDeque9subscriptFSiQ_"></a>
-                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:sV19SwiftDataStructures15ContiguousDeque9subscriptFSiQ_">subscript(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Access the element at <code>position</code>.</p>
-
-<ul>
-<li>Requires: <code>0 &lt;= position &lt; endIndex</code></li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">idxs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -166,19 +165,19 @@ for O(<em>1</em>) indexing.</p>
             </div>
             <div class="task-group">
                 <div class="task-name-container">
-                  <a name="/Initializers"></a>
-                  <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
-                  <a href="#/Initializers">
-                    <h3 class="section-name">Initializers</h3>
+                  <a name="/Initilalizers"></a>
+                  <a name="//apple_ref/swift/Section/Initilalizers" class="dashAnchor"></a>
+                  <a href="#/Initilalizers">
+                    <h3 class="section-name">Initilalizers</h3>
                   </a>
                 </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__FGVS_20ContiguousDequeSliceQ__GS0_Q__"></a>
-                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__FGVS_20ContiguousDequeSliceQ__GS0_Q__">init(_:)</a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FT_GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FT_GS0_Q__">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -186,14 +185,14 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initilalize from a <code>ContiguousDequeSlice</code></p>
+                        <p>Constructs an empty <code>Deque</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -203,9 +202,36 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FGVS_5DequeQ__GS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___">init(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FGVS_5DequeQ__GS0_Q__">init(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initilalize from a <code>Deque</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Deque</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___">init(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -230,9 +256,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__Ft12arrayLiteralGSaQ___GS0_Q__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__Ft12arrayLiteralGSaQ___GS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/init(arrayLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__Ft12arrayLiteralGSaQ___GS0_Q__">init(arrayLiteral:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__Ft12arrayLiteralGSaQ___GS0_Q__">init(arrayLiteral:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -254,33 +280,6 @@ for O(<em>1</em>) indexing.</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__FT_GS0_Q__"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__FT_GS0_Q__">init()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Constructs an empty <code>ContiguousDeque</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -295,9 +294,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures15ContiguousDeque16debugDescriptionSS"></a>
+                    <a name="/s:vV19SwiftDataStructures10DequeSlice16debugDescriptionSS"></a>
                     <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures15ContiguousDeque16debugDescriptionSS">debugDescription</a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice16debugDescriptionSS">debugDescription</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -322,9 +321,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures15ContiguousDeque10startIndexSi"></a>
+                    <a name="/s:vV19SwiftDataStructures10DequeSlice10startIndexSi"></a>
                     <a name="//apple_ref/swift/Property/startIndex" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures15ContiguousDeque10startIndexSi">startIndex</a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice10startIndexSi">startIndex</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -332,9 +331,9 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The position of the first element in a non-empty <code>ContiguousDeque</code>.</p>
+                        <p>The position of the first element in a non-empty <code>DequeSlice</code>.</p>
 
-<p>In an empty <code>ContiguousDeque</code>, <code>startIndex == endIndex</code>.</p>
+<p>In an empty <code>DequeSlice</code>, <code>startIndex == endIndex</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -351,9 +350,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures15ContiguousDeque8endIndexSi"></a>
+                    <a name="/s:vV19SwiftDataStructures10DequeSlice8endIndexSi"></a>
                     <a name="//apple_ref/swift/Property/endIndex" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures15ContiguousDeque8endIndexSi">endIndex</a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice8endIndexSi">endIndex</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -361,7 +360,7 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>ContiguousDeque</code>&rsquo;s <q>past the end</q> position.</p>
+                        <p>The <code>DequeSlice</code>&rsquo;s <q>past the end</q> position.</p>
 
 <p><code>endIndex</code> is not a valid argument to <code>subscript</code>, and is always reachable from
 <code>startIndex</code> by zero or more applications of <code>successor()</code>.</p>
@@ -381,9 +380,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures15ContiguousDeque5countSi"></a>
+                    <a name="/s:vV19SwiftDataStructures10DequeSlice5countSi"></a>
                     <a name="//apple_ref/swift/Property/count" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures15ContiguousDeque5countSi">count</a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice5countSi">count</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -412,9 +411,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures15ContiguousDeque5firstGSqQ__"></a>
+                    <a name="/s:vV19SwiftDataStructures10DequeSlice5firstGSqQ__"></a>
                     <a name="//apple_ref/swift/Property/first" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures15ContiguousDeque5firstGSqQ__">first</a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice5firstGSqQ__">first</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -439,9 +438,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures15ContiguousDeque4lastGSqQ__"></a>
+                    <a name="/s:vV19SwiftDataStructures10DequeSlice4lastGSqQ__"></a>
                     <a name="//apple_ref/swift/Property/last" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures15ContiguousDeque4lastGSqQ__">last</a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice4lastGSqQ__">last</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -466,9 +465,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures15ContiguousDeque7isEmptySb"></a>
+                    <a name="/s:vV19SwiftDataStructures10DequeSlice7isEmptySb"></a>
                     <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures15ContiguousDeque7isEmptySb">isEmpty</a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice7isEmptySb">isEmpty</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -504,9 +503,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque8generateU__FGS0_Q__FT_GVS_24ContiguousDequeGeneratorQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice8generateU__FGS0_Q__FT_GVS_19DequeSliceGeneratorQ__"></a>
                     <a name="//apple_ref/swift/Method/generate()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque8generateU__FGS0_Q__FT_GVS_24ContiguousDequeGeneratorQ__">generate()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice8generateU__FGS0_Q__FT_GVS_19DequeSliceGeneratorQ__">generate()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -514,7 +513,8 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Return a <code>ContiguousDequeGenerator</code> over the elements of this <code>ContiguousDeque</code>.</p>
+                        <p>Return a <code>DequeSliceGenerator</code> over the elements of this
+<code>DequeSlice</code>.</p>
 
 <ul>
 <li>Complexity: O(1)</li>
@@ -525,7 +525,7 @@ for O(<em>1</em>) indexing.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">generate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeGenerator</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">generate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">DequeSliceGenerator</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -535,9 +535,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque18underestimateCountU__FGS0_Q__FT_Si"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice18underestimateCountU__FGS0_Q__FT_Si"></a>
                     <a name="//apple_ref/swift/Method/underestimateCount()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque18underestimateCountU__FGS0_Q__FT_Si">underestimateCount()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice18underestimateCountU__FGS0_Q__FT_Si">underestimateCount()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -563,9 +563,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque9dropFirstU__FGS0_Q__FT_GVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice9dropFirstU__FGS0_Q__FT_GS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/dropFirst()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque9dropFirstU__FGS0_Q__FT_GVS_20ContiguousDequeSliceQ__">dropFirst()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice9dropFirstU__FGS0_Q__FT_GS0_Q__">dropFirst()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -573,7 +573,7 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a <code>ContiguousDequeSlice</code> containing all but the first element.</p>
+                        <p>Returns a <code>DequeSlice</code> containing all but the first element.</p>
 
 <ul>
 <li>Complexity: O(1)</li>
@@ -584,7 +584,7 @@ for O(<em>1</em>) indexing.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropFirst</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropFirst</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -594,9 +594,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque9dropFirstU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice9dropFirstU__FGS0_Q__FSiGS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/dropFirst(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque9dropFirstU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__">dropFirst(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice9dropFirstU__FGS0_Q__FSiGS0_Q__">dropFirst(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -604,7 +604,7 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a <code>ContiguousDequeSlice</code> containing all but the first n elements.</p>
+                        <p>Returns a <code>DequeSlice</code> containing all but the first n elements.</p>
 
 <ul>
 <li>Requires: <code>n &gt;= 0</code></li>
@@ -616,7 +616,7 @@ for O(<em>1</em>) indexing.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropFirst</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropFirst</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -626,9 +626,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque8dropLastU__FGS0_Q__FT_GVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice8dropLastU__FGS0_Q__FT_GS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/dropLast()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque8dropLastU__FGS0_Q__FT_GVS_20ContiguousDequeSliceQ__">dropLast()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice8dropLastU__FGS0_Q__FT_GS0_Q__">dropLast()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -636,7 +636,7 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a <code>ContiguousDequeSlice</code> containing all but the last element.</p>
+                        <p>Returns a <code>DequeSlice</code> containing all but the last element.</p>
 
 <ul>
 <li>Complexity: O(1)</li>
@@ -647,7 +647,7 @@ for O(<em>1</em>) indexing.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropLast</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropLast</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -657,9 +657,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque8dropLastU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice8dropLastU__FGS0_Q__FSiGS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/dropLast(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque8dropLastU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__">dropLast(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice8dropLastU__FGS0_Q__FSiGS0_Q__">dropLast(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -667,7 +667,7 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a <code>ContiguousDequeSlice</code> containing all but the last n elements.</p>
+                        <p>Returns a <code>DequeSlice</code> containing all but the last n elements.</p>
 
 <ul>
 <li>Requires: <code>n &gt;= 0</code></li>
@@ -679,7 +679,7 @@ for O(<em>1</em>) indexing.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropLast</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropLast</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -689,9 +689,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque6prefixU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice6prefixU__FGS0_Q__FSiGS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/prefix(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque6prefixU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__">prefix(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice6prefixU__FGS0_Q__FSiGS0_Q__">prefix(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -699,10 +699,10 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a <code>ContiguousDequeSlice</code>, up to <code>maxLength</code> in length, containing the initial
+                        <p>Returns a <code>DequeSlice</code>, up to <code>maxLength</code> in length, containing the initial
 elements of <code>self</code>.</p>
 
-<p>If maxLength exceeds <code>self.count</code>, the result contains all the elements of <code>self</code>.</p>
+<p>If maxLength exceeds self.count, the result contains all the elements of self.</p>
 
 <ul>
 <li>Requires: <code>maxLength &gt;= 0</code></li>
@@ -714,7 +714,7 @@ elements of <code>self</code>.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefix</span><span class="p">(</span><span class="nv">maxLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefix</span><span class="p">(</span><span class="nv">maxLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -724,9 +724,9 @@ elements of <code>self</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque6suffixU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice6suffixU__FGS0_Q__FSiGS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/suffix(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque6suffixU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__">suffix(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice6suffixU__FGS0_Q__FSiGS0_Q__">suffix(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -734,13 +734,13 @@ elements of <code>self</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a <code>ContiguousDequeSlice</code>, up to <code>maxLength</code> in length, containing the final
+                        <p>Returns a <code>DequeSlice</code>, up to <code>maxLength</code> in length, containing the final
 elements of <code>self</code>.</p>
 
 <p>If <code>maxLength</code> exceeds <code>self.count</code>, the result contains all the elements of <code>self</code>.</p>
 
 <ul>
-<li>Requires: <code>maxLength &gt;= 0</code></li>
+<li>Requires: maxLength &gt;= 0</li>
 <li>Complexity: O(1)</li>
 </ul>
 
@@ -749,7 +749,7 @@ elements of <code>self</code>.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">suffix</span><span class="p">(</span><span class="nv">maxLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">suffix</span><span class="p">(</span><span class="nv">maxLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -759,9 +759,9 @@ elements of <code>self</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque5splitU__FGS0_Q__FTSi16allowEmptySlicesSb11isSeparatorFQ_Sb_GSaGVS_20ContiguousDequeSliceQ___"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice5splitU__FGS0_Q__FTSi16allowEmptySlicesSb11isSeparatorFQ_Sb_GSaGS0_Q___"></a>
                     <a name="//apple_ref/swift/Method/split(_:allowEmptySlices:isSeparator:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque5splitU__FGS0_Q__FTSi16allowEmptySlicesSb11isSeparatorFQ_Sb_GSaGVS_20ContiguousDequeSliceQ___">split(_:allowEmptySlices:isSeparator:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice5splitU__FGS0_Q__FTSi16allowEmptySlicesSb11isSeparatorFQ_Sb_GSaGS0_Q___">split(_:allowEmptySlices:isSeparator:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -769,14 +769,14 @@ elements of <code>self</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the maximal <code>ContiguousDequeSlice</code>s of <code>self</code>, in order, that don&rsquo;t contain
+                        <p>Returns the maximal <code>DequeSlice</code>s of <code>self</code>, in order, that don&rsquo;t contain
 elements satisfying the predicate <code>isSeparator</code>.</p>
 
 <ul>
-<li>Parameter maxSplits: The maximum number of <code>ContiguousDequeSlice</code>s to return, minus 1.
-If <code>maxSplit</code> + 1 <code>ContiguousDequeSlice</code>s are returned, the last one is a suffix of
+<li>Parameter maxSplits: The maximum number of <code>DequeSlice</code>s to return, minus 1.
+If <code>maxSplit</code> + 1 <code>DequeSlice</code>s are returned, the last one is a suffix of
 <code>self</code> containing the remaining elements. The default value is <code>Int.max</code>.</li>
-<li>Parameter allowEmptySubsequences: If <code>true</code>, an empty <code>ContiguousDequeSlice</code> is
+<li>Parameter allowEmptySubsequences: If <code>true</code>, an empty <code>DequeSlice</code> is
 produced in the result for each pair of consecutive elements satisfying <code>isSeparator</code>.
 The default value is false.</li>
 <li>Requires: maxSplit &gt;= 0</li>
@@ -791,7 +791,7 @@ The default value is false.</li>
     <span class="nv">maxSplit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
     <span class="nv">allowEmptySlices</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
     <span class="k">@noescape</span> <span class="nv">isSeparator</span><span class="p">:</span> <span class="kt">Element</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -801,9 +801,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque8popFirstU__FRGS0_Q__FT_GSqQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice8popFirstU__FRGS0_Q__FT_GSqQ__"></a>
                     <a name="//apple_ref/swift/Method/popFirst()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque8popFirstU__FRGS0_Q__FT_GSqQ__">popFirst()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice8popFirstU__FRGS0_Q__FT_GSqQ__">popFirst()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -832,9 +832,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque7popLastU__FRGS0_Q__FT_GSqQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice7popLastU__FRGS0_Q__FT_GSqQ__"></a>
                     <a name="//apple_ref/swift/Method/popLast()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque7popLastU__FRGS0_Q__FT_GSqQ__">popLast()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice7popLastU__FRGS0_Q__FT_GSqQ__">popLast()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -863,9 +863,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque10prefixUpToU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice10prefixUpToU__FGS0_Q__FSiGS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/prefixUpTo(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque10prefixUpToU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__">prefixUpTo(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice10prefixUpToU__FGS0_Q__FSiGS0_Q__">prefixUpTo(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -884,7 +884,7 @@ The default value is false.</li>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefixUpTo</span><span class="p">(</span><span class="nv">end</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefixUpTo</span><span class="p">(</span><span class="nv">end</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -894,9 +894,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque13prefixThroughU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice13prefixThroughU__FGS0_Q__FSiGS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/prefixThrough(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque13prefixThroughU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__">prefixThrough(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice13prefixThroughU__FGS0_Q__FSiGS0_Q__">prefixThrough(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -915,7 +915,7 @@ The default value is false.</li>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefixThrough</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefixThrough</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -925,9 +925,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque7reverseU__FGS0_Q__FT_GS0_Q__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice7reverseU__FGS0_Q__FT_GS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/reverse()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque7reverseU__FGS0_Q__FT_GS0_Q__">reverse()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice7reverseU__FGS0_Q__FT_GS0_Q__">reverse()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -935,7 +935,7 @@ The default value is false.</li>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Return a <code>ContiguousDeque</code> containing the elements of <code>self</code> in reverse order.</p>
+                        <p>Return a <code>Deque</code> containing the elements of <code>self</code> in reverse order.</p>
 
 <ul>
 <li>Complexity: O(1)</li>
@@ -946,7 +946,7 @@ The default value is false.</li>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reverse</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDeque</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reverse</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -956,9 +956,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque10suffixFromU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice10suffixFromU__FGS0_Q__FSiGS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/suffixFrom(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque10suffixFromU__FGS0_Q__FSiGVS_20ContiguousDequeSliceQ__">suffixFrom(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice10suffixFromU__FGS0_Q__FSiGS0_Q__">suffixFrom(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -977,7 +977,7 @@ The default value is false.</li>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">suffixFrom</span><span class="p">(</span><span class="nv">start</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ContiguousDequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">suffixFrom</span><span class="p">(</span><span class="nv">start</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -987,9 +987,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque6appendU__FRGS0_Q__FQ_T_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice6appendU__FRGS0_Q__FQ_T_"></a>
                     <a name="//apple_ref/swift/Method/append(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque6appendU__FRGS0_Q__FQ_T_">append(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice6appendU__FRGS0_Q__FQ_T_">append(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1010,7 +1010,7 @@ The default value is false.</li>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">append</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">append</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1020,9 +1020,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque6extendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice6extendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_"></a>
                     <a name="//apple_ref/swift/Method/extend(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque6extendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_">extend(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice6extendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_">extend(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1041,7 +1041,7 @@ The default value is false.</li>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">extend</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">newElements</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">extend</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1051,9 +1051,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque6insertU__FRGS0_Q__FTQ_7atIndexSi_T_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice6insertU__FRGS0_Q__FTQ_7atIndexSi_T_"></a>
                     <a name="//apple_ref/swift/Method/insert(_:atIndex:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque6insertU__FRGS0_Q__FTQ_7atIndexSi_T_">insert(_:atIndex:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice6insertU__FRGS0_Q__FTQ_7atIndexSi_T_">insert(_:atIndex:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1083,9 +1083,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque7prependU__FRGS0_Q__FQ_T_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice7prependU__FRGS0_Q__FQ_T_"></a>
                     <a name="//apple_ref/swift/Method/prepend(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque7prependU__FRGS0_Q__FQ_T_">prepend(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice7prependU__FRGS0_Q__FQ_T_">prepend(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1106,7 +1106,7 @@ The default value is false.</li>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">prepend</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">prepend</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1116,9 +1116,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque8prextendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice8prextendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_"></a>
                     <a name="//apple_ref/swift/Method/prextend(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque8prextendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_">prextend(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice8prextendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_">prextend(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1137,7 +1137,7 @@ The default value is false.</li>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">prextend</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">newElements</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">prextend</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1147,9 +1147,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque9removeAllU__FRGS0_Q__FT12keepCapacitySb_T_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice9removeAllU__FRGS0_Q__FT12keepCapacitySb_T_"></a>
                     <a name="//apple_ref/swift/Method/removeAll(keepCapacity:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque9removeAllU__FRGS0_Q__FT12keepCapacitySb_T_">removeAll(keepCapacity:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice9removeAllU__FRGS0_Q__FT12keepCapacitySb_T_">removeAll(keepCapacity:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1179,9 +1179,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque13removeAtIndexU__FRGS0_Q__FSiQ_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice13removeAtIndexU__FRGS0_Q__FSiQ_"></a>
                     <a name="//apple_ref/swift/Method/removeAtIndex(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque13removeAtIndexU__FRGS0_Q__FSiQ_">removeAtIndex(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice13removeAtIndexU__FRGS0_Q__FSiQ_">removeAtIndex(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1212,9 +1212,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque11removeFirstU__FRGS0_Q__FT_Q_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice11removeFirstU__FRGS0_Q__FT_Q_"></a>
                     <a name="//apple_ref/swift/Method/removeFirst()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque11removeFirstU__FRGS0_Q__FT_Q_">removeFirst()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice11removeFirstU__FRGS0_Q__FT_Q_">removeFirst()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1244,9 +1244,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque11removeFirstU__FRGS0_Q__FSiT_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice11removeFirstU__FRGS0_Q__FSiT_"></a>
                     <a name="//apple_ref/swift/Method/removeFirst(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque11removeFirstU__FRGS0_Q__FSiT_">removeFirst(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice11removeFirstU__FRGS0_Q__FSiT_">removeFirst(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1276,9 +1276,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque10removeLastU__FRGS0_Q__FT_Q_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice10removeLastU__FRGS0_Q__FT_Q_"></a>
                     <a name="//apple_ref/swift/Method/removeLast()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque10removeLastU__FRGS0_Q__FT_Q_">removeLast()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice10removeLastU__FRGS0_Q__FT_Q_">removeLast()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1308,9 +1308,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque10removeLastU__FRGS0_Q__FSiT_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice10removeLastU__FRGS0_Q__FSiT_"></a>
                     <a name="//apple_ref/swift/Method/removeLast(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque10removeLastU__FRGS0_Q__FSiT_">removeLast(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice10removeLastU__FRGS0_Q__FSiT_">removeLast(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1340,9 +1340,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque11removeRangeU__FRGS0_Q__FGVSs5RangeSi_T_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice11removeRangeU__FRGS0_Q__FGVSs5RangeSi_T_"></a>
                     <a name="//apple_ref/swift/Method/removeRange(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque11removeRangeU__FRGS0_Q__FGVSs5RangeSi_T_">removeRange(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice11removeRangeU__FRGS0_Q__FGVSs5RangeSi_T_">removeRange(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1373,9 +1373,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque12replaceRangeU__FRGS0_Q__USs14CollectionType_USs13GeneratorType_Ss16ForwardIndexType_Ss18_SignedIntegerType_Ss33_BuiltinIntegerLiteralConvertible____FTGVSs5RangeSi_4withQ__T_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice12replaceRangeU__FRGS0_Q__USs14CollectionType_USs13GeneratorType_Ss16ForwardIndexType_Ss18_SignedIntegerType_Ss33_BuiltinIntegerLiteralConvertible____FTGVSs5RangeSi_4withQ__T_"></a>
                     <a name="//apple_ref/swift/Method/replaceRange(_:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque12replaceRangeU__FRGS0_Q__USs14CollectionType_USs13GeneratorType_Ss16ForwardIndexType_Ss18_SignedIntegerType_Ss33_BuiltinIntegerLiteralConvertible____FTGVSs5RangeSi_4withQ__T_">replaceRange(_:with:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice12replaceRangeU__FRGS0_Q__USs14CollectionType_USs13GeneratorType_Ss16ForwardIndexType_Ss18_SignedIntegerType_Ss33_BuiltinIntegerLiteralConvertible____FTGVSs5RangeSi_4withQ__T_">replaceRange(_:with:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1409,9 +1409,9 @@ The default value is false.</li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures15ContiguousDeque15reserveCapacityU__FRGS0_Q__FSiT_"></a>
+                    <a name="/s:FV19SwiftDataStructures10DequeSlice15reserveCapacityU__FRGS0_Q__FSiT_"></a>
                     <a name="//apple_ref/swift/Method/reserveCapacity(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDeque15reserveCapacityU__FRGS0_Q__FSiT_">reserveCapacity(_:)</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlice15reserveCapacityU__FRGS0_Q__FSiT_">reserveCapacity(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1422,8 +1422,8 @@ The default value is false.</li>
                         <p>Reserve enough space to store <code>minimumCapacity</code> elements.</p>
 
 <ul>
-<li>Postcondition: <code>capacity &gt;= minimumCapacity</code> and the <code>ContiguousDeque</code> has mutable
-contiguous storage.</li>
+<li>Postcondition: <code>capacity &gt;= minimumCapacity</code> and the <code>DequeSlice</code> has
+mutable contiguous storage.</li>
 <li>Complexity: O(<code>count</code>).</li>
 </ul>
 
@@ -1444,7 +1444,7 @@ contiguous storage.</li>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-13)</p>
+          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
