@@ -25,7 +25,7 @@ public func |> <T>(lhs: T, @autoclosure(escaping) rhs: () -> List<T>) -> List<T>
 }
 
 /**
-A singly-linked, recursive list. Head-tail decomposition can be accomplished with a
+A singly-linked, lazy list. Head-tail decomposition can be accomplished with a
 `switch` statement:
 
 ```swift
