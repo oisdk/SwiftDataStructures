@@ -3,7 +3,7 @@ A [Deque](https://en.wikipedia.org/wiki/Double-ended_queue) is a data structure 
 of two queues, with the first queue beginning at the start of the Deque, and the second
 beginning at the end (in reverse):
 
-```
+```swift
 First queue   Second queue
 v              v
 [0, 1, 2, 3] | [3, 2, 1, 0]
@@ -11,52 +11,40 @@ v              v
 
 This allows for O(*1*) prepending, appending, and removal of first and last elements.
 
-This implementation of a Deque uses two reversed `ArraySlice`s as the queues. (this
+This implementation of a Deque uses two reversed `ContiguousArray`s as the queues. (this
 means that the first array has reversed semantics, while the second does not) This allows
 for O(*1*) indexing.
-
-Because an `ArraySlice` presents a view onto the storage of some larger array even after
-the original array's lifetime ends, storing the slice may prolong the lifetime of elements
-that are no longer accessible, which can manifest as apparent memory and object leakage.
-To prevent this effect, use `ContiguousDequeSlice` only for transient computation.
 
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
 */
 
-public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, SequenceType, Indexable, MutableSliceable, RangeReplaceableCollectionType {
-  internal var front, back: ArraySlice<Element>
+public struct Deque<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, SequenceType, Indexable, MutableSliceable, RangeReplaceableCollectionType {
+  internal var front, back: ContiguousArray<Element>
 
-  public typealias SubSequence = ContiguousDequeSlice<Element>
-  public typealias Generator = ContiguousDequeSliceGenerator<Element>
-
-  // MARK: Initilalizers
+  public typealias SubSequence = DequeSlice<Element>
+  public typealias Generator = DequeGenerator<Element>
   
-  /// Constructs an empty `ContiguousDeque`
-  public init() {
-    (front, back) = ([], [])
-  }
+  // MARK: Initializers
   
-  internal init(_ front: ArraySlice<Element>, _ back: ArraySlice<Element>) {
+  internal init(_ front: ContiguousArray<Element>, _ back: ContiguousArray<Element>) {
     (self.front, self.back) = (front, back)
     check()
   }
   
-  internal init(balancedF: ArraySlice<Element>, balancedB: ArraySlice<Element>) {
+  internal init(balancedF: ContiguousArray<Element>, balancedB: ContiguousArray<Element>) {
     (front, back) = (balancedF, balancedB)
   }
-  
-  /// Initilalize from a `ContiguousDeque`
-  
-  public init(_ from: ContiguousDeque<Element>) {
-    (front, back) = (ArraySlice(from.front), ArraySlice(from.back))
+  /// Initilalize from a `DequeSlice`
+  public init(_ from: DequeSlice<Element>) {
+    (front, back) = (ContiguousArray(from.front), ContiguousArray(from.back))
   }
   
-  internal init(array: [Element]) {
+  private init(array: [Element]) {
     let half = array.endIndex / 2
     self.init(
-      balancedF: ArraySlice(array[0..<half].reverse()),
-      balancedB: ArraySlice(array[half..<array.endIndex])
+      balancedF: ContiguousArray(array[array.startIndex..<half].reverse()),
+      balancedB: ContiguousArray(array[half..<array.endIndex])
     )
   }
   
@@ -67,6 +55,11 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   /// Create an instance containing `elements`.
   public init(arrayLiteral elements: Element...) {
     self.init(array: elements)
+  }
+  
+  /// Constructs an empty `Deque`
+  public init() {
+    (front, back) = ([], [])
   }
   
   // MARK: Instance Properties
@@ -95,13 +88,13 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   }
   
   /**
-  The position of the first element in a non-empty `ContiguousDequeSlice`.
+  The position of the first element in a non-empty `Deque`.
   
-  In an empty `ContiguousDequeSlice`, `startIndex == endIndex`.
+  In an empty `Deque`, `startIndex == endIndex`.
   */
   public var startIndex: Int { return 0 }
   /**
-  The `ContiguousDequeSlice`'s "past the end" position.
+  The `Deque`'s "past the end" position.
   
   `endIndex` is not a valid argument to `subscript`, and is always reachable from
   `startIndex` by zero or more applications of `successor()`.
@@ -147,27 +140,26 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   internal mutating func check() {
     switch balance {
     case .FrontEmpty:
-      front.reserveCapacity(back.count - 1)
       let newBack = back.removeLast()
-      front = ArraySlice(back.reverse())
+      front.reserveCapacity(back.count)
+      front = ContiguousArray(back.reverse())
       back = [newBack]
     case .BackEmpty:
-      back.reserveCapacity(front.count - 1)
       let newFront = front.removeLast()
-      back = ArraySlice(front.reverse())
+      back.reserveCapacity(front.count)
+      back = ContiguousArray(front.reverse())
       front = [newFront]
     case .Balanced: return
     }
   }
 
   /**
-  Return a `ContiguousDequeSliceGenerator` over the elements of this
-  `ContiguousDequeSlice`.
+  Return a `DequeGenerator` over the elements of this `Deque`.
   
   - Complexity: O(1)
   */
-  public func generate() -> ContiguousDequeSliceGenerator<Element> {
-    return ContiguousDequeSliceGenerator(fGen: front.reverse().generate(), sGen: back.generate())
+  public func generate() -> DequeGenerator<Element> {
+    return DequeGenerator(fGen: front.reverse().generate(), sGen: back.generate())
   }
   /**
   Return a value less than or equal to the number of elements in `self`,
@@ -177,121 +169,121 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
     return front.underestimateCount() + back.underestimateCount()
   }
   /**
-  Returns a `ContiguousDequeSlice` containing all but the first element.
+  Returns a `DequeSlice` containing all but the first element.
   
   - Complexity: O(1)
   */
-  public func dropFirst() -> ContiguousDequeSlice<Element> {
-    if front.isEmpty { return ContiguousDequeSlice() }
-    return ContiguousDequeSlice(front.dropLast(), ArraySlice(back))
+  public func dropFirst() -> DequeSlice<Element> {
+    if front.isEmpty { return DequeSlice() }
+    return DequeSlice(front.dropLast(), ArraySlice(back))
   }
   /**
-  Returns a `ContiguousDequeSlice` containing all but the first n elements.
+  Returns a `DequeSlice` containing all but the first n elements.
   
   - Requires: `n >= 0`
   - Complexity: O(1)
   */
-  public func dropFirst(n: Int) -> ContiguousDequeSlice<Element> {
+  public func dropFirst(n: Int) -> DequeSlice<Element> {
     if n < front.endIndex {
-      return ContiguousDequeSlice(
+      return DequeSlice(
         balancedF: front.dropLast(n),
         balancedB: ArraySlice(back)
       )
     } else {
       let i = n - front.endIndex
       if i >= back.endIndex { return [] }
-      return ContiguousDequeSlice(
+      return DequeSlice(
         balancedF: [back[i]],
         balancedB: back.dropFirst(i.successor())
       )
     }
   }
   /**
-  Returns a `ContiguousDequeSlice` containing all but the last element.
+  Returns a `DequeSlice` containing all but the last element.
   
   - Complexity: O(1)
   */
-  public func dropLast() -> ContiguousDequeSlice<Element> {
-    if back.isEmpty { return ContiguousDequeSlice() }
-    return ContiguousDequeSlice(ArraySlice(front), back.dropLast())
+  public func dropLast() -> DequeSlice<Element> {
+    if back.isEmpty { return DequeSlice() }
+    return DequeSlice(ArraySlice(front), back.dropLast())
   }
   /**
-  Returns a `ContiguousDequeSlice` containing all but the last n elements.
+  Returns a `DequeSlice` containing all but the last n elements.
   
   - Requires: `n >= 0`
   - Complexity: O(1)
   */
-  public func dropLast(n: Int) -> ContiguousDequeSlice<Element> {
+  public func dropLast(n: Int) -> DequeSlice<Element> {
     if n < back.endIndex {
-      return ContiguousDequeSlice(
+      return DequeSlice(
         balancedF: ArraySlice(front),
         balancedB: back.dropLast(n)
       )
     } else {
       let i = n - back.endIndex
       if i >= front.endIndex { return [] }
-      return ContiguousDequeSlice(
+      return DequeSlice(
         balancedF: front.dropFirst(i.successor()),
         balancedB: [front[i]]
       )
     }
   }
   /**
-  Returns a `ContiguousDequeSlice`, up to `maxLength` in length, containing the initial
+  Returns a `DequeSlice`, up to `maxLength` in length, containing the initial
   elements of `self`.
   
-  If maxLength exceeds self.count, the result contains all the elements of self.
+  If maxLength exceeds `self.count`, the result contains all the elements of `self`.
   
   - Requires: `maxLength >= 0`
   - Complexity: O(1)
   */
-  public func prefix(maxLength: Int) -> ContiguousDequeSlice<Element> {
+  public func prefix(maxLength: Int) -> DequeSlice<Element> {
     if maxLength == 0 { return [] }
     if maxLength <= front.endIndex {
       let i = front.endIndex - maxLength
-      return ContiguousDequeSlice(
+      return DequeSlice(
         balancedF: front.suffix(maxLength.predecessor()),
         balancedB: [front[i]]
       )
     } else {
       let i = maxLength - front.endIndex
-      return ContiguousDequeSlice(
+      return DequeSlice(
         balancedF: ArraySlice(front),
         balancedB: back.prefix(i)
       )
     }
   }
   /**
-  Returns a `ContiguousDequeSlice`, up to `maxLength` in length, containing the final
+  Returns a `DequeSlice`, up to `maxLength` in length, containing the final
   elements of `self`.
   
   If `maxLength` exceeds `self.count`, the result contains all the elements of `self`.
   
-  - Requires: maxLength >= 0
+  - Requires: `maxLength >= 0`
   - Complexity: O(1)
   */
-  public func suffix(maxLength: Int) -> ContiguousDequeSlice<Element> {
+  public func suffix(maxLength: Int) -> DequeSlice<Element> {
     if maxLength == 0 { return [] }
     if maxLength <= back.endIndex {
-      return ContiguousDequeSlice(
+      return DequeSlice(
         balancedF: [back[back.endIndex - maxLength]],
         balancedB: back.suffix(maxLength.predecessor())
       )
     } else {
-      return ContiguousDequeSlice(
+      return DequeSlice(
         balancedF: front.prefix(maxLength - back.endIndex),
         balancedB: ArraySlice(back)
       )
     }
   }
   /**
-  Returns the maximal `ContiguousDequeSlice`s of `self`, in order, that don't contain
+  Returns the maximal `DequeSlice`s of `self`, in order, that don't contain
   elements satisfying the predicate `isSeparator`.
   
-  - Parameter maxSplits: The maximum number of `ContiguousDequeSlice`s to return, minus 1.
-  If `maxSplit` + 1 `ContiguousDequeSlice`s are returned, the last one is a suffix of
+  - Parameter maxSplits: The maximum number of `DequeSlice`s to return, minus 1.
+  If `maxSplit` + 1 `DequeSlice`s are returned, the last one is a suffix of
   `self` containing the remaining elements. The default value is `Int.max`.
-  - Parameter allowEmptySubsequences: If `true`, an empty `ContiguousDequeSlice` is
+  - Parameter allowEmptySubsequences: If `true`, an empty `DequeSlice` is
   produced in the result for each pair of consecutive elements satisfying `isSeparator`.
   The default value is false.
   - Requires: maxSplit >= 0
@@ -300,8 +292,8 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
     maxSplit: Int,
     allowEmptySlices: Bool,
     @noescape isSeparator: Element -> Bool
-    ) -> [ContiguousDequeSlice<Element>] {
-      var result: [ContiguousDequeSlice<Element>] = []
+    ) -> [DequeSlice<Element>] {
+      var result: [DequeSlice<Element>] = []
       var i = startIndex
       for j in indices where isSeparator(self[i]) {
         let slice = self[i..<j]
@@ -316,24 +308,6 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
       }
       return result
   }
-
-  /**
-  Access the `element` at `position`.
-  
-  - Requires: `position` is a valid `position` in `self` and `position != endIndex`.
-  */
-  public subscript(idx: Int) -> Element {
-    get {
-      return idx < front.endIndex ?
-        front[front.endIndex.predecessor() - idx] :
-        back[idx - front.endIndex]
-    } set {
-      idx < front.endIndex ?
-        (front[front.endIndex.predecessor() - idx] = newValue) :
-        (back[idx - front.endIndex] = newValue)
-    }
-  }
-
 
   /**
   If `!self.isEmpty`, remove the first element and return it, otherwise return `nil`.
@@ -358,7 +332,7 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   
   - Complexity: O(1)
   */
-  public func prefixUpTo(end: Int) -> ContiguousDequeSlice<Element> {
+  public func prefixUpTo(end: Int) -> DequeSlice<Element> {
     return prefix(end)
   }
   /**
@@ -366,74 +340,36 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   
   - Complexity: O(1)
   */
-  public func prefixThrough(position: Int) -> ContiguousDequeSlice<Element> {
+  public func prefixThrough(position: Int) -> DequeSlice<Element> {
     return prefix(position.successor())
   }
   /**
-  Return a `ContiguousDeque` containing the elements of `self` in reverse order.
+  Return a `Deque` containing the elements of `self` in reverse order.
   
   - Complexity: O(1)
   */
-  public func reverse() -> ContiguousDequeSlice<Element> {
-    return ContiguousDequeSlice(balancedF: back, balancedB: front)
+  public func reverse() -> Deque<Element> {
+    return Deque(balancedF: back, balancedB: front)
   }
   /**
   Returns `self[start..<endIndex]`
   
   - Complexity: O(1)
   */
-  public func suffixFrom(start: Int) -> ContiguousDequeSlice<Element> {
+  public func suffixFrom(start: Int) -> DequeSlice<Element> {
     return dropFirst(start)
   }
-  
-  /**
-  Accesses the elements at the given subRange
-  
-  - Complexity: O(1)
-  */
-  public subscript(idxs: Range<Int>) -> ContiguousDequeSlice<Element> {
-    get {
-      if idxs.startIndex == idxs.endIndex { return [] }
-      switch (idxs.startIndex < front.endIndex, idxs.endIndex <= front.endIndex) {
-      case (true, true):
-        let start = front.endIndex - idxs.endIndex
-        let end   = front.endIndex - idxs.startIndex
-        return ContiguousDequeSlice(
-          balancedF: front[start.successor()..<end],
-          balancedB: [front[start]]
-        )
-      case (true, false):
-        let frontTo = front.endIndex - idxs.startIndex
-        let backTo  = idxs.endIndex - front.endIndex
-        return ContiguousDequeSlice(
-          balancedF: front[front.startIndex ..< frontTo],
-          balancedB: back [back.startIndex ..< backTo]
-        )
-      case (false, false):
-        let start = idxs.startIndex - front.endIndex
-        let end   = idxs.endIndex - front.endIndex
-        return ContiguousDequeSlice(
-          balancedF: [back[start]],
-          balancedB: back[start.successor() ..< end]
-        )
-      case (false, true): return []
-      }
-    } set {
-      for (index, value) in zip(idxs, newValue) {
-        self[index] = value
-      }
-    }
-  }
+
 
   /**
   Append `x` to `self`.
-  
+
   Applying `successor()` to the index of the new element yields `self.endIndex`.
   
   - Complexity: Amortized O(1).
   */
-  public mutating func append(with: Element) {
-    back.append(with)
+  public mutating func append(x: Element) {
+    back.append(x)
     check()
   }
   /**
@@ -441,8 +377,8 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   
   - Complexity: O(*length of result*).
   */
-  public mutating func extend<S : SequenceType where S.Generator.Element == Element>(with: S) {
-    back.extend(with)
+  public mutating func extend<S : SequenceType where S.Generator.Element == Element>(newElements: S) {
+    back.extend(newElements)
     check()
   }
   /**
@@ -464,8 +400,8 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   
   - Complexity: Amortized O(1).
   */
-  public mutating func prepend(with: Element) {
-    front.append(with)
+  public mutating func prepend(x: Element) {
+    front.append(x)
     check()
   }
   /**
@@ -473,8 +409,8 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   
   - Complexity: O(*length of result*).
   */
-  public mutating func prextend<S : SequenceType where S.Generator.Element == Element>(with: S) {
-    front.extend(with.reverse())
+  public mutating func prextend<S : SequenceType where S.Generator.Element == Element>(newElements: S) {
+    front.extend(newElements.reverse())
     check()
   }
   /**
@@ -513,7 +449,7 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   }
   /**
   Remove the first `n` elements.
-  
+
   - Complexity: O(`self.count`)
   - Requires: `!self.isEmpty`.
   */
@@ -523,9 +459,9 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
     } else {
       let i = n - front.endIndex
       if i < back.endIndex {
-        self = ContiguousDequeSlice(
+        self = Deque(
           balancedF: [back[i]],
-          balancedB: ArraySlice(back.dropFirst(i.successor()))
+          balancedB: ContiguousArray(back.dropFirst(i.successor()))
         )
       } else {
         removeAll()
@@ -555,8 +491,8 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
     } else {
       let i = n - back.endIndex
       if i < front.endIndex {
-        self = ContiguousDequeSlice(
-          balancedF: ArraySlice(front.dropFirst(i.successor())),
+        self = Deque(
+          balancedF: ContiguousArray(front.dropFirst(i.successor())),
           balancedB: [front[i]]
         )
       } else {
@@ -566,7 +502,7 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   }
   /**
   Remove the indicated subRange of elements.
-  
+
   Invalidates all indices with respect to `self`.
   
   - Complexity: O(`self.count`).
@@ -624,8 +560,8 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
   /**
   Reserve enough space to store `minimumCapacity` elements.
   
-  - Postcondition: `capacity >= minimumCapacity` and the `ContiguousDequeSlice` has
-  mutable contiguous storage.
+  - Postcondition: `capacity >= minimumCapacity` and the `Deque` has mutable
+  contiguous storage.
   - Complexity: O(`count`).
   */
   mutating public func reserveCapacity(n: Int) {
@@ -633,11 +569,74 @@ public struct ContiguousDequeSlice<Element> : CustomDebugStringConvertible, Arra
     front.reserveCapacity(half)
     back.reserveCapacity(n - half)
   }
+  
+  // MARK: Subscripts
+  
+  /**
+  Access the element at `position`.
+  
+  - Requires: `0 <= position < endIndex`
+  */
+  public subscript(position: Int) -> Element {
+    get {
+      return position < front.endIndex ?
+        front[front.endIndex.predecessor() - position] :
+        back[position - front.endIndex]
+    } set {
+      position < front.endIndex ?
+        (front[front.endIndex.predecessor() - position] = newValue) :
+        (back[position - front.endIndex] = newValue)
+    }
+  }
+  
+  /**
+  Access the elements at the given subRange.
+  
+  - Complexity: O(1)
+  */
+  
+  public subscript(idxs: Range<Int>) -> DequeSlice<Element> {
+    get {
+      if idxs.startIndex == idxs.endIndex { return [] }
+      switch (idxs.startIndex < front.endIndex, idxs.endIndex <= front.endIndex) {
+      case (true, true):
+        let start = front.endIndex - idxs.endIndex
+        let end   = front.endIndex - idxs.startIndex
+        return DequeSlice(
+          balancedF: front[start.successor()..<end],
+          balancedB: [front[start]]
+        )
+      case (true, false):
+        let frontTo = front.endIndex - idxs.startIndex
+        let backTo  = idxs.endIndex - front.endIndex
+        return DequeSlice(
+          balancedF: front[front.startIndex ..< frontTo],
+          balancedB: back [back.startIndex ..< backTo]
+        )
+      case (false, false):
+        let start = idxs.startIndex - front.endIndex
+        let end   = idxs.endIndex - front.endIndex
+        return DequeSlice(
+          balancedF: [back[start]],
+          balancedB: back[start.successor() ..< end]
+        )
+      case (false, true): return []
+      }
+    } set {
+      for (index, value) in zip(idxs, newValue) {
+        self[index] = value
+      }
+    }
+  }
+  
+}
+internal enum Balance {
+  case FrontEmpty, BackEmpty, Balanced
 }
 /// :nodoc:
-public struct ContiguousDequeSliceGenerator<Element> : GeneratorType, SequenceType {
-  private var fGen: IndexingGenerator<ReverseRandomAccessCollection<ArraySlice<Element>>>?
-  private var sGen: IndexingGenerator<ArraySlice<Element>>
+public struct DequeGenerator<Element> : GeneratorType, SequenceType {
+  private var fGen: IndexingGenerator<ReverseRandomAccessCollection<ContiguousArray<Element>>>?
+  private var sGen: IndexingGenerator<ContiguousArray<Element>>
   
   /**
   Advance to the next element and return it, or `nil` if no next element exists.

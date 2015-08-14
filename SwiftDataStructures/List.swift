@@ -8,7 +8,7 @@ The [cons](https://en.wikipedia.org/wiki/Cons) operator.
 This operator lazy. i.e:
 
 ```swift
-func printAndGiveList() -> LazyList<Int> {
+func printAndGiveList() -> List<Int> {
   print(2)
   return .Nil
 }
@@ -20,7 +20,7 @@ Will not print 2.
 
 - Complexity: O(1)
 */
-public func |> <T>(lhs: T, @autoclosure(escaping) rhs: () -> LazyList<T>) -> LazyList<T> {
+public func |> <T>(lhs: T, @autoclosure(escaping) rhs: () -> List<T>) -> List<T> {
   return .Cons(lhs, rhs)
 }
 
@@ -29,8 +29,8 @@ A singly-linked, recursive list. Head-tail decomposition can be accomplished wit
 `switch` statement:
 
 ```swift
-extension LazyList {
-  public func map<T>(f: Element -> T) -> LazyList<T> {
+extension List {
+  public func map<T>(f: Element -> T) -> List<T> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(x, xs): return f(x) |> xs().map(f)
@@ -47,18 +47,18 @@ Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/07/29/deques-queues-and-lists-in-swift-with-indirect/).
 */
 
-public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, GeneratorType, SequenceType {
+public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, GeneratorType, SequenceType {
   case Nil
-  indirect case Cons(Element, () -> LazyList<Element>)
+  indirect case Cons(Element, () -> List<Element>)
 
-  public typealias Generator = LazyList<Element>
-  public typealias SubSequence = LazyList<Element>
+  public typealias Generator = List<Element>
+  public typealias SubSequence = List<Element>
 
   // MARK: Initializers
 
   private init<G : GeneratorType where G.Element == Element>(var gen: G) {
     if let head = gen.next() {
-      self = head |> LazyList(gen: gen)
+      self = head |> List(gen: gen)
     } else {
       self = .Nil
     }
@@ -70,12 +70,12 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   will not be evaluated.)
   */
   public init<S : SequenceType where S.Generator.Element == Element>(_ seq: S) {
-    self = LazyList(gen: seq.generate())
+    self = List(gen: seq.generate())
   }
   
   /// Create an instance containing `elements`.
   public init(arrayLiteral elements: Element...) {
-    self = LazyList(elements.generate())
+    self = List(elements.generate())
   }
   
   // MARK: Instance Properties
@@ -145,26 +145,26 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   /// Return a *generator* over the elements of this *sequence*.
   ///
   /// - Complexity: O(1).
-  public func generate() -> LazyList<Element> {
+  public func generate() -> List<Element> {
     return self
   }
   /**
-  Returns a `LazyList` containing all but the first element.
+  Returns a `List` containing all but the first element.
   
   - Complexity: O(1)
   */
-  public func dropFirst() -> LazyList<Element> {
+  public func dropFirst() -> List<Element> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(_, tail): return tail()
     }
   }
   /**
-  Returns a `LazyList` containing all but the last element.
+  Returns a `List` containing all but the last element.
   
   - Complexity: O(`count`)
   */
-  public func dropLast() -> LazyList<Element> {
+  public func dropLast() -> List<Element> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(head, tail):
@@ -174,18 +174,18 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
     }
   }
   /**
-  Returns a `LazyList` containing all but the first N elements.
+  Returns a `List` containing all but the first N elements.
   
   - Complexity: O(n)
   */
-  public func dropFirst(n: Int) -> LazyList<Element> {
+  public func dropFirst(n: Int) -> List<Element> {
     switch (n, self) {
     case (0, _) ,(_, .Nil): return self
     case (_, let .Cons(_, tail)): return tail().dropFirst(n - 1)
     }
   }
   
-  private func divide(at: Int) -> (LazyList<Element>, LazyList<Element>) {
+  private func divide(at: Int) -> (List<Element>, List<Element>) {
     switch (at, self) {
     case (0, _), (_, .Nil): return (.Nil, self)
     case (_, let .Cons(head, tail)):
@@ -194,7 +194,7 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
     }
   }
   
-  private func dropLast(var ahead: ContiguousDeque<Element>) -> LazyList<Element> {
+  private func dropLast(var ahead: Deque<Element>) -> List<Element> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(head, tail):
@@ -203,23 +203,23 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
     }
   }
   /**
-  Returns a `LazyList` containing all but the last n elements.
+  Returns a `List` containing all but the last n elements.
   
   - Requires: `n >= 0`
   - Complexity: O(n)
   */
-  public func dropLast(n: Int) -> LazyList<Element> {
+  public func dropLast(n: Int) -> List<Element> {
     let (front, back) = divide(n)
-    return back.dropLast(ContiguousDeque(front))
+    return back.dropLast(Deque(front))
   }
   
   /**
-  Returns a `LazyList` with `with` appended.
+  Returns a `List` with `with` appended.
   
   - Complexity: O(`count`)
   */
   
-  public func appended(@autoclosure(escaping) with: () -> Element) -> LazyList<Element> {
+  public func appended(@autoclosure(escaping) with: () -> Element) -> List<Element> {
     switch self {
     case .Nil: return .Cons(with(), {.Nil})
     case let .Cons(head, tail): return head |> tail().appended(with)
@@ -227,12 +227,12 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   }
   
   /**
-  Returns a `LazyList` extended by the elements of `with`.
+  Returns a `List` extended by the elements of `with`.
   
   - Complexity: O(`count`)
   */
   
-  public func extended(@autoclosure(escaping) with: () -> LazyList<Element>) -> LazyList<Element> {
+  public func extended(@autoclosure(escaping) with: () -> List<Element>) -> List<Element> {
     switch self {
     case .Nil: return with()
     case let .Cons(head, tail): return head |> tail().extended(with)
@@ -240,21 +240,21 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   }
   
   /**
-  Returns a `LazyList` extended by the elements of `with`.
+  Returns a `List` extended by the elements of `with`.
   
   - Complexity: O(`count`)
   */
   
-  public func extended<S : SequenceType where S.Generator.Element == Element>(@autoclosure(escaping) with: () -> S) -> LazyList<Element> {
-    return extended(LazyList(with()))
+  public func extended<S : SequenceType where S.Generator.Element == Element>(@autoclosure(escaping) with: () -> S) -> List<Element> {
+    return extended(List(with()))
   }
 
   
   /**
-  Returns a `LazyList` of the initial elements of `self`, of maximum length `n`.
+  Returns a `List` of the initial elements of `self`, of maximum length `n`.
   */
   
-  public func prefix(n: Int) -> LazyList<Element> {
+  public func prefix(n: Int) -> List<Element> {
     switch (n, self) {
     case (0, _), (_, .Nil): return .Nil
     case let (_, .Cons(head, tail)): return head |> tail().prefix(n - 1)
@@ -262,14 +262,14 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   }
   
   /**
-  Returns a `LazyList` of the final elements of `self`, of maximum length `n`.
+  Returns a `List` of the final elements of `self`, of maximum length `n`.
   */
   
-  public func suffix(n: Int) -> LazyList<Element> {
-    return zip(0..<n, reverse()).reduce(LazyList.Nil) { $1.1 |> $0 }
+  public func suffix(n: Int) -> List<Element> {
+    return zip(0..<n, reverse()).reduce(List.Nil) { $1.1 |> $0 }
   }
   
-  private func divide(@noescape isSplit: Element -> Bool) -> (LazyList<Element>, LazyList<Element>) {
+  private func divide(@noescape isSplit: Element -> Bool) -> (List<Element>, List<Element>) {
     switch self {
     case .Nil: return (.Nil, .Nil)
     case let .Cons(head, tail):
@@ -280,46 +280,46 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   }
   
   /**
-  Returns the maximal `LazyList`s of `self`, in order, that don't contain
+  Returns the maximal `List`s of `self`, in order, that don't contain
   elements satisfying the predicate `isSeparator`.
   
-  - Parameter maxSplits: The maximum number of `LazyList`s to return, minus 1.
-  If `maxSplit` + 1 `LazyList`s are returned, the last one is a suffix of
+  - Parameter maxSplits: The maximum number of `List`s to return, minus 1.
+  If `maxSplit` + 1 `List`s are returned, the last one is a suffix of
   `self` containing the remaining elements. The default value is `Int.max`.
-  - Parameter allowEmptySubsequences: If `true`, an empty `LazyList` is
+  - Parameter allowEmptySubsequences: If `true`, an empty `List` is
   produced in the result for each pair of consecutive elements satisfying `isSeparator`.
   The default value is false.
   - Requires: maxSplit >= 0
   */
-  public func split(maxSplit: Int, allowEmptySlices: Bool, @noescape isSeparator: Element -> Bool) -> [LazyList<Element>] {
+  public func split(maxSplit: Int, allowEmptySlices: Bool, @noescape isSeparator: Element -> Bool) -> [List<Element>] {
     if isEmpty || maxSplit == 0 { return [] }
     let (front, back) = divide(isSeparator)
     let rest = back.split(maxSplit - 1, allowEmptySlices: allowEmptySlices, isSeparator: isSeparator)
     return (!front.isEmpty || allowEmptySlices) ? [front] + rest : rest
   }
   /// :nodoc:
-  public func map<T>(transform: Element -> T) -> LazyList<T> {
+  public func map<T>(transform: Element -> T) -> List<T> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(head, tail): return transform(head) |> tail().map(transform)
     }
   }
   /// :nodoc:
-  public func flatMap<T>(transform: Element -> LazyList<T>) -> LazyList<T> {
+  public func flatMap<T>(transform: Element -> List<T>) -> List<T> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(head, tail): return transform(head).extended(tail().flatMap(transform))
     }
   }
   /// :nodoc:
-  public func flatMap<S : SequenceType>(transform: Element -> S) -> LazyList<S.Generator.Element> {
+  public func flatMap<S : SequenceType>(transform: Element -> S) -> List<S.Generator.Element> {
     switch self {
     case .Nil: return .Nil
-    case let .Cons(head, tail): return LazyList<S.Generator.Element>(transform(head)).extended(tail().flatMap(transform))
+    case let .Cons(head, tail): return List<S.Generator.Element>(transform(head)).extended(tail().flatMap(transform))
     }
   }
   /// :nodoc:
-  public func flatMap<T>(transform: Element -> T?) -> LazyList<T> {
+  public func flatMap<T>(transform: Element -> T?) -> List<T> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(head, tail):
@@ -341,7 +341,7 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   */
   public mutating func removeFirst() -> Element {
     switch self {
-    case .Nil: fatalError("Cannot call removeFirst() on an empty LazyList")
+    case .Nil: fatalError("Cannot call removeFirst() on an empty List")
     case let .Cons(head, tail):
       self = tail()
       return head
@@ -363,17 +363,17 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   /**
   Return `self` prepended with the elements of `with`.
   */
-  public func prextended(with: LazyList<Element>) -> LazyList<Element> {
+  public func prextended(with: List<Element>) -> List<Element> {
     return with.extended(self)
   }
   /**
   Return `self` prepended with the elements of `with`.
   */
-  public func prextended<S : SequenceType where S.Generator.Element == Element>(newElements: S) -> LazyList<Element> {
-    return LazyList(newElements).extended(self)
+  public func prextended<S : SequenceType where S.Generator.Element == Element>(newElements: S) -> List<Element> {
+    return List(newElements).extended(self)
   }
   /// :nodoc:
-  public func filter(includeElement: Element -> Bool) -> LazyList<Element> {
+  public func filter(includeElement: Element -> Bool) -> List<Element> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(head, tail):
@@ -383,26 +383,26 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
     }
   }
 
-  private func rev(other: LazyList<Element>) -> LazyList<Element> {
+  private func rev(other: List<Element>) -> List<Element> {
     switch self {
     case .Nil: return other
     case let .Cons(head, tail): return tail().rev(head |> other)
     }
   }
   /// :nodoc:
-  public func reverse() -> LazyList<Element> {
+  public func reverse() -> List<Element> {
     return rev(.Nil)
   }
   /**
-  Returns a `LazyList` of the result of calling `combine` on successive elements of `self`
+  Returns a `List` of the result of calling `combine` on successive elements of `self`
   
   ```swift
-  let nums: LazyList = [1, 2, 3]
+  let nums: List = [1, 2, 3]
   nums.scan(0, combine: +)
   // [1, 3, 6]
   ```
   */
-  public func scan<T>(initial: T, combine: (accumulator: T, element: Element) -> T) -> LazyList<T> {
+  public func scan<T>(initial: T, combine: (accumulator: T, element: Element) -> T) -> List<T> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(head, tail):
@@ -411,16 +411,16 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
     }
   }
   /**
-  Returns a `LazyList` of the result of calling `combine` on successive elements of
+  Returns a `List` of the result of calling `combine` on successive elements of
   `self`. Initial is taken to be the first element of `self`.
   
   ```swift
-  let nums: LazyList = [1, 2, 3]
+  let nums: List = [1, 2, 3]
   nums.scan(+)
   // [3, 6]
   ```
   */
-  public func scan(combine: (accumulator: Element, element: Element) -> Element) -> LazyList<Element> {
+  public func scan(combine: (accumulator: Element, element: Element) -> Element) -> List<Element> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(head, tail): return tail().scan(head, combine: combine)
@@ -460,11 +460,11 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   }
   
   /**
-  Returns a `LazyList` of the initial elements of `self`, up until the first element that
+  Returns a `List` of the initial elements of `self`, up until the first element that
   returns false for `isElement`
   */
   
-  public func prefixWhile(isElement: Element -> Bool) -> LazyList<Element> {
+  public func prefixWhile(isElement: Element -> Bool) -> List<Element> {
     switch self {
     case let .Cons(head, tail) where isElement(head):
       return head |> tail().prefixWhile(isElement)
@@ -473,11 +473,11 @@ public enum LazyList<Element> : CustomDebugStringConvertible, ArrayLiteralConver
   }
   
   /**
-  Returns a `LazyList` of `self` with the first elements that satisfy `isNotElement` 
+  Returns a `List` of `self` with the first elements that satisfy `isNotElement` 
   dropped.
   */
   
-  public func dropWhile(@noescape isNotElement: Element -> Bool) -> LazyList<Element> {
+  public func dropWhile(@noescape isNotElement: Element -> Bool) -> List<Element> {
     switch self {
     case let .Cons(head, tail) where isNotElement(head):
       return tail().dropWhile(isNotElement)

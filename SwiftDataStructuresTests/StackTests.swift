@@ -2,20 +2,20 @@ import XCTest
 import Foundation
 @testable import SwiftDataStructures
 
-internal func makeListSliceTuple<S : SequenceType>(from: S) -> (S, ContiguousListSlice<S.Generator.Element>) {
-  return (from, ContiguousListSlice(from))
+internal func makeListTuple<S : SequenceType>(from: S) -> (S, Stack<S.Generator.Element>) {
+  return (from, Stack(from))
 }
-internal func makeListSliceTuple<T>(from: [T]) -> ([T], ContiguousListSlice<T>) {
-  return (from, ContiguousListSlice(from))
+internal func makeListTuple<T>(from: [T]) -> ([T], Stack<T>) {
+  return (from, Stack(from))
 }
 
-class ContiguousListSliceTests: XCTestCase {
+class StackTests: XCTestCase {
   
   func testDebugDesciption() {
     
     let expectation = "[1, 2, 3, 4, 5]"
     
-    let reality = ContiguousListSlice([1, 2, 3, 4, 5]).debugDescription
+    let reality = Stack([1, 2, 3, 4, 5]).debugDescription
     
     XCTAssert(expectation == reality)
     
@@ -25,7 +25,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     let expectation = [2, 3, 4, 5, 6]
     
-    let reality: ContiguousListSlice = [2, 3, 4, 5, 6]
+    let reality: Stack = [2, 3, 4, 5, 6]
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -35,7 +35,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
     
   }
@@ -44,7 +44,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .map{ (ar, de) in (ar.dropFirst(), de.dropFirst()) }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
     
@@ -54,7 +54,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in (0...20).map { (ar.dropFirst($0), de.dropFirst($0)) } }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
     
@@ -64,7 +64,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .map { ($0.0.dropLast(), $0.1.dropLast()) }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
     
@@ -74,7 +74,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in (0...20).map { (ar.dropLast($0), de.dropLast($0)) } }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
   }
@@ -83,7 +83,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in (0...20).map { (ar.prefix($0), de.prefix($0)) } }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
     
@@ -93,7 +93,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in ar.indices.map { (ar.prefixUpTo($0), de.prefixUpTo($0)) } }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
     
@@ -103,7 +103,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in zip(ar.indices, de.indices).map { (a, d) in (ar.prefixUpTo(a), de.prefixUpTo(d)) } }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
     
@@ -113,7 +113,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in
         ar.indices
           .dropLast()
@@ -127,7 +127,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in
         zip(ar.indices, de.indices)
           .dropLast()
@@ -141,7 +141,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in (0...20).map { (ar.suffix($0), de.suffix($0)) } }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
   }
@@ -150,7 +150,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in ar.indices.map { (ar.suffixFrom($0), de.suffixFrom($0)) } }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
   }
@@ -159,7 +159,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in zip(ar.indices, de.indices).map {(a, d) in (ar.suffixFrom(a), de.suffixFrom(d))}}
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
   }
@@ -176,7 +176,7 @@ class ContiguousListSliceTests: XCTestCase {
     let arrays = (0...10).map { (a: Int) -> [Int] in
       (0..<a).map { _ in Int(arc4random_uniform(100)) }
     }
-    let deques = arrays.map{ContiguousListSlice($0)}
+    let deques = arrays.map{Stack($0)}
     for (array, deque) in zip(arrays, deques) {
       for maxSplit in maxSplits {
         for splitFunc in splitFuncs {
@@ -196,7 +196,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         ar.indices
           .forEach { i in
@@ -213,7 +213,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         zip(ar.indices, de.indices)
           .forEach { (ia, id) in
@@ -229,7 +229,7 @@ class ContiguousListSliceTests: XCTestCase {
   func testCount() {
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         XCTAssert(ar.count == de.count)
     }
@@ -238,7 +238,7 @@ class ContiguousListSliceTests: XCTestCase {
   func testFirst() {
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         XCTAssert(ar.first == de.first)
     }
@@ -247,7 +247,7 @@ class ContiguousListSliceTests: XCTestCase {
   func testLast() {
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         XCTAssert(ar.last == de.last)
     }
@@ -257,7 +257,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         XCTAssert(ar.isEmpty == de.isEmpty)
     }
@@ -267,7 +267,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (var ar, var de) in
         while let deqEl = de.popLast() {
           XCTAssert(ar.popLast() == deqEl)
@@ -280,7 +280,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (var ar, var de) in
         while let deqEl = de.popFirst() {
           XCTAssert(ar.popFirst() == deqEl)
@@ -292,7 +292,7 @@ class ContiguousListSliceTests: XCTestCase {
   func testReverse() {
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .map { (ar, de) in (ar.reverse(), de.reverse()) }
       .forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
     
@@ -302,7 +302,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in
         ar.indices.flatMap { start in
           (start...ar.endIndex).map { end in
@@ -316,8 +316,8 @@ class ContiguousListSliceTests: XCTestCase {
     
     let tuples = (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
-    
+      .map(makeListTuple)
+      
     let toTest = tuples
       .flatMap { (ar, de) in
         zip(ar.indices, de.indices).flatMap { (aStart, dStart) in
@@ -325,10 +325,10 @@ class ContiguousListSliceTests: XCTestCase {
             (aStart...ar.endIndex),
             (dStart...de.endIndex)
             ).map { (aEnd, dEnd) in
-              (ar[aStart..<aEnd], de[dStart..<dEnd])
+            (ar[aStart..<aEnd], de[dStart..<dEnd])
           }
         }
-    }
+      }
     
     for (ar, de) in toTest {
       XCTAssert(ar.elementsEqual(de))
@@ -339,15 +339,15 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         ar.indices.forEach { start in
           (start...ar.endIndex).forEach { end in
             var array: [Int] = ar
-            var list: ContiguousListSlice<Int> = de
+            var list: Stack<Int> = de
             let replacement = randomArray(end - start)
             array[start..<end] = ArraySlice(replacement)
-            list[start..<end] = ContiguousListSlice(replacement)
+            list[start..<end] = StackSlice(replacement)
             XCTAssert(array.elementsEqual(list))
           }
         }
@@ -358,7 +358,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     let tuples = (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
     
     tuples
       .flatMap { (ar, de) in
@@ -368,10 +368,10 @@ class ContiguousListSliceTests: XCTestCase {
             (dStart...de.endIndex)
             ).forEach { (aEnd, dEnd) in
               var array: [Int] = ar
-              var list: ContiguousListSlice<Int> = de
+              var list: Stack<Int> = de
               let replacement = randomArray(aEnd - aStart)
               array[aStart..<aEnd] = ArraySlice(replacement)
-              list[dStart..<dEnd] = ContiguousListSlice(replacement)
+              list[dStart..<dEnd] = StackSlice(replacement)
               XCTAssert(array.elementsEqual(list))
           }
         }
@@ -381,7 +381,7 @@ class ContiguousListSliceTests: XCTestCase {
   
   func testEmptyInit() {
     
-    XCTAssert(ContiguousListSlice<Int>().isEmpty)
+    XCTAssert(Stack<Int>().isEmpty)
     
   }
   
@@ -389,9 +389,9 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in
-        (0...10).map { (n: Int) -> ([Int], ContiguousListSlice<Int>) in
+        (0...10).map { (n: Int) -> ([Int], Stack<Int>) in
           var (array, list) = (ar, de)
           for _ in 0..<n {
             let x = Int(arc4random_uniform(UInt32.max))
@@ -407,9 +407,9 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .flatMap { (ar, de) in
-        (0...10).map { (n: Int) -> ([Int], ContiguousListSlice<Int>) in
+        (0...10).map { (n: Int) -> ([Int], Stack<Int>) in
           var (array, list) = (ar, de)
           for _ in 0..<n {
             let x = randomArray(Int(arc4random_uniform(8)))
@@ -425,11 +425,11 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
-      .flatMap { (ar: [Int], de: ContiguousListSlice<Int>) in
-        (0...ar.endIndex).map { (i: Int) -> ([Int], ContiguousListSlice<Int>) in
+      .map(makeListTuple)
+      .flatMap { (ar: [Int], de: Stack<Int>) in
+        (0...ar.endIndex).map { (i: Int) -> ([Int], Stack<Int>) in
           var array: [Int] = ar
-          var list: ContiguousListSlice<Int> = de
+          var list: Stack<Int> = de
           let x = Int(arc4random_uniform(UInt32.max))
           array.insert(x, atIndex: i)
           list.insert(x, atIndex: i)
@@ -442,18 +442,18 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
-      .flatMap { (ar: [Int], de: ContiguousListSlice<Int>) in
+      .map(makeListTuple)
+      .flatMap { (ar: [Int], de: Stack<Int>) in
         zip(
           (0...ar.endIndex),
           (de.startIndex...de.endIndex)
-          ).map { (i: Int, d: ContiguousListIndex) -> ([Int], ContiguousListSlice<Int>) in
-            var array: [Int] = ar
-            var list: ContiguousListSlice<Int> = de
-            let x = Int(arc4random_uniform(UInt32.max))
-            array.insert(x, atIndex: i)
-            list.insert(x, atIndex: d)
-            return (array, list)
+          ).map { (i: Int, d: StackIndex) -> ([Int], Stack<Int>) in
+          var array: [Int] = ar
+          var list: Stack<Int> = de
+          let x = Int(arc4random_uniform(UInt32.max))
+          array.insert(x, atIndex: i)
+          list.insert(x, atIndex: d)
+          return (array, list)
         }
       }.forEach { (ar, de) in XCTAssert(ar.elementsEqual(de)) }
   }
@@ -462,9 +462,9 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
-      .flatMap { (ar: [Int], de: ContiguousListSlice<Int>) in
-        (0...10).map { (n: Int) -> ([Int], ContiguousListSlice<Int>) in
+      .map(makeListTuple)
+      .flatMap { (ar: [Int], de: Stack<Int>) in
+        (0...10).map { (n: Int) -> ([Int], Stack<Int>) in
           var (array, list) = (ar, de)
           for _ in 0..<n {
             let x = Int(arc4random_uniform(UInt32.max))
@@ -473,7 +473,7 @@ class ContiguousListSliceTests: XCTestCase {
           }
           return (array, list)
         }
-      }.forEach { (ar: [Int], de: ContiguousListSlice<Int>) in
+      }.forEach { (ar: [Int], de: Stack<Int>) in
         XCTAssert(ar.elementsEqual(de))
     }
   }
@@ -482,8 +482,8 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
-      .flatMap { (ar: [Int], de: ContiguousListSlice<Int>) in
+      .map(makeListTuple)
+      .flatMap { (ar: [Int], de: Stack<Int>) in
         (0...10).map { i in
           var (array, list) = (ar, de)
           let x = randomArray(i)
@@ -491,13 +491,13 @@ class ContiguousListSliceTests: XCTestCase {
           list.prextend(x)
           return (array, list)
         }
-      }.forEach { (ar: [Int], de: ContiguousListSlice<Int>) in
+      }.forEach { (ar: [Int], de: Stack<Int>) in
         XCTAssert(ar.elementsEqual(de))
     }
   }
   
   func testRemoveAll() {
-    var list = ContiguousListSlice(randomArray(8))
+    var list = Stack(randomArray(8))
     list.removeAll()
     XCTAssert(list.isEmpty)
   }
@@ -505,7 +505,7 @@ class ContiguousListSliceTests: XCTestCase {
   func testRemove() {
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         ar.indices
           .forEach { i in
@@ -519,7 +519,7 @@ class ContiguousListSliceTests: XCTestCase {
   func testRemoveNative() {
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         zip(ar.indices, de.indices)
           .forEach { (i, d) in
@@ -534,7 +534,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (var ar, var de) in
         while !de.isEmpty {
           XCTAssert(ar.removeFirst() == de.removeFirst())
@@ -547,7 +547,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (var ar, var de) in
         while !de.isEmpty {
           XCTAssert(ar.removeLast() == de.removeLast())
@@ -560,9 +560,9 @@ class ContiguousListSliceTests: XCTestCase {
     
     (1...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
-      .flatMap { (ar: [Int], de: ContiguousListSlice<Int>) in
-        (0...ar.endIndex).map { (n: Int) -> ([Int], ContiguousListSlice<Int>) in
+      .map(makeListTuple)
+      .flatMap { (ar: [Int], de: Stack<Int>) in
+        (0...ar.endIndex).map { (n: Int) -> ([Int], Stack<Int>) in
           var (array, list) = (ar, de)
           array.removeFirst(n)
           list.removeFirst(n)
@@ -575,9 +575,9 @@ class ContiguousListSliceTests: XCTestCase {
     
     (1...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
-      .flatMap { (ar: [Int], de: ContiguousListSlice<Int>) in
-        (0...ar.endIndex).map { (n: Int) -> ([Int], ContiguousListSlice<Int>) in
+      .map(makeListTuple)
+      .flatMap { (ar: [Int], de: Stack<Int>) in
+        (0...ar.endIndex).map { (n: Int) -> ([Int], Stack<Int>) in
           var (array, list) = (ar, de)
           array.removeRange((ar.endIndex - n)..<ar.endIndex)
           list.removeLast(n)
@@ -591,12 +591,12 @@ class ContiguousListSliceTests: XCTestCase {
   func testRemoveRange() {
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         ar.indices.forEach { start in
           (start...ar.endIndex).forEach { end in
             var array: [Int] = ar
-            var list: ContiguousListSlice<Int> = de
+            var list: Stack<Int> = de
             array.removeRange(start..<end)
             list.removeRange(start..<end)
             XCTAssert(array.elementsEqual(list), array.debugDescription + " != " + list.debugDescription)
@@ -606,10 +606,10 @@ class ContiguousListSliceTests: XCTestCase {
   }
   
   func testRemoveRangeNative() {
-    
+
     let tuples = (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
     
     tuples
       .flatMap { (ar, de) in
@@ -619,7 +619,7 @@ class ContiguousListSliceTests: XCTestCase {
             (dStart...de.endIndex)
             ).forEach { (aEnd, dEnd) in
               var array: [Int] = ar
-              var list: ContiguousListSlice<Int> = de
+              var list: Stack<Int> = de
               array.removeRange(aStart..<aEnd)
               list.removeRange(dStart..<dEnd)
               XCTAssert(array.elementsEqual(list))
@@ -631,12 +631,12 @@ class ContiguousListSliceTests: XCTestCase {
   func testReplaceRange() {
     (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
       .forEach { (ar, de) in
         ar.indices.forEach { start in
           (start...ar.endIndex).forEach { end in
             var array: [Int] = ar
-            var list: ContiguousListSlice<Int> = de
+            var list: Stack<Int> = de
             let replacement = randomArray(Int(arc4random_uniform(20)))
             array.replaceRange(start..<end, with: replacement)
             list.replaceRange(start..<end, with: replacement)
@@ -650,7 +650,7 @@ class ContiguousListSliceTests: XCTestCase {
     
     let tuples = (0...10)
       .map(randomArray)
-      .map(makeListSliceTuple)
+      .map(makeListTuple)
     
     tuples
       .flatMap { (ar, de) in
@@ -660,7 +660,7 @@ class ContiguousListSliceTests: XCTestCase {
             (dStart...de.endIndex)
             ).forEach { (aEnd, dEnd) in
               var array: [Int] = ar
-              var list: ContiguousListSlice<Int> = de
+              var list: Stack<Int> = de
               let replacement = randomArray(Int(arc4random_uniform(20)))
               array.replaceRange(aStart..<aEnd, with: replacement)
               list.replaceRange(dStart..<dEnd, with: replacement)
@@ -672,8 +672,8 @@ class ContiguousListSliceTests: XCTestCase {
   }
   
   func testReserveCapacity() {
-    var d = ContiguousListSlice<Int>()
+    var d = Stack<Int>()
     d.reserveCapacity(20)
   }
-  
+
 }

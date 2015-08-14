@@ -2,14 +2,14 @@ import XCTest
 import Foundation
 @testable import SwiftDataStructures
 
-class LazyListTests: XCTestCase {
+class ListTests: XCTestCase {
   
   func testDebugDescription() {
     
     let expectation = "[1, 2, 3]"
     
     let reality =
-    LazyList.Cons(1, {LazyList.Cons(2, {LazyList.Cons(3, {LazyList.Nil})})})
+    List.Cons(1, {List.Cons(2, {List.Cons(3, {List.Nil})})})
       .debugDescription
     
     XCTAssert(expectation == reality)
@@ -18,9 +18,9 @@ class LazyListTests: XCTestCase {
   
   func testOperator() {
     
-    let expectation = LazyList.Cons(1, {LazyList.Cons(2, {LazyList.Cons(3, {LazyList.Nil})})})
+    let expectation = List.Cons(1, {List.Cons(2, {List.Cons(3, {List.Nil})})})
     
-    let reality: LazyList = 1 |> 2 |> 3 |> .Nil
+    let reality: List = 1 |> 2 |> 3 |> .Nil
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -28,10 +28,10 @@ class LazyListTests: XCTestCase {
   
   func testSeqInit() {
     
-    let expectation = LazyList.Cons(1, {LazyList.Cons(2, {LazyList.Cons(3, {LazyList.Nil})})})
+    let expectation = List.Cons(1, {List.Cons(2, {List.Cons(3, {List.Nil})})})
 
     
-    let reality = LazyList([1, 2, 3])
+    let reality = List([1, 2, 3])
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -39,9 +39,9 @@ class LazyListTests: XCTestCase {
   
   func testEmptySeqInit() {
     
-    let expectation: LazyList<Int> = .Nil
+    let expectation: List<Int> = .Nil
     
-    let reality = LazyList<Int>([])
+    let reality = List<Int>([])
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -49,9 +49,9 @@ class LazyListTests: XCTestCase {
   
   func testArrayLiteralConvertible() {
     
-    let expectation = LazyList.Cons(1, {LazyList.Cons(2, {LazyList.Cons(3, {LazyList.Nil})})})
+    let expectation = List.Cons(1, {List.Cons(2, {List.Cons(3, {List.Nil})})})
     
-    let reality: LazyList = [1, 2, 3]
+    let reality: List = [1, 2, 3]
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -59,9 +59,9 @@ class LazyListTests: XCTestCase {
   
   func testEmptyArrayLiteralConvertible() {
     
-    let expectation: LazyList<Int> = .Nil
+    let expectation: List<Int> = .Nil
     
-    let reality: LazyList<Int> = []
+    let reality: List<Int> = []
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -71,7 +71,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [1, 2, 3]
     
-    let reality = Array(LazyList([1, 2, 3]))
+    let reality = Array(List([1, 2, 3]))
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -81,7 +81,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [1, 2, 3, 0]
     
-    let reality = LazyList([1, 2, 3]).appended(0)
+    let reality = List([1, 2, 3]).appended(0)
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -93,7 +93,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = Array(seq)
     
-    let reality = LazyList(seq)
+    let reality = List(seq)
     
     XCTAssert(expectation.count == reality.count)
     
@@ -104,7 +104,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [1, 2, 3, 0, 1]
     
-    let reality = LazyList([1, 2, 3]).extended(Array([0, 1]))
+    let reality = List([1, 2, 3]).extended(Array([0, 1]))
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -114,7 +114,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [3, 4, 5]
     
-    let reality = LazyList([1, 2, 3, 4, 5]).dropFirst(2)
+    let reality = List([1, 2, 3, 4, 5]).dropFirst(2)
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -124,7 +124,7 @@ class LazyListTests: XCTestCase {
     
     let expectation: [Int] = []
     
-    let reality = LazyList([1, 2, 3, 4, 5]).dropFirst(5)
+    let reality = List([1, 2, 3, 4, 5]).dropFirst(5)
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -136,7 +136,7 @@ class LazyListTests: XCTestCase {
 
     let expectation = Array(seq).dropLast()
     
-    let reality = LazyList(seq).dropLast()
+    let reality = List(seq).dropLast()
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -152,7 +152,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = Array(seq).dropLast(drop)
     
-    let reality = LazyList(seq).dropLast(drop)
+    let reality = List(seq).dropLast(drop)
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -168,7 +168,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = Array(seq).suffix(drop)
     
-    let reality = LazyList(seq).suffix(drop)
+    let reality = List(seq).suffix(drop)
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -185,7 +185,7 @@ class LazyListTests: XCTestCase {
     let arrays = (0...10).map { (a: Int) -> [Int] in
       (0..<a).map { _ in Int(arc4random_uniform(100)) }
     }
-    let lists = arrays.map{LazyList($0)}
+    let lists = arrays.map{List($0)}
     for (array, list) in zip(arrays, lists) {
       for maxSplit in maxSplits {
         for splitFunc in splitFuncs {
@@ -205,7 +205,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [1, 2, 3]
     
-    let reality = LazyList([1, 2, 3, 4, 5]).prefix(3)
+    let reality = List([1, 2, 3, 4, 5]).prefix(3)
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -215,7 +215,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [1, 2, 3, 4, 5]
     
-    let reality = LazyList([1, 2, 3, 4, 5]).prefix(7)
+    let reality = List([1, 2, 3, 4, 5]).prefix(7)
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -223,9 +223,9 @@ class LazyListTests: XCTestCase {
   
   func testEmpty() {
     
-    let empty: LazyList<Int> = []
+    let empty: List<Int> = []
     
-    let nonEmpty: LazyList = [1, 2, 3]
+    let nonEmpty: List = [1, 2, 3]
     
     XCTAssert(empty.isEmpty)
     XCTAssert(!nonEmpty.isEmpty)
@@ -236,7 +236,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = 1
     
-    let reality = LazyList([1, 2, 3]).first
+    let reality = List([1, 2, 3]).first
     
     XCTAssert(expectation == reality)
     
@@ -246,7 +246,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = 3
     
-    let reality = LazyList([1, 2, 3]).last
+    let reality = List([1, 2, 3]).last
     
     XCTAssert(expectation == reality)
     
@@ -256,7 +256,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [2, 4, 6]
     
-    let reality = LazyList([1, 2, 3]).map { $0 * 2 }
+    let reality = List([1, 2, 3]).map { $0 * 2 }
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -266,7 +266,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [2, 3, 4, 5, 6, 7]
     
-    let before: LazyList = [1, 2, 3]
+    let before: List = [1, 2, 3]
     
     let reality = before.flatMap { Array([$0 * 2, $0 * 2 + 1]) }
     
@@ -274,11 +274,11 @@ class LazyListTests: XCTestCase {
     
   }
   
-  func testFlatMapLazyList() {
+  func testFlatMapList() {
     
     let expectation = [2, 3, 4, 5, 6, 7]
     
-    let reality = LazyList([1, 2, 3]).flatMap { LazyList([$0 * 2, $0 * 2 + 1]) }
+    let reality = List([1, 2, 3]).flatMap { List([$0 * 2, $0 * 2 + 1]) }
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -288,7 +288,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [1, 3]
     
-    let reality = LazyList([1, 2, 3]).flatMap { $0 % 2 == 0 ? nil : $0 }
+    let reality = List([1, 2, 3]).flatMap { $0 % 2 == 0 ? nil : $0 }
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -298,7 +298,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [2, 3]
     
-    let reality = LazyList([1, 2, 3]).dropFirst()
+    let reality = List([1, 2, 3]).dropFirst()
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -308,7 +308,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [2, 3]
     
-    var reality = LazyList([1, 2, 3])
+    var reality = List([1, 2, 3])
     
     XCTAssert(reality.removeFirst() == 1)
     
@@ -320,13 +320,13 @@ class LazyListTests: XCTestCase {
     
     let expectation = [2, 3]
     
-    var reality = LazyList([1, 2, 3])
+    var reality = List([1, 2, 3])
     
     XCTAssert(reality.popFirst() == 1)
     
     XCTAssert(expectation.elementsEqual(reality))
     
-    var empty: LazyList<Int> = .Nil
+    var empty: List<Int> = .Nil
     
     XCTAssert(empty.popFirst() == nil)
     
@@ -336,7 +336,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [1, 2, 3, 4, 5, 6]
     
-    let reality = LazyList([3, 4, 5, 6]).prextended([1, 2])
+    let reality = List([3, 4, 5, 6]).prextended([1, 2])
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -344,7 +344,7 @@ class LazyListTests: XCTestCase {
   
   func testScan() {
     
-    let nums: LazyList = [1, 2, 3]
+    let nums: List = [1, 2, 3]
     let reality = nums.scan(0, combine: +)
     let expectation = [1, 3, 6]
     
@@ -355,7 +355,7 @@ class LazyListTests: XCTestCase {
   
   func testScan1() {
     
-    let nums: LazyList = [1, 2, 3]
+    let nums: List = [1, 2, 3]
     let reality = nums.scan(+)
     let expectation = [3, 6]
     
@@ -365,9 +365,9 @@ class LazyListTests: XCTestCase {
   
   func testReduce() {
     
-    XCTAssert(LazyList(1...5).reduce(0, combine: +) == 15)
+    XCTAssert(List(1...5).reduce(0, combine: +) == 15)
     
-    XCTAssert(LazyList(1...5).reduce(+) == 15)
+    XCTAssert(List(1...5).reduce(+) == 15)
     
   }
   
@@ -375,7 +375,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = 1...10
     
-    let reality = LazyList(1...100).prefixWhile { $0 <= 10 }
+    let reality = List(1...100).prefixWhile { $0 <= 10 }
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -385,7 +385,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = 10...20
     
-    let reality = LazyList(1...20).dropWhile { $0 < 10 }
+    let reality = List(1...20).dropWhile { $0 < 10 }
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -395,7 +395,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [2, 4, 6, 8]
     
-    let reality = LazyList(1..<9).filter { $0 % 2 == 0 }
+    let reality = List(1..<9).filter { $0 % 2 == 0 }
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -405,7 +405,7 @@ class LazyListTests: XCTestCase {
     
     let expectation = [5, 4, 3, 2, 1]
     
-    let reality = LazyList(1...5).reverse()
+    let reality = List(1...5).reverse()
     
     XCTAssert(expectation.elementsEqual(reality))
   }

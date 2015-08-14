@@ -1,86 +1,68 @@
 /**
-The [cons](https://en.wikipedia.org/wiki/Cons) operator.
-
-This operator copies the rhs entirely, therefore building lists using it is quadratic.
-
-- Complexity: O(`count`)
-*/
-
-public func |> <T>(lhs: T, var rhs: ContiguousListSlice<T>) -> ContiguousListSlice<T> {
-  rhs.prepend(lhs)
-  return rhs
-}
-
-/**
-A `ContiguousListSlice` is a list-like data structure, implemented via a reversed
-`ArraySlice`. It has performance characteristics similar to an array, except that
+A `Stack` is a list-like data structure, implemented via a reversed
+`ContiguousArray`. It has performance characteristics similar to an array, except that
 operations on the *beginning* generally have complexity of amortized O(1), whereas
 operations on the *end* are usually O(`count`).
-
-Because an `ArraySlice` presents a view onto the storage of some larger array even after
-the original array's lifetime ends, storing the slice may prolong the lifetime of elements
-that are no longer accessible, which can manifest as apparent memory and object leakage.
-To prevent this effect, use `ContiguousListSlice` only for transient computation.
 
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
 */
-
-public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, Indexable, SequenceType, CollectionType, RangeReplaceableCollectionType  {
-  internal var contents: ArraySlice<Element>
-
+public struct Stack<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, Indexable, SequenceType, CollectionType, RangeReplaceableCollectionType {
+  private var contents: ContiguousArray<Element>
+  
   // MARK: Initializers
   
   /// Create an instance containing `elements`.
-  public init(arrayLiteral: Element...) {
-    contents = ArraySlice(arrayLiteral.reverse())
+  public init(arrayLiteral elements: Element...) {
+    contents = ContiguousArray(elements.reverse())
   }
   /// Construct from an array with elements of type `Element`.
   public init(_ array: [Element]) {
-    contents = ArraySlice(array.reverse())
+    contents = ContiguousArray(array.reverse())
   }
   /// Construct from an arbitrary sequence with elements of type `Element`.
   public init<S: SequenceType where S.Generator.Element == Element>(_ seq: S) {
-    contents = ArraySlice(seq.reverse())
+    contents = ContiguousArray(seq.reverse())
   }
-  /// Constructs an empty `ContiguousListSlice`
+  /// Constructs an empty `Stack`
   public init() {
     contents = []
   }
-  internal init(alreadyReversed: ArraySlice<Element>) {
+  internal init(alreadyReversed: ContiguousArray<Element>) {
     contents = alreadyReversed
   }
+
   // MARK: Instance Properties
-  
+
   /// A textual representation of `self`, suitable for debugging.
   public var debugDescription: String {
     return "[" + ", ".join(map {String(reflecting: $0)}) + "]"
   }
 
   /**
-  The `ContiguousListSlice`'s "past the end" position.
+  The `Stack`'s "past the end" position.
   
   `endIndex` is not a valid argument to `subscript`, and is always reachable from
   `startIndex` by zero or more applications of `successor()`.
   */
-  public var endIndex: ContiguousListIndex {
-    return ContiguousListIndex(contents.startIndex.predecessor())
+  public var endIndex: StackIndex {
+    return StackIndex(contents.startIndex.predecessor())
   }
   /**
-  The position of the first element in a non-empty `ContiguousListSlice`.
+  The position of the first element in a non-empty `Stack`.
   
-  In an empty `ContiguousListSlice`, `startIndex == endIndex`.
+  In an empty `Stack`, `startIndex == endIndex`.
   */
-  public var startIndex: ContiguousListIndex {
-    return ContiguousListIndex(contents.endIndex.predecessor())
+  public var startIndex: StackIndex {
+    return StackIndex(contents.endIndex.predecessor())
   }
-  public subscript(idx: ContiguousListIndex) -> Element {
+  public subscript(idx: StackIndex) -> Element {
     get { return contents[idx.val] }
     set { contents[idx.val] = newValue }
   }
   
-  public typealias SubSequence = ContiguousListSlice<Element>
-  
+  public typealias SubSequence = StackSlice<Element>
+
   /**
   The number of elements in `self`
   
@@ -107,53 +89,51 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   public var isEmpty: Bool {
     return contents.isEmpty
   }
-  
   // MARK: Instance Methods
-  
   /**
-  Returns a `ContiguousListSlice` containing all but the first element.
-  
-  - Complexity: O(1)
-  */
-  public func dropFirst() -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.dropLast())
-  }
-  /**
-  Returns a `ContiguousListSlice` containing all but the last element.
+  Returns a `StackSlice` containing all but the first element.
   
   - Complexity: O(1)
   */
-  public func dropLast() -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.dropFirst())
+  public func dropFirst() -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.dropLast())
   }
   /**
-  Returns a `ContiguousListSlice` containing all but the first n elements.
+  Returns a `StackSlice` containing all but the last element.
+  
+  - Complexity: O(1)
+  */
+  public func dropLast() -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.dropFirst())
+  }
+  /**
+  Returns a `StackSlice` containing all but the first n elements.
   
   - Requires: `n >= 0`
   - Complexity: O(1)
   */
-  public func dropFirst(n: Int) -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.dropLast(n))
+  public func dropFirst(n: Int) -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.dropLast(n))
   }
   /**
-  Returns a `ContiguousListSlice` containing all but the last n elements.
+  Returns a `StackSlice` containing all but the last n elements.
   
   - Requires: `n >= 0`
   - Complexity: O(1)
   */
-  public func dropLast(n: Int) -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.dropFirst(n))
+  public func dropLast(n: Int) -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.dropFirst(n))
   }
   /**
-  Return a `IndexingGenerator` over the elements of this `ContiguousList`.
+  Return a `IndexingGenerator` over the elements of this `Stack`.
   
   - Complexity: O(1)
   */
-  public func generate() -> IndexingGenerator<ContiguousListSlice> {
+  public func generate() -> IndexingGenerator<Stack> {
     return IndexingGenerator(self)
   }
   /**
-  Returns a `ContiguousListSlice`, up to `maxLength` in length, containing the initial
+  Returns a `StackSlice`, up to `maxLength` in length, containing the initial
   elements of `self`.
   
   If maxLength exceeds `self.count`, the result contains all the elements of `self`.
@@ -161,11 +141,11 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   - Requires: `maxLength >= 0`
   - Complexity: O(1)
   */
-  public func prefix(maxLength: Int) -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.suffix(maxLength))
+  public func prefix(maxLength: Int) -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.suffix(maxLength))
   }
   /**
-  Returns a `ContiguousListSlice`, up to `maxLength` in length, containing the final
+  Returns a `StackSlice`, up to `maxLength` in length, containing the final
   elements of `self`.
   
   If `maxLength` exceeds `self.count`, the result contains all the elements of `self`.
@@ -173,17 +153,17 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   - Requires: maxLength >= 0
   - Complexity: O(1)
   */
-  public func suffix(maxLength: Int) -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.prefix(maxLength))
+  public func suffix(maxLength: Int) -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.prefix(maxLength))
   }
   /**
-  Returns the maximal `ContiguousListSlice`s of `self`, in order, that don't contain
+  Returns the maximal `StackSlice`s of `self`, in order, that don't contain
   elements satisfying the predicate `isSeparator`.
   
-  - Parameter maxSplits: The maximum number of `ContiguousListSlice`s to return, minus 1.
-  If `maxSplit` + 1 `ContiguousListSlice`s are returned, the last one is a suffix of
+  - Parameter maxSplits: The maximum number of `StackSlice`s to return, minus 1.
+  If `maxSplit` + 1 `StackSlice`s are returned, the last one is a suffix of
   `self` containing the remaining elements. The default value is `Int.max`.
-  - Parameter allowEmptySubsequences: If `true`, an empty `ContiguousListSlice` is
+  - Parameter allowEmptySubsequences: If `true`, an empty `StackSlice` is
   produced in the result for each pair of consecutive elements satisfying `isSeparator`.
   The default value is false.
   - Requires: maxSplit >= 0
@@ -192,8 +172,8 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
     maxSplit: Int,
     allowEmptySlices: Bool,
     @noescape isSeparator: Element -> Bool
-    ) -> [ContiguousListSlice<Element>] {
-      var result: [ContiguousListSlice<Element>] = []
+    ) -> [StackSlice<Element>] {
+      var result: [StackSlice<Element>] = []
       var i = startIndex
       for j in indices where isSeparator(self[i]) {
         let slice = self[i..<j]
@@ -216,14 +196,13 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
     return contents.underestimateCount()
   }
   /**
-  Returns a `ArraySlice` containing the elements in `self` in reverse order.
+  Returns a `ContiguousArray` containing the elements in `self` in reverse order.
   
   - Complexity: O(1)
   */
-  public func reverse() -> ArraySlice<Element> {
+  public func reverse() -> ContiguousArray<Element> {
     return contents
   }
-
 
   /**
   If `!self.isEmpty`, remove the first element and return it, otherwise return `nil`.
@@ -246,7 +225,7 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   
   - Complexity: O(1)
   */
-  public func prefixThrough(i: ContiguousListIndex) -> ContiguousListSlice<Element> {
+  public func prefixThrough(i: StackIndex) -> StackSlice<Element> {
     return prefixUpTo(i.successor())
   }
   /**
@@ -254,15 +233,15 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   
   - Complexity: O(1)
   */
-  public func prefixUpTo(i: ContiguousListIndex) -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.suffixFrom(i.val.successor()))
+  public func prefixUpTo(i: StackIndex) -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.suffixFrom(i.val.successor()))
   }
   /**
   Returns `prefixUpTo(position.successor())`
   
   - Complexity: O(1)
   */
-  public func prefixThrough(i: Int) -> ContiguousListSlice<Element> {
+  public func prefixThrough(i: Int) -> StackSlice<Element> {
     return prefixUpTo(i.successor())
   }
   /**
@@ -270,8 +249,8 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   
   - Complexity: O(1)
   */
-  public func prefixUpTo(i: Int) -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.suffix(i))
+  public func prefixUpTo(i: Int) -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.suffix(i))
   }
   /**
   Remove the element at `startIndex` and return it.
@@ -296,22 +275,22 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   
   - Complexity: O(1)
   */
-  public func suffixFrom(i: ContiguousListIndex) -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.prefixThrough(i.val))
+  public func suffixFrom(i: StackIndex) -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.prefixThrough(i.val))
   }
   /**
   Returns `self[start..<endIndex]`
   
   - Complexity: O(1)
   */
-  public func suffixFrom(i: Int) -> ContiguousListSlice<Element> {
-    return ContiguousListSlice(alreadyReversed: contents.prefixUpTo(contents.endIndex - i))
+  public func suffixFrom(i: Int) -> StackSlice<Element> {
+    return StackSlice(alreadyReversed: contents.prefixUpTo(contents.endIndex - i))
   }
-  public subscript(idxs: Range<ContiguousListIndex>) -> ContiguousListSlice<Element> {
+  public subscript(idxs: Range<StackIndex>) -> StackSlice<Element> {
     get {
       let start = idxs.endIndex.val.successor()
       let end   = idxs.startIndex.val.successor()
-      return ContiguousListSlice(alreadyReversed: contents[start..<end])
+      return StackSlice(alreadyReversed: contents[start..<end])
     } set {
       let start = idxs.endIndex.val.successor()
       let end   = idxs.startIndex.val.successor()
@@ -322,11 +301,11 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
     get { return contents[contents.endIndex.predecessor() - idx] }
     set { contents[contents.endIndex.predecessor() - idx] = newValue }
   }
-  public subscript(idxs: Range<Int>) -> ContiguousListSlice<Element> {
+  public subscript(idxs: Range<Int>) -> StackSlice<Element> {
     get {
       let str = contents.endIndex - idxs.endIndex
       let end = contents.endIndex - idxs.startIndex
-      return ContiguousListSlice(alreadyReversed: contents[str..<end] )
+      return StackSlice(alreadyReversed: contents[str..<end] )
     } set {
       let str = contents.endIndex - idxs.endIndex
       let end = contents.endIndex - idxs.startIndex
@@ -384,7 +363,7 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   - Requires: `i <= count`.
   - Complexity: O(`count`).
   */
-  public mutating func insert(newElement: Element, atIndex i: ContiguousListIndex) {
+  public mutating func insert(newElement: Element, atIndex i: StackIndex) {
     contents.insert(newElement, atIndex: i.val.successor())
   }
   /**
@@ -412,7 +391,7 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   
   - Complexity: O(`count`).
   */
-  public mutating func removeAtIndex(index: ContiguousListIndex) -> Element {
+  public mutating func removeAtIndex(index: StackIndex) -> Element {
     return contents.removeAtIndex(index.val)
   }
   /**
@@ -450,9 +429,9 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   
   - Complexity: O(`self.count`).
   */
-  public mutating func removeRange(subRange: Range<ContiguousListIndex>) {
+  public mutating func removeRange(subRange: Range<StackIndex>) {
     let str = subRange.endIndex.val.successor()
-    let end   = subRange.startIndex.val.successor()
+    let end = subRange.startIndex.val.successor()
     contents.removeRange(str..<end)
   }
   /**
@@ -477,7 +456,7 @@ public struct ContiguousListSlice<Element> : CustomDebugStringConvertible, Array
   */
   public mutating func replaceRange<
     C : CollectionType where C.Generator.Element == Element
-    >(subRange: Range<ContiguousListIndex>, with newElements: C) {
+    >(subRange: Range<StackIndex>, with newElements: C) {
       let str = subRange.endIndex.val.successor()
       let end = subRange.startIndex.val.successor()
       contents.replaceRange((str..<end), with: newElements.reverse())

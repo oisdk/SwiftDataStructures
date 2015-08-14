@@ -2,17 +2,17 @@ import XCTest
 import Foundation
 @testable import SwiftDataStructures
 
-class ContiguousListIndexTests: XCTestCase {
+class StackIndexTests: XCTestCase {
   
   func testIndex() {
     
-    let x = ContiguousListIndex(Int(arc4random_uniform(10000)))
+    let x = StackIndex(Int(arc4random_uniform(10000)))
         
     XCTAssert(x.distanceTo(x.successor()) == 1)
     
     XCTAssert(x.distanceTo(x.predecessor()) == -1)
     
-    let y = ContiguousListIndex(Int(arc4random_uniform(10000)))
+    let y = StackIndex(Int(arc4random_uniform(10000)))
     
     XCTAssert(x.advancedBy(x.distanceTo(y)) == y)
     

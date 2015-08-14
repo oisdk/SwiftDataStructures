@@ -4,7 +4,7 @@ SwiftDataStructures is a framework of commonly-used data structures for Swift. D
 
 Included:
 
-## ContiguousDeque ##
+## Deque ##
 
 A [Deque](https://en.wikipedia.org/wiki/Double-ended_queue) is a data structure comprised
 of two queues, with the first queue beginning at the start of the Deque, and the second
@@ -25,9 +25,9 @@ for O(*1*) indexing.
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
 
-## ContiguousList ##
+## Stack ##
 
-A `ContiguousList` is a list-like data structure, implemented via a reversed
+A `Stack` is a list-like data structure, implemented via a reversed
 `ContiguousArray`. It has performance characteristics similar to an array, except that
 operations on the *beginning* generally have complexity of amortized O(1), whereas
 operations on the *end* are usually O(`count`).
@@ -35,14 +35,14 @@ operations on the *end* are usually O(`count`).
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
 
-## LazyList ##
+## List ##
 
 A singly-linked, recursive list. Head-tail decomposition can be accomplished with a
 `switch` statement:
 
 ```swift
-extension LazyList {
-  public func map<T>(f: Element -> T) -> LazyList<T> {
+extension List {
+  public func map<T>(f: Element -> T) -> List<T> {
     switch self {
     case .Nil: return .Nil
     case let .Cons(x, xs): return f(x) |> xs().map(f)

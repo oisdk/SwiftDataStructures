@@ -1,8 +1,8 @@
 /**
-An index type for a `ContiguousList` and `ContiguousListSlice`.
+An index type for a `Stack` and `StackSlice`.
 */
 
-public struct ContiguousListIndex : Equatable, Comparable, RandomAccessIndexType {
+public struct StackIndex : Equatable, Comparable, RandomAccessIndexType {
   internal let val: Int
   internal init(_ val: Int) { self.val = val }
 
@@ -11,8 +11,8 @@ public struct ContiguousListIndex : Equatable, Comparable, RandomAccessIndexType
   
   - Requires: the next value is representable.
   */
-  public func successor() -> ContiguousListIndex {
-    return ContiguousListIndex(val.predecessor())
+  public func successor() -> StackIndex {
+    return StackIndex(val.predecessor())
   }
 
   /**
@@ -20,8 +20,8 @@ public struct ContiguousListIndex : Equatable, Comparable, RandomAccessIndexType
   
   - Requires: the previous value is representable.
   */
-  public func predecessor() -> ContiguousListIndex {
-    return ContiguousListIndex(val.successor())
+  public func predecessor() -> StackIndex {
+    return StackIndex(val.successor())
   }
 
   /**
@@ -30,7 +30,7 @@ public struct ContiguousListIndex : Equatable, Comparable, RandomAccessIndexType
   
   - Complexity: O(1).
   */
-  public func distanceTo(other: ContiguousListIndex) -> Int {
+  public func distanceTo(other: StackIndex) -> Int {
     return val - other.val
   }
   /**
@@ -40,20 +40,20 @@ public struct ContiguousListIndex : Equatable, Comparable, RandomAccessIndexType
   - Returns: If `n > 0`, the result of applying `successor` to `self` `n` times. If
   `n < 0`, the result of applying `predecessor` to `self` `n` times. Otherwise, `self`.
   */
-  public func advancedBy(n: Int) -> ContiguousListIndex {
-    return ContiguousListIndex(val - n)
+  public func advancedBy(n: Int) -> StackIndex {
+    return StackIndex(val - n)
   }
 }
 
 /// :nodoc:
-public func == (lhs: ContiguousListIndex, rhs: ContiguousListIndex) -> Bool {
+public func == (lhs: StackIndex, rhs: StackIndex) -> Bool {
   return lhs.val == rhs.val
 }
 /// :nodoc:
-public func < (lhs: ContiguousListIndex, rhs: ContiguousListIndex) -> Bool {
+public func < (lhs: StackIndex, rhs: StackIndex) -> Bool {
   return lhs.val > rhs.val
 }
 /// :nodoc:
-public func > (lhs: ContiguousListIndex, rhs: ContiguousListIndex) -> Bool {
+public func > (lhs: StackIndex, rhs: StackIndex) -> Bool {
   return lhs.val < rhs.val
 }

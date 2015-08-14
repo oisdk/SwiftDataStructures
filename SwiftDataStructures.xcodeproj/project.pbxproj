@@ -9,18 +9,18 @@
 /* Begin PBXBuildFile section */
 		70B18ABD1B7CBD3900FEB474 /* SwiftDataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 70B18ABC1B7CBD3900FEB474 /* SwiftDataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		70B18AC41B7CBD3900FEB474 /* SwiftDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70B18AB91B7CBD3900FEB474 /* SwiftDataStructures.framework */; };
-		70B18AD81B7CBD4F00FEB474 /* ContiguousDeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD31B7CBD4F00FEB474 /* ContiguousDeque.swift */; };
-		70B18AD91B7CBD4F00FEB474 /* ContiguousDequeSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD41B7CBD4F00FEB474 /* ContiguousDequeSlice.swift */; };
-		70B18ADA1B7CBD4F00FEB474 /* ContiguousList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD51B7CBD4F00FEB474 /* ContiguousList.swift */; };
-		70B18ADB1B7CBD4F00FEB474 /* ContiguousListIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD61B7CBD4F00FEB474 /* ContiguousListIndex.swift */; };
-		70B18ADC1B7CBD4F00FEB474 /* ContiguousListSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD71B7CBD4F00FEB474 /* ContiguousListSlice.swift */; };
-		70B18AE21B7CBD6A00FEB474 /* ContiguousDequeSliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18ADD1B7CBD6A00FEB474 /* ContiguousDequeSliceTests.swift */; };
-		70B18AE31B7CBD6A00FEB474 /* ContiguousDequeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18ADE1B7CBD6A00FEB474 /* ContiguousDequeTests.swift */; };
-		70B18AE41B7CBD6A00FEB474 /* ContiguousListIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18ADF1B7CBD6A00FEB474 /* ContiguousListIndexTests.swift */; };
-		70B18AE51B7CBD6A00FEB474 /* ContiguousListSliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AE01B7CBD6A00FEB474 /* ContiguousListSliceTests.swift */; };
-		70B18AE61B7CBD6A00FEB474 /* ContiguousListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AE11B7CBD6A00FEB474 /* ContiguousListTests.swift */; };
-		70B18AEF1B7CBFF300FEB474 /* LazyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AE91B7CBFF300FEB474 /* LazyList.swift */; };
-		70B18AFB1B7CC00600FEB474 /* LazyListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AF51B7CC00600FEB474 /* LazyListTests.swift */; };
+		70B18AD81B7CBD4F00FEB474 /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD31B7CBD4F00FEB474 /* Deque.swift */; };
+		70B18AD91B7CBD4F00FEB474 /* DequeSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD41B7CBD4F00FEB474 /* DequeSlice.swift */; };
+		70B18ADA1B7CBD4F00FEB474 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD51B7CBD4F00FEB474 /* Stack.swift */; };
+		70B18ADB1B7CBD4F00FEB474 /* StackIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD61B7CBD4F00FEB474 /* StackIndex.swift */; };
+		70B18ADC1B7CBD4F00FEB474 /* StackSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD71B7CBD4F00FEB474 /* StackSlice.swift */; };
+		70B18AE21B7CBD6A00FEB474 /* DequeSliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18ADD1B7CBD6A00FEB474 /* DequeSliceTests.swift */; };
+		70B18AE31B7CBD6A00FEB474 /* DequeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18ADE1B7CBD6A00FEB474 /* DequeTests.swift */; };
+		70B18AE41B7CBD6A00FEB474 /* StackIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18ADF1B7CBD6A00FEB474 /* StackIndexTests.swift */; };
+		70B18AE51B7CBD6A00FEB474 /* StackSliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AE01B7CBD6A00FEB474 /* StackSliceTests.swift */; };
+		70B18AE61B7CBD6A00FEB474 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AE11B7CBD6A00FEB474 /* StackTests.swift */; };
+		70B18AEF1B7CBFF300FEB474 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AE91B7CBFF300FEB474 /* List.swift */; };
+		70B18AFB1B7CC00600FEB474 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AF51B7CC00600FEB474 /* ListTests.swift */; };
 		70B18B001B7CDC8200FEB474 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AFF1B7CDC8200FEB474 /* Trie.swift */; };
 		70B18B021B7CDC9600FEB474 /* TrieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18B011B7CDC9600FEB474 /* TrieTests.swift */; };
 /* End PBXBuildFile section */
@@ -41,18 +41,18 @@
 		70B18ABE1B7CBD3900FEB474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70B18AC31B7CBD3900FEB474 /* SwiftDataStructuresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftDataStructuresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B18ACA1B7CBD3900FEB474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		70B18AD31B7CBD4F00FEB474 /* ContiguousDeque.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousDeque.swift; sourceTree = "<group>"; };
-		70B18AD41B7CBD4F00FEB474 /* ContiguousDequeSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousDequeSlice.swift; sourceTree = "<group>"; };
-		70B18AD51B7CBD4F00FEB474 /* ContiguousList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousList.swift; sourceTree = "<group>"; };
-		70B18AD61B7CBD4F00FEB474 /* ContiguousListIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousListIndex.swift; sourceTree = "<group>"; };
-		70B18AD71B7CBD4F00FEB474 /* ContiguousListSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousListSlice.swift; sourceTree = "<group>"; };
-		70B18ADD1B7CBD6A00FEB474 /* ContiguousDequeSliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousDequeSliceTests.swift; sourceTree = "<group>"; };
-		70B18ADE1B7CBD6A00FEB474 /* ContiguousDequeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousDequeTests.swift; sourceTree = "<group>"; };
-		70B18ADF1B7CBD6A00FEB474 /* ContiguousListIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousListIndexTests.swift; sourceTree = "<group>"; };
-		70B18AE01B7CBD6A00FEB474 /* ContiguousListSliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousListSliceTests.swift; sourceTree = "<group>"; };
-		70B18AE11B7CBD6A00FEB474 /* ContiguousListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContiguousListTests.swift; sourceTree = "<group>"; };
-		70B18AE91B7CBFF300FEB474 /* LazyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyList.swift; sourceTree = "<group>"; };
-		70B18AF51B7CC00600FEB474 /* LazyListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyListTests.swift; sourceTree = "<group>"; };
+		70B18AD31B7CBD4F00FEB474 /* Deque.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deque.swift; sourceTree = "<group>"; };
+		70B18AD41B7CBD4F00FEB474 /* DequeSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DequeSlice.swift; sourceTree = "<group>"; };
+		70B18AD51B7CBD4F00FEB474 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		70B18AD61B7CBD4F00FEB474 /* StackIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackIndex.swift; sourceTree = "<group>"; };
+		70B18AD71B7CBD4F00FEB474 /* StackSlice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackSlice.swift; sourceTree = "<group>"; };
+		70B18ADD1B7CBD6A00FEB474 /* DequeSliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DequeSliceTests.swift; sourceTree = "<group>"; };
+		70B18ADE1B7CBD6A00FEB474 /* DequeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DequeTests.swift; sourceTree = "<group>"; };
+		70B18ADF1B7CBD6A00FEB474 /* StackIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackIndexTests.swift; sourceTree = "<group>"; };
+		70B18AE01B7CBD6A00FEB474 /* StackSliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackSliceTests.swift; sourceTree = "<group>"; };
+		70B18AE11B7CBD6A00FEB474 /* StackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
+		70B18AE91B7CBFF300FEB474 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		70B18AF51B7CC00600FEB474 /* ListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		70B18AFF1B7CDC8200FEB474 /* Trie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
 		70B18B011B7CDC9600FEB474 /* TrieTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrieTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,12 +97,12 @@
 		70B18ABB1B7CBD3900FEB474 /* SwiftDataStructures */ = {
 			isa = PBXGroup;
 			children = (
-				70B18AD31B7CBD4F00FEB474 /* ContiguousDeque.swift */,
-				70B18AD41B7CBD4F00FEB474 /* ContiguousDequeSlice.swift */,
-				70B18AD51B7CBD4F00FEB474 /* ContiguousList.swift */,
-				70B18AD61B7CBD4F00FEB474 /* ContiguousListIndex.swift */,
-				70B18AD71B7CBD4F00FEB474 /* ContiguousListSlice.swift */,
-				70B18AE91B7CBFF300FEB474 /* LazyList.swift */,
+				70B18AD31B7CBD4F00FEB474 /* Deque.swift */,
+				70B18AD41B7CBD4F00FEB474 /* DequeSlice.swift */,
+				70B18AD51B7CBD4F00FEB474 /* Stack.swift */,
+				70B18AD61B7CBD4F00FEB474 /* StackIndex.swift */,
+				70B18AD71B7CBD4F00FEB474 /* StackSlice.swift */,
+				70B18AE91B7CBFF300FEB474 /* List.swift */,
 				70B18AFF1B7CDC8200FEB474 /* Trie.swift */,
 				70B18ABC1B7CBD3900FEB474 /* SwiftDataStructures.h */,
 				70B18ABE1B7CBD3900FEB474 /* Info.plist */,
@@ -113,12 +113,12 @@
 		70B18AC71B7CBD3900FEB474 /* SwiftDataStructuresTests */ = {
 			isa = PBXGroup;
 			children = (
-				70B18ADD1B7CBD6A00FEB474 /* ContiguousDequeSliceTests.swift */,
-				70B18ADE1B7CBD6A00FEB474 /* ContiguousDequeTests.swift */,
-				70B18ADF1B7CBD6A00FEB474 /* ContiguousListIndexTests.swift */,
-				70B18AE01B7CBD6A00FEB474 /* ContiguousListSliceTests.swift */,
-				70B18AE11B7CBD6A00FEB474 /* ContiguousListTests.swift */,
-				70B18AF51B7CC00600FEB474 /* LazyListTests.swift */,
+				70B18ADD1B7CBD6A00FEB474 /* DequeSliceTests.swift */,
+				70B18ADE1B7CBD6A00FEB474 /* DequeTests.swift */,
+				70B18ADF1B7CBD6A00FEB474 /* StackIndexTests.swift */,
+				70B18AE01B7CBD6A00FEB474 /* StackSliceTests.swift */,
+				70B18AE11B7CBD6A00FEB474 /* StackTests.swift */,
+				70B18AF51B7CC00600FEB474 /* ListTests.swift */,
 				70B18B011B7CDC9600FEB474 /* TrieTests.swift */,
 				70B18ACA1B7CBD3900FEB474 /* Info.plist */,
 			);
@@ -233,13 +233,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70B18ADB1B7CBD4F00FEB474 /* ContiguousListIndex.swift in Sources */,
-				70B18ADA1B7CBD4F00FEB474 /* ContiguousList.swift in Sources */,
-				70B18AD81B7CBD4F00FEB474 /* ContiguousDeque.swift in Sources */,
+				70B18ADB1B7CBD4F00FEB474 /* StackIndex.swift in Sources */,
+				70B18ADA1B7CBD4F00FEB474 /* Stack.swift in Sources */,
+				70B18AD81B7CBD4F00FEB474 /* Deque.swift in Sources */,
 				70B18B001B7CDC8200FEB474 /* Trie.swift in Sources */,
-				70B18ADC1B7CBD4F00FEB474 /* ContiguousListSlice.swift in Sources */,
-				70B18AEF1B7CBFF300FEB474 /* LazyList.swift in Sources */,
-				70B18AD91B7CBD4F00FEB474 /* ContiguousDequeSlice.swift in Sources */,
+				70B18ADC1B7CBD4F00FEB474 /* StackSlice.swift in Sources */,
+				70B18AEF1B7CBFF300FEB474 /* List.swift in Sources */,
+				70B18AD91B7CBD4F00FEB474 /* DequeSlice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,13 +247,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70B18AE41B7CBD6A00FEB474 /* ContiguousListIndexTests.swift in Sources */,
-				70B18AE31B7CBD6A00FEB474 /* ContiguousDequeTests.swift in Sources */,
+				70B18AE41B7CBD6A00FEB474 /* StackIndexTests.swift in Sources */,
+				70B18AE31B7CBD6A00FEB474 /* DequeTests.swift in Sources */,
 				70B18B021B7CDC9600FEB474 /* TrieTests.swift in Sources */,
-				70B18AE51B7CBD6A00FEB474 /* ContiguousListSliceTests.swift in Sources */,
-				70B18AE21B7CBD6A00FEB474 /* ContiguousDequeSliceTests.swift in Sources */,
-				70B18AFB1B7CC00600FEB474 /* LazyListTests.swift in Sources */,
-				70B18AE61B7CBD6A00FEB474 /* ContiguousListTests.swift in Sources */,
+				70B18AE51B7CBD6A00FEB474 /* StackSliceTests.swift in Sources */,
+				70B18AE21B7CBD6A00FEB474 /* DequeSliceTests.swift in Sources */,
+				70B18AFB1B7CC00600FEB474 /* ListTests.swift in Sources */,
+				70B18AE61B7CBD6A00FEB474 /* StackTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +432,7 @@
 				70B18ACF1B7CBD3900FEB474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		70B18AD01B7CBD3900FEB474 /* Build configuration list for PBXNativeTarget "SwiftDataStructuresTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +441,7 @@
 				70B18AD21B7CBD3900FEB474 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

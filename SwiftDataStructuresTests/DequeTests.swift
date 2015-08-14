@@ -2,7 +2,7 @@ import XCTest
 import Foundation
 @testable import SwiftDataStructures
 
-extension ContiguousDeque {
+extension Deque {
   internal var isBalanced: Bool {
     switch balance {
     case .Balanced: return true
@@ -11,7 +11,7 @@ extension ContiguousDeque {
   }
 }
 
-extension ContiguousDequeSlice {
+extension DequeSlice {
   internal var isBalanced: Bool {
     switch balance {
     case .Balanced: return true
@@ -26,11 +26,11 @@ internal func randomArray(length: Int) -> [Int] {
   }
 }
 
-internal func makeDequeTuple<S : SequenceType>(from: S) -> (S, ContiguousDeque<S.Generator.Element>) {
-  return (from, ContiguousDeque(from))
+internal func makeDequeTuple<S : SequenceType>(from: S) -> (S, Deque<S.Generator.Element>) {
+  return (from, Deque(from))
 }
-internal func makeDequeTuple<T>(from: [T]) -> ([T], ContiguousDeque<T>) {
-  return (from, ContiguousDeque(from))
+internal func makeDequeTuple<T>(from: [T]) -> ([T], Deque<T>) {
+  return (from, Deque(from))
 }
 
 extension Array {
@@ -40,13 +40,13 @@ extension Array {
   }
 }
 
-class ContiguousDequeTests: XCTestCase {
+class DequeTests: XCTestCase {
   
   func testDebugDesciption() {
     
     let expectation = "[1, 2 | 3, 4, 5]"
     
-    let reality = ContiguousDeque([1, 2, 3, 4, 5]).debugDescription
+    let reality = Deque([1, 2, 3, 4, 5]).debugDescription
     
     XCTAssert(expectation == reality)
     
@@ -54,7 +54,7 @@ class ContiguousDequeTests: XCTestCase {
 
   func testBalance() {
     
-    var frontEmpty = ContiguousDeque(
+    var frontEmpty = Deque(
       balancedF: [],
       balancedB: [1, 2, 3]
     )
@@ -63,7 +63,7 @@ class ContiguousDequeTests: XCTestCase {
     frontEmpty.check()
     XCTAssert(frontEmpty.isBalanced)
     
-    var backEmpty = ContiguousDeque(
+    var backEmpty = Deque(
       balancedF: [1, 2, 3],
       balancedB: []
     )
@@ -72,32 +72,32 @@ class ContiguousDequeTests: XCTestCase {
     backEmpty.check()
     XCTAssert(backEmpty.isBalanced)
     
-    let bothEmpty = ContiguousDeque<Int>(
+    let bothEmpty = Deque<Int>(
       balancedF: [],
       balancedB: []
     )
     
     XCTAssert(bothEmpty.isBalanced)
     
-    let oneBackEmpty = ContiguousDeque(
+    let oneBackEmpty = Deque(
       balancedF: [1],
       balancedB: []
     )
     
     XCTAssert(oneBackEmpty.isBalanced)
     
-    let oneFrontEmpty = ContiguousDeque(
+    let oneFrontEmpty = Deque(
       balancedF: [],
       balancedB: [1]
     )
     
     XCTAssert(oneFrontEmpty.isBalanced)
     
-    let selfBalanceBack  = ContiguousDeque([1, 2, 3], [])
+    let selfBalanceBack  = Deque([1, 2, 3], [])
     
     XCTAssert(selfBalanceBack.isBalanced)
     
-    let selfBalanceFront = ContiguousDeque([], [1, 2, 3])
+    let selfBalanceFront = Deque([], [1, 2, 3])
     
     XCTAssert(selfBalanceFront.isBalanced)
     
@@ -107,7 +107,7 @@ class ContiguousDequeTests: XCTestCase {
     
     let expectation = [2, 3, 4, 5, 6]
     
-    let reality: ContiguousDeque = [2, 3, 4, 5, 6]
+    let reality: Deque = [2, 3, 4, 5, 6]
     
     XCTAssert(expectation.elementsEqual(reality))
     
@@ -128,7 +128,7 @@ class ContiguousDequeTests: XCTestCase {
   func testContigSliceInit() {
     (0...10)
       .map(randomArray)
-      .map(ContiguousDequeSlice.init)
+      .map(DequeSlice.init)
       .map(makeDequeTuple)
       .forEach {
         (a, b) in
@@ -263,7 +263,7 @@ class ContiguousDequeTests: XCTestCase {
     let arrays = (0...10).map { (a: Int) -> [Int] in
       (0..<a).map { _ in Int(arc4random_uniform(100)) }
     }
-    let deques = arrays.map{ContiguousDeque($0)}
+    let deques = arrays.map{Deque($0)}
     for (array, deque) in zip(arrays, deques) {
       for maxSplit in maxSplits {
         for splitFunc in splitFuncs {
@@ -400,10 +400,10 @@ class ContiguousDequeTests: XCTestCase {
         ar.indices.forEach { start in
           (start...ar.endIndex).forEach { end in
             var array: [Int] = ar
-            var deque: ContiguousDeque<Int> = de
+            var deque: Deque<Int> = de
             let replacement = randomArray(end - start)
             array[start..<end] = ArraySlice(replacement)
-            deque[start..<end] = ContiguousDequeSlice(replacement)
+            deque[start..<end] = DequeSlice(replacement)
             XCTAssert(array.elementsEqual(deque))
             XCTAssert(deque.isBalanced)
           }
@@ -413,7 +413,7 @@ class ContiguousDequeTests: XCTestCase {
   
   func testEmptyInit() {
     
-    XCTAssert(ContiguousDeque<Int>().isEmpty)
+    XCTAssert(Deque<Int>().isEmpty)
     
   }
   
@@ -423,7 +423,7 @@ class ContiguousDequeTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeTuple)
       .flatMap { (ar, de) in
-        (0...10).map { (n: Int) -> ([Int], ContiguousDeque<Int>) in
+        (0...10).map { (n: Int) -> ([Int], Deque<Int>) in
           var (array, deque) = (ar, de)
           for _ in 0..<n {
             let x = Int(arc4random_uniform(UInt32.max))
@@ -444,7 +444,7 @@ class ContiguousDequeTests: XCTestCase {
       .map(randomArray)
       .map(makeDequeTuple)
       .flatMap { (ar, de) in
-        (0...10).map { (n: Int) -> ([Int], ContiguousDeque<Int>) in
+        (0...10).map { (n: Int) -> ([Int], Deque<Int>) in
           var (array, deque) = (ar, de)
           for _ in 0..<n {
             let x = randomArray(Int(arc4random_uniform(8)))
@@ -464,10 +464,10 @@ class ContiguousDequeTests: XCTestCase {
     (0...10)
       .map(randomArray)
       .map(makeDequeTuple)
-      .flatMap { (ar: [Int], de: ContiguousDeque<Int>) in
-        (0...ar.endIndex).map { (i: Int) -> ([Int], ContiguousDeque<Int>) in
+      .flatMap { (ar: [Int], de: Deque<Int>) in
+        (0...ar.endIndex).map { (i: Int) -> ([Int], Deque<Int>) in
           var array: [Int] = ar
-          var deque: ContiguousDeque<Int> = de
+          var deque: Deque<Int> = de
           let x = Int(arc4random_uniform(UInt32.max))
           array.insert(x, atIndex: i)
           deque.insert(x, atIndex: i)
@@ -484,8 +484,8 @@ class ContiguousDequeTests: XCTestCase {
     (0...10)
       .map(randomArray)
       .map(makeDequeTuple)
-      .flatMap { (ar: [Int], de: ContiguousDeque<Int>) in
-        (0...10).map { (n: Int) -> ([Int], ContiguousDeque<Int>) in
+      .flatMap { (ar: [Int], de: Deque<Int>) in
+        (0...10).map { (n: Int) -> ([Int], Deque<Int>) in
           var (array, deque) = (ar, de)
           for _ in 0..<n {
             let x = Int(arc4random_uniform(UInt32.max))
@@ -494,7 +494,7 @@ class ContiguousDequeTests: XCTestCase {
           }
           return (array, deque)
         }
-      }.forEach { (ar: [Int], de: ContiguousDeque<Int>) in
+      }.forEach { (ar: [Int], de: Deque<Int>) in
         XCTAssert(ar.elementsEqual(de))
         XCTAssert(de.isBalanced)
     }
@@ -505,7 +505,7 @@ class ContiguousDequeTests: XCTestCase {
     (0...10)
       .map(randomArray)
       .map(makeDequeTuple)
-      .flatMap { (ar: [Int], de: ContiguousDeque<Int>) in
+      .flatMap { (ar: [Int], de: Deque<Int>) in
         (0...10).map { i in
           var (array, deque) = (ar, de)
           let x = randomArray(i)
@@ -513,14 +513,14 @@ class ContiguousDequeTests: XCTestCase {
           deque.prextend(x)
           return (array, deque)
         }
-      }.forEach { (ar: [Int], de: ContiguousDeque<Int>) in
+      }.forEach { (ar: [Int], de: Deque<Int>) in
         XCTAssert(ar.elementsEqual(de))
         XCTAssert(de.isBalanced)
     }
   }
   
   func testRemoveAll() {
-    var deque = ContiguousDeque(randomArray(8))
+    var deque = Deque(randomArray(8))
     deque.removeAll()
     XCTAssert(deque.isEmpty)
   }
@@ -575,8 +575,8 @@ class ContiguousDequeTests: XCTestCase {
     (1...10)
       .map(randomArray)
       .map(makeDequeTuple)
-      .flatMap { (ar: [Int], de: ContiguousDeque<Int>) in
-        (0...ar.endIndex).map { (n: Int) -> ([Int], ContiguousDeque<Int>) in
+      .flatMap { (ar: [Int], de: Deque<Int>) in
+        (0...ar.endIndex).map { (n: Int) -> ([Int], Deque<Int>) in
           var (array, deque) = (ar, de)
           array.removeFirst(n)
           deque.removeFirst(n)
@@ -593,8 +593,8 @@ class ContiguousDequeTests: XCTestCase {
     (1...10)
       .map(randomArray)
       .map(makeDequeTuple)
-      .flatMap { (ar: [Int], de: ContiguousDeque<Int>) in
-        (0...ar.endIndex).map { (n: Int) -> ([Int], ContiguousDeque<Int>) in
+      .flatMap { (ar: [Int], de: Deque<Int>) in
+        (0...ar.endIndex).map { (n: Int) -> ([Int], Deque<Int>) in
           var (array, deque) = (ar, de)
           array.removeRange((ar.endIndex - n)..<ar.endIndex)
           deque.removeLast(n)
@@ -614,7 +614,7 @@ class ContiguousDequeTests: XCTestCase {
         ar.indices.forEach { start in
           (start...ar.endIndex).forEach { end in
             var array: [Int] = ar
-            var deque: ContiguousDeque<Int> = de
+            var deque: Deque<Int> = de
             array.removeRange(start..<end)
             deque.removeRange(start..<end)
             XCTAssert(array.elementsEqual(deque), array.debugDescription + " != " + deque.debugDescription)
@@ -632,7 +632,7 @@ class ContiguousDequeTests: XCTestCase {
         ar.indices.forEach { start in
           (start...ar.endIndex).forEach { end in
             var array: [Int] = ar
-            var deque: ContiguousDeque<Int> = de
+            var deque: Deque<Int> = de
             let replacement = randomArray(Int(arc4random_uniform(20)))
             array.replaceRange(start..<end, with: replacement)
             deque.replaceRange(start..<end, with: replacement)
@@ -644,7 +644,7 @@ class ContiguousDequeTests: XCTestCase {
   }
   
   func testReserveCapacity() {
-    var d = ContiguousDeque<Int>()
+    var d = Deque<Int>()
     d.reserveCapacity(20)
   }
 }
