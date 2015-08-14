@@ -72,7 +72,7 @@
         <section>
           <section class="section">
             <h1>List</h1>
-            <p>A singly-linked, recursive list. Head-tail decomposition can be accomplished with a
+            <p>A singly-linked, lazy list. Head-tail decomposition can be accomplished with a
 <code>switch</code> statement:</p>
 
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">List</span> <span class="p">{</span>
@@ -961,6 +961,63 @@ self[2]),&hellip;self[count-2]), self[count-1]).</p>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reduce</span><span class="p">(</span><span class="k">@noescape</span> <span class="nv">combine</span><span class="p">:</span> <span class="p">(</span><span class="nv">accumulator</span><span class="p">:</span> <span class="kt">Element</span><span class="p">,</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List7reduceRU__FGS0_Q__U__FTQ_7combineFT7elementQd__11accumulatorQ__Q__Q_"></a>
+                    <a name="//apple_ref/swift/Method/reduceR(_:combine:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List7reduceRU__FGS0_Q__U__FTQ_7combineFT7elementQd__11accumulatorQ__Q__Q_">reduceR(_:combine:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The same as the <code>reduce</code> function, except that <code>combine</code> is called on <code>self</code> in reverse,
+and the arguments are flipped.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">reduceR</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">initial</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="nv">combine</span><span class="p">:</span> <span class="p">(</span><span class="nv">element</span><span class="p">:</span> <span class="kt">Element</span><span class="p">,</span> <span class="nv">accumulator</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO19SwiftDataStructures4List7reduceRU__FGS0_Q__FFT7elementQ_11accumulatorQ__Q_GSqQ__"></a>
+                    <a name="//apple_ref/swift/Method/reduceR(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO19SwiftDataStructures4List7reduceRU__FGS0_Q__FFT7elementQ_11accumulatorQ__Q_GSqQ__">reduceR(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The same as the <code>reduce</code> function, except that <code>combine</code> is called on <code>self</code> in reverse,
+and the arguments are flipped. The initial agument to <code>accumulator</code> for <code>combine</code> is 
+taken as the final element of <code>self</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reduceR</span><span class="p">(</span><span class="nv">combine</span><span class="p">:</span> <span class="p">(</span><span class="nv">element</span><span class="p">:</span> <span class="kt">Element</span><span class="p">,</span> <span class="nv">accumulator</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
