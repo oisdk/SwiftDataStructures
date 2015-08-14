@@ -121,17 +121,15 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
   private mutating func remove<
     G : GeneratorType where G.Element == Element
     >(var gen g: G) -> RemoveState {
-      if let head = g.next() {
-        switch children[head]?.remove(gen: g) {
-        case nil, .NotPresent?: return .NotPresent
-        case .NotRemovable?: return .NotRemovable
-        case .Removable?:
-          children.removeValueForKey(head)
-          return (!endHere && children.isEmpty) ? .Removable : .NotRemovable
-        }
+      guard let head = g.next() else {
+        endHere = false
+        return children.isEmpty ? .Removable : .NotRemovable
       }
-      endHere = false
-      return children.isEmpty ? .Removable : .NotRemovable
+      guard let removeState = children[head]?.remove(gen: g) else { return .NotPresent }
+      guard case .Removable = removeState else { return removeState }
+      children.removeValueForKey(head)
+      return (!endHere && children.isEmpty) ? .Removable : .NotRemovable
+      
   }
   /// Remove the member from the Trie and return it if it was present.
   public mutating func remove<

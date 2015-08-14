@@ -18,7 +18,7 @@ class TrieTests: XCTestCase {
       $0.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: " ,"))
       }.sort()
     
-    XCTAssert(expectationSort == realitySort)
+    XCTAssertEqual(expectationSort, realitySort)
     
   }
   
@@ -27,7 +27,13 @@ class TrieTests: XCTestCase {
     let first  = Trie([[1, 2, 3], [3, 4, 5], [2, 3, 4]])
     let second = Trie([[3, 4, 5], [2, 3, 4], [1, 2, 3]])
     
-    XCTAssert(first == second)
+    XCTAssertEqual(first, second)
+    
+    let third = Trie([[1, 2, 3], [3, 4, 5], [2, 3, 4, 5]])
+    let fourth = Trie([[3, 4, 5], [2, 3, 4, 5]])
+    
+    XCTAssertNotEqual(first, third)
+    XCTAssertNotEqual(first, fourth)
     
   }
   
@@ -39,7 +45,7 @@ class TrieTests: XCTestCase {
     
     reality.insert([1, 2, 3])
     
-    XCTAssert(expectation == reality)
+    XCTAssertEqual(expectation, reality)
     
   }
   
@@ -51,8 +57,7 @@ class TrieTests: XCTestCase {
     
     let reality = trie.completions([1, 2]).sort { $0.last < $1.last }
     
-    XCTAssert(expectation == reality)
-    
+    XCTAssertEqual(expectation, reality)
   }
   
   func testRemove() {
@@ -63,20 +68,19 @@ class TrieTests: XCTestCase {
     
     XCTAssert(reality.remove([1, 2, 3])?.elementsEqual([1, 2, 3]) == true)
     
-    XCTAssert(reality.remove([3, 4, 5, 6]) == nil)
+    XCTAssertNil(reality.remove([3, 4, 5, 6]))
     
-    XCTAssert(reality.remove([4, 2, 1]) == nil)
+    XCTAssertNil(reality.remove([4, 2, 1]))
     
-    XCTAssert(expectation == reality)
-    
+    XCTAssertEqual(expectation, reality)
   }
   
   func testContains() {
     
     let trie = Trie([[1, 2, 3], [3, 4, 5], [2, 3, 4]])
     
-    XCTAssert(trie.contains([1, 2, 3]))
-    XCTAssert(!trie.contains([2, 2, 3]))
+    XCTAssertTrue(trie.contains([1, 2, 3]))
+    XCTAssertFalse(trie.contains([2, 2, 3]))
     
   }
   
@@ -87,7 +91,7 @@ class TrieTests: XCTestCase {
     
     let expectation = Trie([[3, 4, 5], [3, 4, 6]])
 
-    XCTAssert(frst.exclusiveOr(scnd) == expectation)
+    XCTAssertEqual(frst.exclusiveOr(scnd), expectation)
   }
   
   func testIntersect() {
@@ -96,7 +100,7 @@ class TrieTests: XCTestCase {
     
     let expectation = Trie([[1, 2, 3], [2, 3, 4]])
     
-    XCTAssert(frst.intersect(scnd) == expectation)
+    XCTAssertEqual(frst.intersect(scnd), expectation)
   }
   
   func testIsDisjointWith() {
@@ -105,9 +109,9 @@ class TrieTests: XCTestCase {
     let disJoint = Trie([[24, 5, 2], [2, 5, 6], [1, 3, 5]])
     let notDisJoint = Trie([[24, 5, 2], [2, 5, 6], [1, 2, 3]])
     
-    XCTAssert(frst.isDisjointWith(disJoint))
+    XCTAssertTrue(frst.isDisjointWith(disJoint))
     
-    XCTAssert(!frst.isDisjointWith(notDisJoint))
+    XCTAssertFalse(frst.isDisjointWith(notDisJoint))
     
   }
   
@@ -118,8 +122,8 @@ class TrieTests: XCTestCase {
     let isSuper = Trie([[1, 2, 3], [3, 4, 5], [4, 5, 6]])
     let isNotSuper = Trie([[1, 2, 3], [4, 5, 6]])
     
-    XCTAssert(isSuper.isSupersetOf(under))
-    XCTAssert(!isNotSuper.isSupersetOf(under))
+    XCTAssertTrue(isSuper.isSupersetOf(under))
+    XCTAssertFalse(isNotSuper.isSupersetOf(under))
     
   }
   
@@ -127,8 +131,8 @@ class TrieTests: XCTestCase {
     
     let over = Trie([[1, 2, 3], [3, 4, 5]])
     
-    XCTAssert(over.isSubsetOf([[1, 2, 3], [3, 4, 5], [4, 5, 6]]))
-    XCTAssert(!over.isSubsetOf([[1, 4, 3], [3, 4, 5], [4, 5, 6]]))
+    XCTAssertTrue(over.isSubsetOf([[1, 2, 3], [3, 4, 5], [4, 5, 6]]))
+    XCTAssertFalse(over.isSubsetOf([[1, 4, 3], [3, 4, 5], [4, 5, 6]]))
     
   }
   
@@ -139,7 +143,7 @@ class TrieTests: XCTestCase {
     
     let expectation = Trie([[1, 2, 3], [2, 3, 4], [3, 4, 5], [3, 4, 6]])
     
-    XCTAssert(frst.union(scnd) == expectation)
+    XCTAssertEqual(frst.union(scnd), expectation)
     
   }
   
@@ -149,7 +153,7 @@ class TrieTests: XCTestCase {
     
     let reality = Trie([[1, 2, 3], [2, 3, 4], [3, 4, 5], [3, 4, 6]]).subtract([[2, 3, 4], [3, 4, 6]])
     
-    XCTAssert(expectation == reality)
+    XCTAssertEqual(expectation, reality)
     
   }
   
@@ -158,7 +162,7 @@ class TrieTests: XCTestCase {
     let expectation = Trie([[2, 4, 6], [6, 8, 10], [4, 6, 8]])
     let reality = Trie([[1, 2, 3], [3, 4, 5], [2, 3, 4]]).map { $0.map { $0 * 2 } }
     
-    XCTAssert(expectation == reality)
+    XCTAssertEqual(expectation, reality)
     
   }
   
@@ -170,7 +174,7 @@ class TrieTests: XCTestCase {
       seq in Trie([0, 1].map { num in seq.map { $0 + num } })
     }
     
-    XCTAssert(expectation == reality)
+    XCTAssertEqual(expectation, reality)
     
   }
   
@@ -184,7 +188,7 @@ class TrieTests: XCTestCase {
       $0.first.map(isOdd) == true ? $0.map { $0 * 2 } : nil
     }
     
-    XCTAssert(expectation == reality)
+    XCTAssertEqual(expectation, reality)
     
   }
   
@@ -196,7 +200,7 @@ class TrieTests: XCTestCase {
       $0.first.map(isOdd) == true
     }
     
-    XCTAssert(expectation == reality)
+    XCTAssertEqual(expectation, reality)
     
   }
   
@@ -206,7 +210,7 @@ class TrieTests: XCTestCase {
     
     let reality = Trie([[1, 2, 3], [2, 3, 4], [3, 4, 5]]).count
     
-    XCTAssert(expectation == reality)
+    XCTAssertEqual(expectation, reality)
     
   }
   
@@ -218,7 +222,7 @@ class TrieTests: XCTestCase {
     
     let reality = Set(Trie(seqs).map { $0.debugDescription })
     
-    XCTAssert(expectation == reality)
+    XCTAssertEqual(expectation, reality)
     
   }
   
