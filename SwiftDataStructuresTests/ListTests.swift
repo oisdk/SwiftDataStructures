@@ -371,6 +371,18 @@ class ListTests: XCTestCase {
     
   }
   
+  func testReduceR() {
+    
+    let list: List = [1, 2, 3, 4, 5, 6, 7]
+    
+    XCTAssert(list.elementsEqual(list.reduceR(.Nil) { $0 |> $1 }))
+    
+    XCTAssert(list.reduceR(+) == list.reduce(+))
+    
+    
+    
+  }
+  
   func testPrefixWhile() {
     
     let expectation = 1...10

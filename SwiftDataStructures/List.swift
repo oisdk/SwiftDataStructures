@@ -459,14 +459,34 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
     }
   }
   
-//  public func reduceR<T>(initial: T, combine: (element: Element, accumulator: T) -> T) -> T {
-//    switch self {
-//    case .Nil: return initial
-//    case let .Cons(head, tail):
-//      return combine(element: head, accumulator: tail().reduceR(initial, combine: combine))
-//    }
-//  }
-//  
+  /**
+  The same as the `reduce` function, except that `combine` is called on `self` in reverse,
+  and the arguments are flipped.
+  */
+  
+  public func reduceR<T>(initial: T, combine: (element: Element, accumulator: T) -> T) -> T {
+    switch self {
+    case .Nil: return initial
+    case let .Cons(head, tail):
+      return combine(element: head, accumulator: tail().reduceR(initial, combine: combine))
+    }
+  }
+  
+  /**
+  The same as the `reduce` function, except that `combine` is called on `self` in reverse,
+  and the arguments are flipped. The initial agument to `accumulator` for `combine` is 
+  taken as the final element of `self`.
+  */
+  
+  public func reduceR(combine: (element: Element, accumulator: Element) -> Element) -> Element? {
+    switch self {
+    case .Nil: return nil
+    case let .Cons(head, tail):
+      guard let accu = tail().reduceR(combine) else { return head }
+      return combine(element: head, accumulator: accu)
+    }
+  }
+  
   /**
   Returns a `List` of the initial elements of `self`, up until the first element that
   returns false for `isElement`
