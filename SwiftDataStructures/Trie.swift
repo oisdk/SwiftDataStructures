@@ -318,8 +318,8 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
 /// :nodoc:
 public struct TrieGenerator<Element : Hashable> : GeneratorType {
   private var children: DictionaryGenerator<Element, Trie<Element>>
-  private var curHead : [Element]
-  private var innerGen: () -> [Element]?
+  private var curHead : [Element] = []
+  private var innerGen: () -> [Element]? = {nil}
   /// Advance to the next element and return it, or `nil` if no next
   /// element exists.
   ///
@@ -334,11 +334,7 @@ public struct TrieGenerator<Element : Hashable> : GeneratorType {
       if child.endHere { return curHead }
     }
   }
-  private init(_ from: Trie<Element>) {
-    children = from.children.generate()
-    innerGen = {nil}
-    curHead  = []
-  }
+  private init(_ from: Trie<Element>) { children = from.children.generate() }
 }
 private enum RemoveState {
   case NotPresent, NotRemovable, Removable
