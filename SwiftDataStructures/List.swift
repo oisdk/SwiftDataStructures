@@ -49,7 +49,7 @@ Discussion of this specific implementation is available
 
 public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, GeneratorType, SequenceType {
   case Nil
-  indirect case Cons(Element, () -> List<Element>)
+  case Cons(Element, () -> List<Element>)
 
   public typealias Generator = List<Element>
   public typealias SubSequence = List<Element>
