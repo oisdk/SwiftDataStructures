@@ -105,7 +105,7 @@ operations on the <em>end</em> are usually O(<code>count</code>).</p>
 <a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
 <a href='#list' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='list'>List</h2>
 
-<p>A singly-linked, recursive list. Head-tail decomposition can be accomplished with a
+<p>A singly-linked, lazy list. Head-tail decomposition can be accomplished with a
 <code>switch</code> statement:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">List</span> <span class="p">{</span>
   <span class="kd">public</span> <span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">f</span><span class="p">:</span> <span class="kt">Element</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">{</span>
