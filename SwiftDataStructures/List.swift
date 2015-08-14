@@ -459,6 +459,14 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
     }
   }
   
+//  public func reduceR<T>(initial: T, combine: (element: Element, accumulator: T) -> T) -> T {
+//    switch self {
+//    case .Nil: return initial
+//    case let .Cons(head, tail):
+//      return combine(element: head, accumulator: tail().reduceR(initial, combine: combine))
+//    }
+//  }
+//  
   /**
   Returns a `List` of the initial elements of `self`, up until the first element that
   returns false for `isElement`
