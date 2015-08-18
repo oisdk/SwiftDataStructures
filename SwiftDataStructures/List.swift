@@ -51,9 +51,6 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   case Nil
   case Cons(Element, () -> List<Element>)
 
-  public typealias Generator = List<Element>
-  public typealias SubSequence = List<Element>
-
   // MARK: Initializers
 
   private init<G : GeneratorType where G.Element == Element>(var gen: G) {
