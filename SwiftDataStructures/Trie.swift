@@ -125,7 +125,7 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
         return children.isEmpty ? .Removable : .NotRemovable
       }
       guard let removeState = children[head]?.remove(gen: g) else { return .NotPresent }
-      guard case .Removable = removeState else { return removeState }
+      guard removeState == .Removable else { return removeState }
       children.removeValueForKey(head)
       return (!endHere && children.isEmpty) ? .Removable : .NotRemovable
       
@@ -135,10 +135,8 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     S : SequenceType where S.Generator.Element == Element
     >(seq: S) -> [Element]? {
       let result = Array(seq)
-      switch remove(gen: result.generate()) {
-      case .NotPresent: return nil
-      default: return result
-      }
+      if remove(gen: result.generate()) == .NotPresent { return nil }
+      return result
   }
 
   private func contains<
