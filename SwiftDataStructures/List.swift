@@ -92,10 +92,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   */
   
   public var count: Int {
-    switch self {
-    case .Nil: return 0
-    case let .Cons(_, tail): return tail().count.successor()
-    }
+    guard case let .Cons(_, t) = self else { return 0 }
+    return t().count.successor()
   }
   
   /**
@@ -113,10 +111,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   */
   
   public var first: Element? {
-    switch self {
-    case .Nil: return nil
-    case let .Cons(head, _): return head
-    }
+    if case let .Cons(h, _) = self { return h }
+    return nil
   }
   /**
   Returns the last element of `self`, if it exists, or `nil` if `self` is empty.
@@ -124,10 +120,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   - Complexity: O(`count`)
   */
   public var last: Element? {
-    switch self {
-    case .Nil: return nil
-    case let .Cons(head, tail): return tail().isEmpty ? head : tail().last
-    }
+    guard case let .Cons(head, tail) = self else { return nil }
+    return tail().isEmpty ? head : tail().last
   }
   
   // MARK: Instance Methods
@@ -135,12 +129,9 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   Returns the next element if it exists, or nil if it does not.
   */
   public mutating func next() -> Element? {
-    switch self {
-    case .Nil: return nil
-    case let .Cons(head, tail):
-      self = tail()
-      return head
-    }
+    guard case let .Cons(head, tail) = self else { return nil }
+    self = tail()
+    return head
   }
   /// Return a *generator* over the elements of this *sequence*.
   ///
@@ -154,10 +145,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   - Complexity: O(1)
   */
   public func dropFirst() -> List<Element> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(_, tail): return tail()
-    }
+    if case let .Cons(_, t) = self { return t() }
+    return .Nil
   }
   /**
   Returns a `List` containing all but the last element.
@@ -165,13 +154,10 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   - Complexity: O(`count`)
   */
   public func dropLast() -> List<Element> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail):
-      let tail = tail()
-      if tail.isEmpty { return .Nil }
-      return head |> tail.dropLast()
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    let tail = xs()
+    if tail.isEmpty { return .Nil }
+    return x |> tail.dropLast()
   }
   /**
   Returns a `List` containing all but the first N elements.
@@ -195,12 +181,9 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   }
   
   private func dropLast(var ahead: Deque<Element>) -> List<Element> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail):
-      ahead.append(head)
-      return ahead.removeFirst() |> tail().dropLast(ahead)
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    ahead.append(x)
+    return ahead.removeFirst() |> xs().dropLast(ahead)
   }
   /**
   Returns a `List` containing all but the last n elements.
@@ -220,10 +203,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   */
   
   public func appended(@autoclosure(escaping) with: () -> Element) -> List<Element> {
-    switch self {
-    case .Nil: return .Cons(with(), {.Nil})
-    case let .Cons(head, tail): return head |> tail().appended(with)
-    }
+    guard case let .Cons(x, xs) = self else { return [with()] }
+    return x |> xs().appended(with)
   }
   
   /**
@@ -233,10 +214,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   */
   
   public func extended(@autoclosure(escaping) with: () -> List<Element>) -> List<Element> {
-    switch self {
-    case .Nil: return with()
-    case let .Cons(head, tail): return head |> tail().extended(with)
-    }
+    guard case let .Cons(x, xs) = self else { return with() }
+    return x |> xs().extended(with)
   }
   
   /**
@@ -270,13 +249,10 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   }
   
   private func divide(@noescape isSplit: Element -> Bool) -> (List<Element>, List<Element>) {
-    switch self {
-    case .Nil: return (.Nil, .Nil)
-    case let .Cons(head, tail):
-      if isSplit(head) { return (.Nil, tail()) }
-      let (front, back) = tail().divide(isSplit)
-      return (head |> front, back)
-    }
+    guard case let .Cons(x, xs) = self else { return (.Nil, .Nil) }
+    if isSplit(x) { return (.Nil, xs()) }
+    let (front, back) = xs().divide(isSplit)
+    return (x |> front, back)
   }
   
   /**
@@ -299,32 +275,23 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   }
   /// :nodoc:
   public func map<T>(transform: Element -> T) -> List<T> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail): return transform(head) |> tail().map(transform)
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return transform(x) |> xs().map(transform)
   }
   /// :nodoc:
   public func flatMap<T>(transform: Element -> List<T>) -> List<T> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail): return transform(head).extended(tail().flatMap(transform))
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return transform(x).extended(xs().flatMap(transform))
   }
   /// :nodoc:
   public func flatMap<S : SequenceType>(transform: Element -> S) -> List<S.Generator.Element> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail): return List<S.Generator.Element>(transform(head)).extended(tail().flatMap(transform))
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return List<S.Generator.Element>(transform(x)).extended(xs().flatMap(transform))
   }
   /// :nodoc:
   public func flatMap<T>(transform: Element -> T?) -> List<T> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail):
-      return transform(head).map { $0 |> tail().flatMap(transform) } ?? tail().flatMap(transform)
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return transform(x).map { $0 |> xs().flatMap(transform) } ?? xs().flatMap(transform)
   }
   /**
   Return a value less than or equal to the number of elements in `self`,
@@ -340,12 +307,9 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   - Requires: `!self.isEmpty`.
   */
   public mutating func removeFirst() -> Element {
-    switch self {
-    case .Nil: fatalError("Cannot call removeFirst() on an empty List")
-    case let .Cons(head, tail):
-      self = tail()
-      return head
-    }
+    guard case let .Cons(x, xs) = self else { fatalError("Cannot call removeFirst() on an empty List") }
+    self = xs()
+    return x
   }
   /**
   Remove the first element and return it, if it exists. Otherwise, return `nil`.
@@ -353,12 +317,9 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   - Complexity: O(1)
   */
   public mutating func popFirst() -> Element? {
-    switch self {
-    case .Nil: return nil
-    case let .Cons(head, tail):
-      self = tail()
-      return head
-    }
+    guard case let .Cons(x, xs) = self else { return nil }
+    self = xs()
+    return x
   }
   /**
   Return `self` prepended with the elements of `with`.
@@ -374,20 +335,15 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   }
   /// :nodoc:
   public func filter(includeElement: Element -> Bool) -> List<Element> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail):
-      return includeElement(head) ?
-        head |> tail().filter(includeElement) :
-        tail().filter(includeElement)
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return includeElement(x) ?
+      x |> xs().filter(includeElement) :
+      xs().filter(includeElement)
   }
 
   private func rev(other: List<Element>) -> List<Element> {
-    switch self {
-    case .Nil: return other
-    case let .Cons(head, tail): return tail().rev(head |> other)
-    }
+    guard case let .Cons(x, xs) = self else { return other }
+    return xs().rev(x |> other)
   }
   /// :nodoc:
   public func reverse() -> List<Element> {
@@ -403,12 +359,9 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   ```
   */
   public func scan<T>(initial: T, combine: (accumulator: T, element: Element) -> T) -> List<T> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail):
-      let cur = combine(accumulator: initial, element: head)
-      return cur |> tail().scan(cur, combine: combine)
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    let cur = combine(accumulator: initial, element: x)
+    return cur |> xs().scan(cur, combine: combine)
   }
   /**
   Returns a `List` of the result of calling `combine` on successive elements of
@@ -421,10 +374,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   ```
   */
   public func scan(combine: (accumulator: Element, element: Element) -> Element) -> List<Element> {
-    switch self {
-    case .Nil: return .Nil
-    case let .Cons(head, tail): return tail().scan(head, combine: combine)
-    }
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return xs().scan(x, combine: combine)
   }
   
   /// Return the result of repeatedly calling combine with an initial value and each element
@@ -436,11 +387,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   /// ```
   
   public func reduce<T>(initial: T, @noescape combine: (accumulator: T, element: Element) -> T) -> T {
-    switch self {
-    case .Nil: return initial
-    case let .Cons(head, tail):
-      return tail().reduce(combine(accumulator: initial, element: head), combine: combine)
-    }
+    guard case let .Cons(x, xs) = self else { return initial }
+    return xs().reduce(combine(accumulator: initial, element: x), combine: combine)
   }
   
   /// Return the result of repeatedly calling combine with an accumulated value
@@ -453,10 +401,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   /// ```
   
   public func reduce(@noescape combine: (accumulator: Element, element: Element) -> Element) -> Element? {
-    switch self {
-    case .Nil: return nil
-    case let .Cons(head, tail): return tail().reduce(head, combine: combine)
-    }
+    guard case let .Cons(x, xs) = self else { return nil }
+    return xs().reduce(x, combine: combine)
   }
   
   /**
@@ -465,11 +411,8 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   */
   
   public func reduceR<T>(initial: T, combine: (element: Element, accumulator: T) -> T) -> T {
-    switch self {
-    case .Nil: return initial
-    case let .Cons(head, tail):
-      return combine(element: head, accumulator: tail().reduceR(initial, combine: combine))
-    }
+    guard case let .Cons(x, xs) = self else { return initial }
+    return combine(element: x, accumulator: xs().reduceR(initial, combine: combine))
   }
   
   /**
@@ -479,12 +422,9 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   */
   
   public func reduceR(combine: (element: Element, accumulator: Element) -> Element) -> Element? {
-    switch self {
-    case .Nil: return nil
-    case let .Cons(head, tail):
-      guard let accu = tail().reduceR(combine) else { return head }
-      return combine(element: head, accumulator: accu)
-    }
+    guard case let .Cons(x, xs) = self else { return nil }
+    guard let ac = xs().reduceR(combine) else { return x }
+    return combine(element: x, accumulator: ac)
   }
   
   /**
