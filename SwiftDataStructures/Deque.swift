@@ -159,7 +159,7 @@ public struct Deque<Element> : CustomDebugStringConvertible, ArrayLiteralConvert
   - Complexity: O(1)
   */
   public func generate() -> DequeGenerator<Element> {
-    return DequeGenerator(fGen: front.reverse().generate(), sGen: back.generate())
+    return DequeGenerator(front, back)
   }
   /**
   Return a value less than or equal to the number of elements in `self`,
@@ -635,8 +635,9 @@ internal enum Balance {
 }
 /// :nodoc:
 public struct DequeGenerator<Element> : GeneratorType, SequenceType {
-  private var fGen: IndexingGenerator<ReverseRandomAccessCollection<ContiguousArray<Element>>>?
-  private var sGen: IndexingGenerator<ContiguousArray<Element>>
+  private var onFirst: Bool = true
+  private var i: Int
+  private let first, secnd: ContiguousArray<Element>
   
   /**
   Advance to the next element and return it, or `nil` if no next element exists.
@@ -646,10 +647,13 @@ public struct DequeGenerator<Element> : GeneratorType, SequenceType {
   */
   
   mutating public func next() -> Element? {
-    if fGen == nil { return sGen.next() }
-    return fGen!.next() ?? {
-      fGen = nil
-      return sGen.next()
-      }()
+    guard onFirst else { return i == secnd.endIndex ? nil : secnd[i++] }
+    guard i == 0 else { return first[--i] }
+    onFirst = false
+    return next()
+  }
+  private init(_ front: ContiguousArray<Element>, _ back: ContiguousArray<Element>) {
+    i = front.endIndex
+    (first, secnd) = (front, back)
   }
 }
