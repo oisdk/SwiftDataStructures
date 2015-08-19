@@ -23,6 +23,8 @@
 		70B18AFB1B7CC00600FEB474 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AF51B7CC00600FEB474 /* ListTests.swift */; };
 		70B18B001B7CDC8200FEB474 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AFF1B7CDC8200FEB474 /* Trie.swift */; };
 		70B18B021B7CDC9600FEB474 /* TrieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18B011B7CDC9600FEB474 /* TrieTests.swift */; };
+		70DA1B481B8505B300E812B7 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA1B471B8505B300E812B7 /* Tree.swift */; };
+		70DA1B4A1B8505D000E812B7 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA1B491B8505D000E812B7 /* TreeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		70B18AF51B7CC00600FEB474 /* ListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		70B18AFF1B7CDC8200FEB474 /* Trie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
 		70B18B011B7CDC9600FEB474 /* TrieTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrieTests.swift; sourceTree = "<group>"; };
+		70DA1B471B8505B300E812B7 /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		70DA1B491B8505D000E812B7 /* TreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 				70B18AD61B7CBD4F00FEB474 /* StackIndex.swift */,
 				70B18AD71B7CBD4F00FEB474 /* StackSlice.swift */,
 				70B18AE91B7CBFF300FEB474 /* List.swift */,
+				70DA1B471B8505B300E812B7 /* Tree.swift */,
 				70B18AFF1B7CDC8200FEB474 /* Trie.swift */,
 				70B18ABC1B7CBD3900FEB474 /* SwiftDataStructures.h */,
 				70B18ABE1B7CBD3900FEB474 /* Info.plist */,
@@ -119,6 +124,7 @@
 				70B18AE01B7CBD6A00FEB474 /* StackSliceTests.swift */,
 				70B18AE11B7CBD6A00FEB474 /* StackTests.swift */,
 				70B18AF51B7CC00600FEB474 /* ListTests.swift */,
+				70DA1B491B8505D000E812B7 /* TreeTests.swift */,
 				70B18B011B7CDC9600FEB474 /* TrieTests.swift */,
 				70B18ACA1B7CBD3900FEB474 /* Info.plist */,
 			);
@@ -238,6 +244,7 @@
 				70B18AD81B7CBD4F00FEB474 /* Deque.swift in Sources */,
 				70B18B001B7CDC8200FEB474 /* Trie.swift in Sources */,
 				70B18ADC1B7CBD4F00FEB474 /* StackSlice.swift in Sources */,
+				70DA1B481B8505B300E812B7 /* Tree.swift in Sources */,
 				70B18AEF1B7CBFF300FEB474 /* List.swift in Sources */,
 				70B18AD91B7CBD4F00FEB474 /* DequeSlice.swift in Sources */,
 			);
@@ -252,6 +259,7 @@
 				70B18B021B7CDC9600FEB474 /* TrieTests.swift in Sources */,
 				70B18AE51B7CBD6A00FEB474 /* StackSliceTests.swift in Sources */,
 				70B18AE21B7CBD6A00FEB474 /* DequeSliceTests.swift in Sources */,
+				70DA1B4A1B8505D000E812B7 /* TreeTests.swift in Sources */,
 				70B18AFB1B7CC00600FEB474 /* ListTests.swift in Sources */,
 				70B18AE61B7CBD6A00FEB474 /* StackTests.swift in Sources */,
 			);
