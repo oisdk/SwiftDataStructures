@@ -342,6 +342,7 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     guard case let .Node(_, l, e, r) = self else { return .Empty }
     return .Node(l, e, r.reverse())
   }
+  
 }
 
 /// :nodoc:

@@ -179,4 +179,89 @@ class TreeTests: XCTestCase {
     XCTAssert(sorted.elementsEqual(tree.reverse()))
     
   }
+  
+  func testExclusiveOr() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let set = Set(fst)
+    
+    let tre = Tree(fst)
+    
+    let treeOr = tre.exclusiveOr(sec)
+    
+    let setOr = set.exclusiveOr(sec).sort()
+    
+    XCTAssert(treeOr.isBalanced)
+    
+    XCTAssert(treeOr.elementsEqual(setOr))
+    
+  }
+  
+  func testExclusiveOrInPlace() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    var set = Set(fst)
+    
+    var tre = Tree(fst)
+    
+    tre.exclusiveOrInPlace(sec)
+    
+    set.exclusiveOrInPlace(sec)
+    
+    let setOr = set.sort()
+    
+    XCTAssert(tre.isBalanced)
+    
+    XCTAssert(tre.elementsEqual(setOr))
+    
+  }
+  
+  func testIntersect() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let set = Set(fst)
+    
+    let tre = Tree(fst)
+    
+    let treeIn = tre.intersect(sec)
+    
+    let setIn = set.intersect(sec).sort()
+    
+    XCTAssert(treeIn.isBalanced)
+    
+    XCTAssert(treeIn.elementsEqual(setIn))
+  
+  }
+  
+  func testIntersectInPlace() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    var set = Set(fst)
+    
+    var tre = Tree(fst)
+    
+    tre.intersectInPlace(sec)
+    
+    set.intersectInPlace(sec)
+    
+    let setOr = set.sort()
+    
+    XCTAssert(tre.isBalanced)
+    
+    XCTAssert(tre.elementsEqual(setOr))
+    
+  }
+  
 }

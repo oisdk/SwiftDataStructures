@@ -86,12 +86,10 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
   }
   
   /// Return a *generator* over the members.
-  ///
-  /// - Complexity: O(1).
+
   public func generate() -> TrieGenerator<Element>  {
     return TrieGenerator(self)
   }
-
 
   private func completions
     <G : GeneratorType where G.Element == Element>
@@ -132,6 +130,7 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
       return (!endHere && children.isEmpty) ? .Removable : .NotRemovable
       
   }
+  
   /// Remove the member from the Trie and return it if it was present.
   public mutating func remove<
     S : SequenceType where S.Generator.Element == Element
@@ -147,74 +146,14 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
       guard let head = gen.next() else { return endHere }
       return children[head]?.contains(gen) ?? false
   }
+  
   /// Returns `true` if the Trie contains a member.
   public func contains
     <S : SequenceType where S.Generator.Element == Element>
     (seq: S) -> Bool {
       return contains(seq.generate())
   }
-  /// Return a new Trie with elements that are either in the Trie or a finite
-  /// sequence but do not occur in both.
-  public func exclusiveOr<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    > (sequence: S) -> Trie<Element> {
-      var ret = self
-      for element in sequence {
-        if ret.contains(element) {
-          ret.remove(element)
-        } else {
-          ret.insert(element)
-        }
-      }
-      return ret
-  }
-  /// For each element of a finite sequence, remove it from the Trie if it is a
-  /// common element, otherwise add it to the Trie.
-  public mutating func exclusiveOrInPlace<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) {
-      for element in sequence {
-        if contains(element) {
-          remove(element)
-        } else {
-          insert(element)
-        }
-      }
-  }
-  /// Return a new set with elements common to this Trie and a finite sequence.
-  public func intersect<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) -> Trie<Element> {
-      return Trie(sequence.filter(contains))
-  }
-  /// Remove any members of this Trie that aren't also in a finite sequence.
-  public mutating func intersectInPlace<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) {
-      self = intersect(sequence)
-  }
-  /// Returns true if no members in the Trie are in a finite sequence.
-  public func isDisjointWith<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) -> Bool { return !sequence.contains(self.contains) }
-  /// Returns true if the Trie is a superset of a finite sequence.
-  public func isSupersetOf<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) -> Bool {
-      return !sequence.contains { !self.contains($0) }
-  }
+  
   /// Returns true if the set is a subset of a finite sequence.
   public func isSubsetOf<
     S : SequenceType where
@@ -223,6 +162,7 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     >(sequence: S) -> Bool {
       return Trie(sequence).isSupersetOf(self)
   }
+  
   /// Insert elements of a `Trie` into this `Trie`.
   public mutating func unionInPlace(with: Trie<Element>) {
     endHere = endHere || with.endHere
@@ -230,17 +170,7 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
       children[head]?.unionInPlace(child) ?? {children[head] = child}()
     }
   }
-  /// Return a new Trie with elements in this Trie that do not occur
-  /// in a finite sequence.
-  public func subtract<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) -> Trie<Element> {
-      var result = self
-      for element in sequence { result.remove(element) }
-      return result
-  }
+  
   /// Remove all members in the Trie that occur in a finite sequence.
   public mutating func subtractInPlace<
     S : SequenceType where
@@ -249,17 +179,20 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     >(sequence: S) {
       for element in sequence { remove(element) }
   }
+  
   /// Insert elements of a finite sequence into this `Trie`.
   public mutating func unionInPlace<
     S : SequenceType where
     S.Generator.Element : SequenceType,
     S.Generator.Element.Generator.Element == Element
     >(sequence: S) { unionInPlace(Trie(sequence)) }
+  
   /// Return a new Trie with items in both this set and a finite sequence.
   public func union(var with: Trie<Element>) -> Trie<Element> {
     with.unionInPlace(self)
     return with
   }
+  
   /// Return a new Trie with items in both this set and a finite sequence.
   public func union<
     S : SequenceType where
@@ -316,15 +249,15 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
 }
 
 /// :nodoc:
-public struct TrieGenerator<Element : Hashable> : GeneratorType {
-  private var children: DictionaryGenerator<Element, Trie<Element>>
-  private var curHead : [Element] = []
-  private var innerGen: () -> [Element]? = {nil}
+public struct TrieGenerator<Letter : Hashable> : GeneratorType {
+  private var children: DictionaryGenerator<Letter, Trie<Letter>>
+  private var curHead : [Letter] = []
+  private var innerGen: () -> [Letter]? = {nil}
   /// Advance to the next element and return it, or `nil` if no next
   /// element exists.
   ///
   /// - Requires: No preceding call to `self.next()` has returned `nil`.
-  public mutating func next() -> [Element]? {
+  public mutating func next() -> [Letter]? {
     for ;; {
       if let next = innerGen() { return curHead + next }
       guard let (head, child) = children.next() else { return nil }
@@ -334,7 +267,7 @@ public struct TrieGenerator<Element : Hashable> : GeneratorType {
       if child.endHere { return curHead }
     }
   }
-  private init(_ from: Trie<Element>) { children = from.children.generate() }
+  private init(_ from: Trie<Letter>) { children = from.children.generate() }
 }
 private enum RemoveState {
   case NotPresent, NotRemovable, Removable
