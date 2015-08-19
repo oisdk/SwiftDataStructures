@@ -13,7 +13,7 @@
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">SwiftDataStructures Docs</a> (100% documented)</p>
-        <p class="header-right"><a href="https://github.com/oisdk/SwiftDataStructures"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="https://github.com/oisdk/"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,6 +31,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Enums/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/Tree.html">Tree</a>
               </li>
             </ul>
           </li>
@@ -73,7 +76,7 @@
             
             <a href='#swiftdatastructures' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='swiftdatastructures'>SwiftDataStructures</h1>
 
-<p>SwiftDataStructures is a framework of commonly-used data structures for Swift. Documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/index.html">here</a>.</p>
+<p>SwiftDataStructures is a framework of commonly-used data structures for Swift.</p>
 
 <p>Included:</p>
 <a href='#deque' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='deque'>Deque</h2>
@@ -94,6 +97,8 @@ for O(<em>1</em>) indexing.</p>
 
 <p>Discussion of this specific implementation is available
 <a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
+
+<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/DequeSlice.html">here</a>.</p>
 <a href='#stack' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='stack'>Stack</h2>
 
 <p>A <code>Stack</code> is a list-like data structure, implemented via a reversed
@@ -103,9 +108,11 @@ operations on the <em>end</em> are usually O(<code>count</code>).</p>
 
 <p>Discussion of this specific implementation is available
 <a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
+
+<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/Stack.html">here</a>.</p>
 <a href='#list' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='list'>List</h2>
 
-<p>A singly-linked, recursive list. Head-tail decomposition can be accomplished with a
+<p>A singly-linked, lazy list. Head-tail decomposition can be accomplished with a
 <code>switch</code> statement:</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">List</span> <span class="p">{</span>
   <span class="kd">public</span> <span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">f</span><span class="p">:</span> <span class="kt">Element</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">{</span>
@@ -123,6 +130,8 @@ operations on the <em>end</em> are usually O(<code>count</code>).</p>
 
 <p>Discussion of this specific implementation is available
 <a href="https://bigonotetaking.wordpress.com/2015/07/29/deques-queues-and-lists-in-swift-with-indirect/">here</a>.</p>
+
+<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Enums/List.html">here</a>.</p>
 <a href='#trie' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='trie'>Trie</h2>
 
 <p>A <a href="https://en.wikipedia.org/wiki/Trie">Trie</a> is a prefix tree data structure. It has
@@ -136,10 +145,23 @@ length of the sequence being searched for.</p>
 <p>Discussion of this specific implementation is available
 <a href="https://bigonotetaking.wordpress.com/2015/08/11/a-trie-in-swift/">here</a>.</p>
 
+<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/Trie.html">here</a>.</p>
+<a href='#tree' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='tree'>Tree</h2>
+
+<p>A <a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">red-black binary search tree</a>. Adapted
+from Airspeed Velocity&rsquo;s <a href="http://airspeedvelocity.net/2015/07/22/a-persistent-tree-using-indirect-enums-in-swift/">implementation</a>,
+Chris Okasaki&rsquo;s <a href="http://www.cs.cmu.edu/%7Erwh/theses/okasaki.pdf">Purely Functional Data Structures</a>,
+and Stefan Kahrs&rsquo; <a href="http://dl.acm.org/citation.cfm?id=968482">Red-black trees with types</a>,
+which is implemented in the <a href="https://hackage.haskell.org/package/llrbtree-0.1.1/docs/Data-Set-RBTree.html">Haskell standard library</a>.</p>
+
+<p>Elements must be comparable with <a href="https://en.wikipedia.org/wiki/Total_order#Strict_total_order">Strict total order</a>.</p>
+
+<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/Tree.html">here</a>.</p>
+
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-14)</p>
+          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
