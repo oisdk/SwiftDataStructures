@@ -1,10 +1,9 @@
 public protocol SetType : SequenceType {
-  typealias Member
   init()
-  init<S : SequenceType where S.Generator.Element == Member>(_ sequence: S)
-  mutating func remove(x: Member) -> Member?
-  mutating func insert(x: Member)
-  func contains(x: Member) -> Bool
+  init<S : SequenceType where S.Generator.Element == Generator.Element>(_ sequence: S)
+  mutating func remove(x: Generator.Element) -> Generator.Element?
+  mutating func insert(x: Generator.Element)
+  func contains(x: Generator.Element) -> Bool
 }
 
 extension Trie : SetType {}
@@ -16,7 +15,7 @@ extension SetType {
   /// sequence but do not occur in both.
   
   public func exclusiveOr<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) -> Self {
       var result = self
       result.exclusiveOrInPlace(sequence)
@@ -27,7 +26,7 @@ extension SetType {
   /// common element, otherwise add it to the SetType.
   
   public mutating func exclusiveOrInPlace<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) {
       var seen = Self()
       for x in sequence where !seen.contains(x) {
@@ -39,25 +38,25 @@ extension SetType {
   /// Return a new set with elements common to `self` and a finite sequence.
   
   public func intersect<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) -> Self {
       var result = Self()
       for x in sequence where contains(x) { result.insert(x) }
       return result
   }
   
-  /// Remove any members of `self` that aren't also in a finite sequence.
+  /// Remove any Generator.Elements of `self` that aren't also in a finite sequence.
   
   public mutating func intersectInPlace<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     > (sequence: S) {
       self = intersect(sequence)
   }
 
-  /// Returns true if no members in `self` are in a finite sequence.
+  /// Returns true if no Generator.Elements in `self` are in a finite sequence.
   
   public func isDisjointWith<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) -> Bool {
       return !sequence.contains(contains)
   }
@@ -65,26 +64,34 @@ extension SetType {
   /// Returns true if `self` is a superset of a finite sequence.
   
   public func isSupersetOf<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) -> Bool {
       return !sequence.contains { !self.contains($0) }
+  }
+  
+  /// Returns true if `self` is a subset of a finite sequence
+  
+  public func isSubsetOf<
+    S : SequenceType where S.Generator.Element == Generator.Element
+    >(sequence: S) -> Bool {
+      return Self(sequence).isSupersetOf(self)
   }
   
   /// Return a new SetType with elements in `self` that do not occur
   /// in a finite sequence.
   
   public func subtract<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) -> Self {
       var result = self
       result.subtractInPlace(sequence)
       return result
   }
   
-  /// Remove all members in `self` that occur in a finite sequence.
+  /// Remove all Generator.Elements in `self` that occur in a finite sequence.
   
   public mutating func subtractInPlace<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) {
       for x in sequence { remove(x) }
   }
@@ -92,7 +99,7 @@ extension SetType {
   /// Return a new SetType with items in both `self` and a finite sequence.
   
   public func union<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) -> Self {
       var result = self
       result.unionInPlace(sequence)
@@ -102,7 +109,7 @@ extension SetType {
   /// Insert the elements of a finite sequence into `self`
   
   public mutating func unionInPlace<
-    S : SequenceType where S.Generator.Element == Member
+    S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) {
       for x in sequence { insert(x) }
   }
