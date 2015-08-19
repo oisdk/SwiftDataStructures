@@ -159,13 +159,15 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   */
   
   public mutating func insert(x: Element) {
-    guard case let .Node(_, l, y, r) = ins(x) else { preconditionFailure() }
+    guard case let .Node(_, l, y, r) = ins(x) else {
+      preconditionFailure("ins should not return an empty tree")
+    }
     self = .Node(.B, l, y, r)
   }
   
   /**
-  Runs a `TreeGenerator` over the elements of `self`. (The elements are presented in order,
-  from smallest to largest)
+  Runs a `TreeGenerator` over the elements of `self`. (The elements are presented in
+  order, from smallest to largest)
   */
   
   public func generate() -> TreeGenerator<Element> {
@@ -209,7 +211,9 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     case .B:
       return (Tree.Node(.B, l, x, .Node(.R, rl, rx, rr)).balanceR(), c == .B)
     case .R:
-      guard case let .Node(_, rll, rlx, rlr) = rl else { preconditionFailure("rl empty") }
+      guard case let .Node(_, rll, rlx, rlr) = rl else {
+        preconditionFailure("rl empty")
+      }
       return (Tree.Node(.B, Tree.Node(.B, l, x, .Node(.R, rll, rlx, rlr)).balanceR(), rx, rr), false)
     }
   }
@@ -222,7 +226,9 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     case .B:
       return (Tree.Node(.B, .Node(.R, ll, lx, lr), x, r).balanceL(), c == .B)
     case .R:
-      guard case let .Node(_, lrl, lrx, lrr) = lr else { preconditionFailure("lr empty") }
+      guard case let .Node(_, lrl, lrx, lrr) = lr else {
+        preconditionFailure("lr empty")
+      }
       return (Tree.Node(.B, ll, lx, Tree.Node(.B, .Node(.R, lrl, lrx, lrr), x, r).balanceL()), false)
     }
   }
