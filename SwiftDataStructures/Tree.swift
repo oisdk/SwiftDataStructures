@@ -7,7 +7,7 @@ which is implemented in the [Haskell standard library](https://hackage.haskell.o
 
 Elements must be comparable with [Strict total order](https://en.wikipedia.org/wiki/Total_order#Strict_total_order).
 
-Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Tree.html).
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Enums/Tree.html).
 */
 
 public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, CustomDebugStringConvertible, Equatable {

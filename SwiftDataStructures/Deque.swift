@@ -18,7 +18,7 @@ for O(*1*) indexing.
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
 
-Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/DequeSlice.html).
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Deque.html).
 */
 
 public struct Deque<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, SequenceType, Indexable, MutableSliceable, RangeReplaceableCollectionType {

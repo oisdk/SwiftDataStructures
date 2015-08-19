@@ -1,5 +1,7 @@
 /**
 An index type for a `Stack` and `StackSlice`.
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/StackIndex.html).
 */
 
 public struct StackIndex : Equatable, Comparable, RandomAccessIndexType {
