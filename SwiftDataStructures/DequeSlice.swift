@@ -22,6 +22,8 @@ To prevent this effect, use `DequeSlice` only for transient computation.
 
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/DequeSlice.html).
 */
 
 public struct DequeSlice<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, SequenceType, Indexable, MutableSliceable, RangeReplaceableCollectionType {

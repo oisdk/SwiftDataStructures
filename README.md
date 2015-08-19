@@ -25,6 +25,8 @@ for O(*1*) indexing.
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
 
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/DequeSlice.html).
+
 ## Stack ##
 
 A `Stack` is a list-like data structure, implemented via a reversed
@@ -34,6 +36,8 @@ operations on the *end* are usually O(`count`).
 
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Stack.html).
 
 ## List ##
 
@@ -58,6 +62,8 @@ Operations on the beginning of the list are O(1), whereas other operations are O
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/07/29/deques-queues-and-lists-in-swift-with-indirect/).
 
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Enums/List.html).
+
 ## Trie ##
 
 A [Trie](https://en.wikipedia.org/wiki/Trie) is a prefix tree data structure. It has
@@ -70,3 +76,17 @@ length of the sequence being searched for.
 
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/11/a-trie-in-swift/).
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Trie.html).
+
+## Tree ##
+
+A [red-black binary search tree](https://en.wikipedia.org/wiki/Red–black_tree). Adapted
+from Airspeed Velocity's [implementation](http://airspeedvelocity.net/2015/07/22/a-persistent-tree-using-indirect-enums-in-swift/),
+Chris Okasaki's [Purely Functional Data Structures](http://www.cs.cmu.edu/~rwh/theses/okasaki.pdf),
+and Stefan Kahrs' [Red-black trees with types](http://dl.acm.org/citation.cfm?id=968482),
+which is implemented in the [Haskell standard library](https://hackage.haskell.org/package/llrbtree-0.1.1/docs/Data-Set-RBTree.html).
+
+Elements must be comparable with [Strict total order](https://en.wikipedia.org/wiki/Total_order#Strict_total_order).
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Tree.html).

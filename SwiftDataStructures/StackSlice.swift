@@ -11,6 +11,8 @@ To prevent this effect, use `StackSlice` only for transient computation.
 
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/StackSlice.html).
 */
 
 public struct StackSlice<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, Indexable, SequenceType, CollectionType, RangeReplaceableCollectionType  {

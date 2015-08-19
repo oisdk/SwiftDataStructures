@@ -6,6 +6,8 @@ and Stefan Kahrs' [Red-black trees with types](http://dl.acm.org/citation.cfm?id
 which is implemented in the [Haskell standard library](https://hackage.haskell.org/package/llrbtree-0.1.1/docs/Data-Set-RBTree.html).
 
 Elements must be comparable with [Strict total order](https://en.wikipedia.org/wiki/Total_order#Strict_total_order).
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Tree.html).
 */
 
 public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, CustomDebugStringConvertible, Equatable {

@@ -107,8 +107,8 @@
 				70B18AD61B7CBD4F00FEB474 /* StackIndex.swift */,
 				70B18AD71B7CBD4F00FEB474 /* StackSlice.swift */,
 				70B18AE91B7CBFF300FEB474 /* List.swift */,
-				70DA1B471B8505B300E812B7 /* Tree.swift */,
 				70B18AFF1B7CDC8200FEB474 /* Trie.swift */,
+				70DA1B471B8505B300E812B7 /* Tree.swift */,
 				70B18ABC1B7CBD3900FEB474 /* SwiftDataStructures.h */,
 				70B18ABE1B7CBD3900FEB474 /* Info.plist */,
 			);
@@ -124,8 +124,8 @@
 				70B18AE01B7CBD6A00FEB474 /* StackSliceTests.swift */,
 				70B18AE11B7CBD6A00FEB474 /* StackTests.swift */,
 				70B18AF51B7CC00600FEB474 /* ListTests.swift */,
-				70DA1B491B8505D000E812B7 /* TreeTests.swift */,
 				70B18B011B7CDC9600FEB474 /* TrieTests.swift */,
+				70DA1B491B8505D000E812B7 /* TreeTests.swift */,
 				70B18ACA1B7CBD3900FEB474 /* Info.plist */,
 			);
 			path = SwiftDataStructuresTests;

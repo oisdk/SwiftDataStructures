@@ -45,6 +45,8 @@ Operations on the beginning of the list are O(1), whereas other operations are O
 
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/07/29/deques-queues-and-lists-in-swift-with-indirect/).
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Enums/List.html).
 */
 
 public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, GeneratorType, SequenceType {

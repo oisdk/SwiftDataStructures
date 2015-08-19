@@ -9,6 +9,8 @@ length of the sequence being searched for.
 
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/11/a-trie-in-swift/).
+
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Trie.html).
 */
 
 public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable, SequenceType {
