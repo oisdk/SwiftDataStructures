@@ -202,32 +202,28 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   }
   
   private func unbalancedR() -> (result: Tree, wasBlack: Bool) {
-    guard case let .Node(c, l, x, r) = self else {
-      preconditionFailure("Should not call unbalancedR on an empty Tree")
+    guard case let .Node(c, l, x, .Node(rc, rl, rx, rr)) = self else {
+      preconditionFailure("Should not call unbalancedR on an empty Tree or a Tree with an empty right")
     }
-    switch r {
-    case let .Node(.B, rl, rx, rr):
+    switch rc {
+    case .B:
       return (Tree.Node(.B, l, x, .Node(.R, rl, rx, rr)).balanceR(), c == .B)
-    case let .Node(_, rl, rx, rr):
+    case .R:
       guard case let .Node(_, rll, rlx, rlr) = rl else { preconditionFailure("rl empty") }
       return (Tree.Node(.B, Tree.Node(.B, l, x, .Node(.R, rll, rlx, rlr)).balanceR(), rx, rr), false)
-    default:
-      preconditionFailure("Should not call unbalancedR with an empty right Tree")
     }
   }
   
   private func unbalancedL() -> (result: Tree, wasBlack: Bool) {
-    guard case let .Node(c, l, x, r) = self else {
-      preconditionFailure("Should not call unbalancedL on an empty Tree")
+    guard case let .Node(c, .Node(lc, ll, lx, lr), x, r) = self else {
+      preconditionFailure("Should not call unbalancedL on an empty Tree or a Tree with an empty left")
     }
-    switch l {
-    case let .Node(.B, ll, lx, lr):
+    switch lc {
+    case .B:
       return (Tree.Node(.B, .Node(.R, ll, lx, lr), x, r).balanceL(), c == .B)
-    case let .Node(_, ll, lx, lr):
+    case .R:
       guard case let .Node(_, lrl, lrx, lrr) = lr else { preconditionFailure("lr empty") }
       return (Tree.Node(.B, ll, lx, Tree.Node(.B, .Node(.R, lrl, lrx, lrr), x, r).balanceL()), false)
-    default:
-      preconditionFailure("Should not call unbalancedL with an empty left Tree")
     }
   }
   
@@ -235,20 +231,17 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     switch self {
     case .Empty:
       preconditionFailure("Should not call _deleteMin on an empty Tree")
-    case .Node(.B, .Empty, let x, .Empty):
+    case let .Node(.B, .Empty, x, .Empty):
       return (.Empty, true, x)
-    case .Node(.B, .Empty, let x, let .Node(.R, rl, rx, rr)):
+    case let .Node(.B, .Empty, x, .Node(.R, rl, rx, rr)):
       return (.Node(.B, rl, rx, rr), false, x)
-    case .Node(.R, .Empty, let x, let r):
+    case let .Node(.R, .Empty, x, r):
       return (r, false, x)
     case let .Node(c, l, x, r):
       let (l0, d, m) = l._deleteMin()
-      if d {
-        let tD = Tree.Node(c, l0, x, r).unbalancedR()
-        return (tD.0, tD.1, m)
-      } else {
-        return (Tree.Node(c, l0, x, r), false, m)
-      }
+      guard d else { return (.Node(c, l0, x, r), false, m) }
+      let tD = Tree.Node(c, l0, x, r).unbalancedR()
+      return (tD.0, tD.1, m)
     }
   }
   
@@ -278,12 +271,9 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
       return (l, false, x)
     case let .Node(c, l, x, r):
       let (r0, d, m) = r._deleteMax()
-      if d {
-        let tD = Tree.Node(c, l, x, r0).unbalancedL()
-        return (tD.0, tD.1, m)
-      } else {
-        return (.Node(c, l, x, r0), false, m)
-      }
+      guard d else { return (.Node(c, l, x, r0), false, m) }
+      let tD = Tree.Node(c, l, x, r0).unbalancedL()
+      return (tD.0, tD.1, m)
     }
   }
   
@@ -311,16 +301,15 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
       guard let (r0, d) = r.del(x) else { return nil }
       let t = Tree.Node(c, l, y, r0)
       return d ? t.unbalancedL() : (t, false)
-    } else {
-      if case .Empty = r {
-        guard c == .B else { return (l, false) }
-        if case let .Node(.R, ll, lx, lr) = l { return (.Node(.B, ll, lx, lr), false) }
-        return (l, true)
-      }
-      let (r0, d, m) = r._deleteMin()
-      let t = Tree.Node(c, l, m, r0)
-      return d ? t.unbalancedL() : (t, false)
     }
+    if r ==  .Empty {
+      guard c == .B else { return (l, false) }
+      if case let .Node(.R, ll, lx, lr) = l { return (.Node(.B, ll, lx, lr), false) }
+      return (l, true)
+    }
+    let (r0, d, m) = r._deleteMin()
+    let t = Tree.Node(c, l, m, r0)
+    return d ? t.unbalancedL() : (t, false)
   }
   
   /**
