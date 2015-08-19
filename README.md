@@ -25,7 +25,7 @@ for O(*1*) indexing.
 Discussion of this specific implementation is available
 [here](https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/).
 
-Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/DequeSlice.html).
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Deque.html).
 
 ## Stack ##
 
@@ -89,4 +89,4 @@ which is implemented in the [Haskell standard library](https://hackage.haskell.o
 
 Elements must be comparable with [Strict total order](https://en.wikipedia.org/wiki/Total_order#Strict_total_order).
 
-Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Tree.html).
+Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Enums/Tree.html).
