@@ -201,16 +201,6 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     }
   }
   
-  private func turnR() -> Tree {
-    if case let .Node(_, l, x, r) = self { return .Node(.R, l, x, r) }
-    preconditionFailure("Should not call turnR on an empty Tree")
-  }
-  
-  private func turnB() -> Tree {
-    if case let .Node(_, l, x, r) = self { return .Node(.B, l, x, r) }
-    preconditionFailure("Should not call turnB on an empty Tree")
-  }
-  
   private func unbalancedR() -> (result: Tree, wasBlack: Bool) {
     guard case let .Node(c, l, x, r) = self else {
       preconditionFailure("Should not call unbalancedR on an empty Tree")
@@ -219,7 +209,8 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     case let .Node(.B, rl, rx, rr):
       return (Tree.Node(.B, l, x, .Node(.R, rl, rx, rr)).balanceR(), c == .B)
     case let .Node(_, rl, rx, rr):
-      return (Tree.Node(.B, Tree.Node(.B, l, x, rl.turnR()).balanceR(), rx, rr), false)
+      guard case let .Node(_, rll, rlx, rlr) = rl else { preconditionFailure("rl empty") }
+      return (Tree.Node(.B, Tree.Node(.B, l, x, .Node(.R, rll, rlx, rlr)).balanceR(), rx, rr), false)
     default:
       preconditionFailure("Should not call unbalancedR with an empty right Tree")
     }
@@ -233,7 +224,8 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     case let .Node(.B, ll, lx, lr):
       return (Tree.Node(.B, .Node(.R, ll, lx, lr), x, r).balanceL(), c == .B)
     case let .Node(_, ll, lx, lr):
-      return (Tree.Node(.B, ll, lx, Tree.Node(.B, lr.turnR(), x, r).balanceL()), false)
+      guard case let .Node(_, lrl, lrx, lrr) = lr else { preconditionFailure("lr empty") }
+      return (Tree.Node(.B, ll, lx, Tree.Node(.B, .Node(.R, lrl, lrx, lrr), x, r).balanceL()), false)
     default:
       preconditionFailure("Should not call unbalancedL with an empty left Tree")
     }
