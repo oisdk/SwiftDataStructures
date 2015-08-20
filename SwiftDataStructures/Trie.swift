@@ -138,7 +138,34 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
       if remove(gen: result.generate()) == .NotPresent { return nil }
       return result
   }
-
+  
+  private mutating func XOR<
+    G : GeneratorType where G.Element == Element
+    >(var gen g: G) -> Bool {
+      guard let head = g.next() else {
+        let present = endHere
+        endHere = !present
+        return children.isEmpty && present
+      }
+      guard let removable = children[head]?.XOR(gen: g) else {
+        children[head] = Trie(gen: g)
+        return false
+      }
+      if removable {
+        children.removeValueForKey(head)
+        return !endHere && children.isEmpty
+      }
+      return false
+  }
+  
+  /// Remove the member if it was present, insert it if it was not.
+  
+  public mutating func XOR<
+    S : SequenceType where S.Generator.Element == Element
+    >(seq: S) {
+      XOR(gen: seq.generate())
+  }
+    
   private func contains<
     G : GeneratorType where G.Element == Element
     >(var gen: G) -> Bool {
@@ -157,7 +184,7 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
   public mutating func unionInPlace(with: Trie<Element>) {
     endHere = endHere || with.endHere
     for (head, child) in with.children {
-      children[head]?.unionInPlace(child) ?? {children[head] = child}()
+      if case nil = children[head]?.unionInPlace(child) { children[head] = child }
     }
   }
   

@@ -24,12 +24,16 @@ public protocol SetType : SequenceType {
   /// returns `true` iff `self` contains `x`
   
   func contains(x: Generator.Element) -> Bool
+  
+  /// Remove the member if it was present, insert it if it was not.
+  
+  mutating func XOR(x: Generator.Element)
 }
 
 /// :nodoc:
 
 extension SetType {
-  
+    
   /// Return a new SetType with elements that are either in `self` or a finite
   /// sequence but do not occur in both.
   
@@ -49,7 +53,7 @@ extension SetType {
     >(sequence: S) {
       var seen = Self()
       for x in sequence where !seen.contains(x) {
-        if case nil = remove(x) { insert(x) }
+        XOR(x)
         seen.insert(x)
       }
   }

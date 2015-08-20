@@ -343,6 +343,12 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     return .Node(l, e, r.reverse())
   }
   
+  /// Remove the member if it was present, insert it if it was not.
+  
+  public mutating func XOR(x: Element) {
+    if case nil = remove(x) { insert(x) }
+  }
+  
 }
 
 /// :nodoc:
