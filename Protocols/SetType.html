@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>StackIndex Struct Reference</title>
+    <title>SetType Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,8 +9,8 @@
     <script src="../js/jazzy.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/StackIndex" class="dashAnchor"></a>
-    <a title="StackIndex Struct Reference"></a>
+    <a name="//apple_ref/swift/Protocol/SetType" class="dashAnchor"></a>
+    <a title="SetType Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">SwiftDataStructures Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">SwiftDataStructures Reference</a>
         <img id="carat" src="../img/carat.png" />
-        StackIndex Struct Reference
+        SetType Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -90,10 +90,9 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>StackIndex</h1>
-            <p>An index type for a <code>Stack</code> and <code>StackSlice</code>.</p>
-
-<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/StackIndex.html">here</a>.</p>
+            <h1>SetType</h1>
+            <p>Conforming types should have efficient <code>remove</code>, <code>insert</code>, and <code>contains</code> methods.
+Conforming types get set-like methods - <code>union</code>, etc.</p>
 
           </section>
           <section class="section task-group-section">
@@ -102,9 +101,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures10StackIndex9successorFS0_FT_S0_"></a>
-                    <a name="//apple_ref/swift/Method/successor()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures10StackIndex9successorFS0_FT_S0_">successor()</a>
+                    <a name="/s:FP19SwiftDataStructures7SetTypecUS0__USs13GeneratorType___FMQPS0_FT_S2_"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures7SetTypecUS0__USs13GeneratorType___FMQPS0_FT_S2_">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -112,18 +111,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the next consecutive value after <code>self</code>.</p>
-
-<ul>
-<li>Requires: the next value is representable.</li>
-</ul>
+                        <p>Create an empty instance of <code>self</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">successor</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">StackIndex</span></code></pre>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -133,9 +128,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures10StackIndex11predecessorFS0_FT_S0_"></a>
-                    <a name="//apple_ref/swift/Method/predecessor()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures10StackIndex11predecessorFS0_FT_S0_">predecessor()</a>
+                    <a name="/s:FP19SwiftDataStructures7SetTypecUS0__USs13GeneratorType___FMQPS0_USs12SequenceType_US1___FQ_S2_"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures7SetTypecUS0__USs13GeneratorType___FMQPS0_USs12SequenceType_US1___FQ_S2_">init(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -143,18 +138,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the previous consecutive value before self.</p>
-
-<ul>
-<li>Requires: the previous value is representable.</li>
-</ul>
+                        <p>Create an instance of <code>self</code> containing the elements of <code>sequence</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">predecessor</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">StackIndex</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">init</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -164,9 +155,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures10StackIndex10distanceToFS0_FS0_Si"></a>
-                    <a name="//apple_ref/swift/Method/distanceTo(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures10StackIndex10distanceToFS0_FS0_Si">distanceTo(_:)</a>
+                    <a name="/s:FP19SwiftDataStructures7SetType6removeUS0__USs13GeneratorType___FRQPS0_FQQS2_9Generator7ElementGSqS4__"></a>
+                    <a name="//apple_ref/swift/Method/remove(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures7SetType6removeUS0__USs13GeneratorType___FRQPS0_FQQS2_9Generator7ElementGSqS4__">remove(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -174,19 +165,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Return the minimum number of applications of <code>successor</code> or <code>predecessor</code> required to
-reach <code>other</code> from <code>self</code>.</p>
-
-<ul>
-<li>Complexity: O(1).</li>
-</ul>
+                        <p>Remove <code>x</code> from <code>self</code> and return it if it was present. If not, return <code>nil</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">distanceTo</span><span class="p">(</span><span class="nv">other</span><span class="p">:</span> <span class="kt">StackIndex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">remove</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -196,9 +182,9 @@ reach <code>other</code> from <code>self</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures10StackIndex10advancedByFS0_FSiS0_"></a>
-                    <a name="//apple_ref/swift/Method/advancedBy(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures10StackIndex10advancedByFS0_FSiS0_">advancedBy(_:)</a>
+                    <a name="/s:FP19SwiftDataStructures7SetType6insertUS0__USs13GeneratorType___FRQPS0_FQQS2_9Generator7ElementT_"></a>
+                    <a name="//apple_ref/swift/Method/insert(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures7SetType6insertUS0__USs13GeneratorType___FRQPS0_FQQS2_9Generator7ElementT_">insert(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -206,20 +192,41 @@ reach <code>other</code> from <code>self</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Return <code>self</code> offset by <code>n</code> steps.</p>
-
-<ul>
-<li>Complexity: O(1).</li>
-<li>Returns: If <code>n &gt; 0</code>, the result of applying <code>successor</code> to <code>self</code> <code>n</code> times. If
-<code>n &lt; 0</code>, the result of applying <code>predecessor</code> to <code>self</code> <code>n</code> times. Otherwise, <code>self</code>.</li>
-</ul>
+                        <p>Insert <code>x</code> into <code>self</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">advancedBy</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">StackIndex</span></code></pre>
+                          <pre class="highlight"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP19SwiftDataStructures7SetType8containsUS0__USs13GeneratorType___FQPS0_FQQS2_9Generator7ElementSb"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures7SetType8containsUS0__USs13GeneratorType___FQPS0_FQQS2_9Generator7ElementSb">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>returns <code>true</code> iff <code>self</code> contains <code>x</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>

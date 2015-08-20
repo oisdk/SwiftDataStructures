@@ -39,10 +39,26 @@
             </ul>
           </li>
           <li class="nav-group-name">
+          <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/SetType.html">SetType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
           <a href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_4ListQ___GS0_Q__">|&gt;(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/SetType.html">SetType</a>
               </li>
             </ul>
           </li>
@@ -310,10 +326,6 @@ length of the sequence being searched for.</p>
                       <div class="abstract">
                         <p>Return a <em>generator</em> over the members.</p>
 
-<ul>
-<li>Complexity: O(1).</li>
-</ul>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -413,228 +425,9 @@ length of the sequence being searched for.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">contains</span>
-    <span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span>
-    <span class="p">(</span><span class="nv">seq</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie11exclusiveOrUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_GS0_Qd___"></a>
-                    <a name="//apple_ref/swift/Method/exclusiveOr(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie11exclusiveOrUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_GS0_Qd___">exclusiveOr(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a new Trie with elements that are either in the Trie or a finite
-sequence but do not occur in both.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">exclusiveOr</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span> <span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie18exclusiveOrInPlaceUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/exclusiveOrInPlace(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie18exclusiveOrInPlaceUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_T_">exclusiveOrInPlace(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>For each element of a finite sequence, remove it from the Trie if it is a
-common element, otherwise add it to the Trie.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">exclusiveOrInPlace</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie9intersectUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_GS0_Qd___"></a>
-                    <a name="//apple_ref/swift/Method/intersect(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie9intersectUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_GS0_Qd___">intersect(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a new set with elements common to this Trie and a finite sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">intersect</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie16intersectInPlaceUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/intersectInPlace(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie16intersectInPlaceUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_T_">intersectInPlace(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove any members of this Trie that aren&rsquo;t also in a finite sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">intersectInPlace</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie14isDisjointWithUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_Sb"></a>
-                    <a name="//apple_ref/swift/Method/isDisjointWith(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie14isDisjointWithUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_Sb">isDisjointWith(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns true if no members in the Trie are in a finite sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">isDisjointWith</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">return</span> <span class="o">!</span><span class="n">sequence</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">contains</span><span class="p">)</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie12isSupersetOfUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_Sb"></a>
-                    <a name="//apple_ref/swift/Method/isSupersetOf(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie12isSupersetOfUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_Sb">isSupersetOf(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns true if the Trie is a superset of a finite sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">isSupersetOf</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie10isSubsetOfUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_Sb"></a>
-                    <a name="//apple_ref/swift/Method/isSubsetOf(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie10isSubsetOfUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_Sb">isSubsetOf(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns true if the set is a subset of a finite sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">isSubsetOf</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">contains</span><span class="o">&lt;</span>
+    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
+    <span class="o">&gt;</span><span class="p">(</span><span class="nv">seq</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -671,100 +464,6 @@ common element, otherwise add it to the Trie.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie8subtractUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_GS0_Qd___"></a>
-                    <a name="//apple_ref/swift/Method/subtract(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie8subtractUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_GS0_Qd___">subtract(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a new Trie with elements in this Trie that do not occur
-in a finite sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">subtract</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie15subtractInPlaceUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/subtractInPlace(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie15subtractInPlaceUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_T_">subtractInPlace(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove all members in the Trie that occur in a finite sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">subtractInPlace</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie12unionInPlaceUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/unionInPlace(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie12unionInPlaceUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_T_">unionInPlace(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Insert elements of a finite sequence into this <code>Trie</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">unionInPlace</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="p">{</span> <span class="nf">unionInPlace</span><span class="p">(</span><span class="kt">Trie</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:FV19SwiftDataStructures4Trie5unionUSs8Hashable__FGS0_Q__FGS0_Q__GS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/union(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:FV19SwiftDataStructures4Trie5unionUSs8Hashable__FGS0_Q__FGS0_Q__GS0_Q__">union(_:)</a>
@@ -783,37 +482,6 @@ in a finite sequence.</p>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">union</span><span class="p">(</span><span class="k">var</span> <span class="nv">with</span><span class="p">:</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie5unionUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_GS0_Qd___"></a>
-                    <a name="//apple_ref/swift/Method/union(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie5unionUSs8Hashable__FGS0_Q__USs12SequenceType_USs13GeneratorType_S2__S3___FQ_GS0_Qd___">union(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a new Trie with items in both this set and a finite sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">union</span><span class="o">&lt;</span>
-    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">SequenceType</span><span class="p">,</span>
-    <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">sequence</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span>  <span class="o">-&gt;</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -935,7 +603,7 @@ of <code>self</code></p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-19)</p>
+          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-20)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

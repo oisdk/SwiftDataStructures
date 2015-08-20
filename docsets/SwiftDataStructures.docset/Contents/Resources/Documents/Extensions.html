@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Functions  Reference</title>
+    <title>Extensions  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,7 +9,7 @@
     <script src="js/jazzy.js" defer></script>
   </head>
   <body>
-    <a title="Functions  Reference"></a>
+    <a title="Extensions  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">SwiftDataStructures Docs</a> (100% documented)</p>
@@ -20,7 +20,7 @@
       <p id="breadcrumbs">
         <a href="index.html">SwiftDataStructures Reference</a>
         <img id="carat" src="img/carat.png" />
-        Functions  Reference
+        Extensions  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -89,8 +89,8 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Functions</h1>
-            <p>The following functions are available globally.</p>
+            <h1>Extensions</h1>
+            <p>The following extensions are available globally.</p>
 
           </section>
           <section class="section task-group-section">
@@ -99,9 +99,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_4ListQ___GS0_Q__"></a>
-                    <a name="//apple_ref/swift/Function/|&gt;(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_4ListQ___GS0_Q__">|&gt;(_:_:)</a>
+                    <a name="/s:P19SwiftDataStructures7SetType"></a>
+                    <a name="//apple_ref/swift/Extension/SetType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:P19SwiftDataStructures7SetType">SetType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -109,30 +109,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <a href="https://en.wikipedia.org/wiki/Cons">cons</a> operator.</p>
+                        <p>Conforming types should have efficient <code>remove</code>, <code>insert</code>, and <code>contains</code> methods.
+Conforming types get set-like methods - <code>union</code>, etc.</p>
 
-<p>This operator lazy. i.e:</p>
-
-<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">printAndGiveList</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="nf">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-  <span class="k">return</span> <span class="o">.</span><span class="kt">Nil</span>
-<span class="p">}</span>
-
-<span class="mi">2</span> <span class="o">|&gt;</span> <span class="mi">1</span> <span class="o">|&gt;</span> <span class="nf">printAndGiveList</span><span class="p">()</span>
-</code></pre>
-
-<p>Will not print 2.</p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
+                        <a href="Extensions/SetType.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">|&gt;</span> <span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="kd">@autoclosure(escaping)</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SetType</span> <span class="p">:</span> <span class="kt">SequenceType</span></code></pre>
 
                         </div>
                       </div>
