@@ -143,9 +143,8 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     G : GeneratorType where G.Element == Element
     >(var gen g: G) -> Bool {
       guard let head = g.next() else {
-        let present = endHere
-        endHere = !present
-        return children.isEmpty && present
+        defer { endHere = !endHere }
+        return endHere && children.isEmpty
       }
       guard let removable = children[head]?.XOR(gen: g) else {
         children[head] = Trie(gen: g)
