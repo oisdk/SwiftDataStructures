@@ -13,7 +13,7 @@ Discussion of this specific implementation is available
 Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Trie.html).
 */
 
-public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable, SequenceType {
+public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable, SequenceType, SetType {
   private var children: [Element:Trie<Element>]
   private var endHere : Bool
   

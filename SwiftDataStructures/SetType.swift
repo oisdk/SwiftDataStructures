@@ -1,13 +1,32 @@
+/**
+Conforming types should have efficient `remove`, `insert`, and `contains` methods.
+Conforming types get set-like methods - `union`, etc.
+*/
+
 public protocol SetType : SequenceType {
+  
+  /// Create an empty instance of `self`
+  
   init()
+  
+  /// Create an instance of `self` containing the elements of `sequence`
+  
   init<S : SequenceType where S.Generator.Element == Generator.Element>(_ sequence: S)
+  
+  /// Remove `x` from `self` and return it if it was present. If not, return `nil`.
+  
   mutating func remove(x: Generator.Element) -> Generator.Element?
+  
+  /// Insert `x` into `self`
+  
   mutating func insert(x: Generator.Element)
+  
+  /// returns `true` iff `self` contains `x`
+  
   func contains(x: Generator.Element) -> Bool
 }
 
-extension Trie : SetType {}
-extension Tree : SetType {}
+/// :nodoc:
 
 extension SetType {
   
@@ -45,7 +64,7 @@ extension SetType {
       return result
   }
   
-  /// Remove any Generator.Elements of `self` that aren't also in a finite sequence.
+  /// Remove any elements of `self` that aren't also in a finite sequence.
   
   public mutating func intersectInPlace<
     S : SequenceType where S.Generator.Element == Generator.Element
@@ -53,7 +72,7 @@ extension SetType {
       self = intersect(sequence)
   }
 
-  /// Returns true if no Generator.Elements in `self` are in a finite sequence.
+  /// Returns true if no elements in `self` are in a finite sequence.
   
   public func isDisjointWith<
     S : SequenceType where S.Generator.Element == Generator.Element

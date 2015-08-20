@@ -10,7 +10,7 @@ Elements must be comparable with [Strict total order](https://en.wikipedia.org/w
 Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Enums/Tree.html).
 */
 
-public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, CustomDebugStringConvertible, Equatable {
+public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, CustomDebugStringConvertible, Equatable, SetType {
   
   case Empty
   indirect case Node(Color,Tree<Element>,Element,Tree<Element>)
