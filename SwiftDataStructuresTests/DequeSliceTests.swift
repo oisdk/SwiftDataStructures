@@ -223,11 +223,7 @@ class DequeSliceTests: XCTestCase {
   func testSplit() {
     
     let maxSplits = (0...20)
-    let splitFuncs = (0...10).map {
-      _ -> (Int -> Bool) in
-      let n = Int(arc4random_uniform(5)) + 1
-      return { $0 % n == 0 }
-    }
+    let splitFuncs = (1...10).map { n -> (Int -> Bool) in { $0 % n == 0 } }
     let allows = [true, false]
     let arrays = (0...10).map { (a: Int) -> [Int] in
       (0..<a).map { _ in Int(arc4random_uniform(100)) }

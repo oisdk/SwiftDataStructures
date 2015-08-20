@@ -295,7 +295,7 @@ public struct Deque<Element> : CustomDebugStringConvertible, ArrayLiteralConvert
     ) -> [DequeSlice<Element>] {
       var result: [DequeSlice<Element>] = []
       var i = startIndex
-      for j in indices where isSeparator(self[i]) {
+      for j in indices where isSeparator(self[j]) {
         let slice = self[i..<j]
         i = j.successor()
         if (!slice.isEmpty || allowEmptySlices) {
