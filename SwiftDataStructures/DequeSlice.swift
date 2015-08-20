@@ -29,9 +29,6 @@ Full documentation is available [here](http://oisdk.github.io/SwiftDataStructure
 public struct DequeSlice<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, SequenceType, Indexable, MutableSliceable, RangeReplaceableCollectionType {
   internal var front, back: ArraySlice<Element>
 
-  public typealias SubSequence = DequeSlice<Element>
-  public typealias Generator = DequeSliceGenerator<Element>
-
   // MARK: Initilalizers
   
   /// Constructs an empty `Deque`

@@ -23,9 +23,6 @@ Full documentation is available [here](http://oisdk.github.io/SwiftDataStructure
 
 public struct Deque<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, SequenceType, Indexable, MutableSliceable, RangeReplaceableCollectionType {
   internal var front, back: ContiguousArray<Element>
-
-  public typealias SubSequence = DequeSlice<Element>
-  public typealias Generator = DequeGenerator<Element>
   
   // MARK: Initializers
   
