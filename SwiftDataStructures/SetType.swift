@@ -103,7 +103,7 @@ extension SetType {
     S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) -> Self {
       var result = self
-      result.subtractInPlace(sequence)
+      for x in sequence { result.remove(x) }
       return result
   }
   
@@ -121,7 +121,7 @@ extension SetType {
     S : SequenceType where S.Generator.Element == Generator.Element
     >(sequence: S) -> Self {
       var result = self
-      result.unionInPlace(sequence)
+      for x in sequence { result.insert(x) }
       return result
   }
   

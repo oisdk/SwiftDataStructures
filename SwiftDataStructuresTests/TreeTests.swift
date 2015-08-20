@@ -264,4 +264,122 @@ class TreeTests: XCTestCase {
     
   }
   
+  func testDisjoint() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let withoutSec = Set(fst).subtract(sec)
+    
+    let tree = Tree(withoutSec)
+    
+    XCTAssert(tree.isDisjointWith(sec))
+    
+    XCTAssert(tree.isBalanced)
+    
+  }
+  
+  func testSuperset() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let with = Set(fst).union(sec)
+    
+    let tree = Tree(with)
+    
+    XCTAssert(tree.isSupersetOf(sec))
+    
+    XCTAssert(tree.isBalanced)
+    
+  }
+  
+  func testSubset() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let with = Set(fst).union(sec)
+    
+    let tree = Tree(fst)
+    
+    XCTAssert(tree.isSubsetOf(with))
+    
+    XCTAssert(tree.isBalanced)
+    
+  }
+  
+  func testSubtract() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let withoutSec = Set(fst).subtract(sec)
+    
+    let withoutTre = Tree(fst).subtract(sec)
+    
+    XCTAssert(withoutSec.sort().elementsEqual(withoutTre))
+    
+    XCTAssert(withoutTre.isBalanced)
+
+  }
+  
+  func testSubtractInPlace() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    var withoutSec = Set(fst)
+    
+    withoutSec.subtractInPlace(sec)
+    
+    var withoutTre = Tree(fst)
+    
+    withoutTre.subtractInPlace(sec)
+    
+    XCTAssert(withoutSec.sort().elementsEqual(withoutTre))
+    
+    XCTAssert(withoutTre.isBalanced)
+    
+  }
+  
+  func testUnion() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let unionSet = Set(fst).union(sec)
+    
+    let unionTre = Tree(fst).union(sec)
+    
+    XCTAssert(unionSet.sort().elementsEqual(unionTre))
+    
+    XCTAssert(unionTre.isBalanced)
+  }
+  
+  func testUnionInPlace() {
+    
+    let fst = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    let sec = (0...100).map { _ in Int(arc4random_uniform(100)) }
+    
+    var unionSet = Set(fst)
+    
+    unionSet.unionInPlace(sec)
+    
+    var unionTre = Tree(fst)
+    
+    unionTre.unionInPlace(sec)
+    
+    XCTAssert(unionSet.sort().elementsEqual(unionTre))
+    
+    XCTAssert(unionTre.isBalanced)
+  }
+  
 }
