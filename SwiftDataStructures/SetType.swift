@@ -107,7 +107,7 @@ extension SetType {
       return result
   }
   
-  /// Remove all Generator.Elements in `self` that occur in a finite sequence.
+  /// Remove all elements in `self` that occur in a finite sequence.
   
   public mutating func subtractInPlace<
     S : SequenceType where S.Generator.Element == Generator.Element

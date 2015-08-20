@@ -70,9 +70,10 @@ public struct Deque<Element> : CustomDebugStringConvertible, ArrayLiteralConvert
   public var debugDescription: String {
     return
       "[" +
-        ", ".join(front.reverse().map { String(reflecting: $0) }) +
-        " | " +
-        ", ".join(back.map { String(reflecting: $0) }) + "]"
+      ", ".join(front.reverse().map { String(reflecting: $0) }) +
+      " | " +
+      ", ".join(back.map { String(reflecting: $0) }) +
+      "]"
   }
 
   internal var balance: Balance {
