@@ -127,8 +127,7 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
       guard let removeState = children[head]?.remove(gen: g) else { return .NotPresent }
       guard removeState == .Removable else { return removeState }
       children.removeValueForKey(head)
-      return (!endHere && children.isEmpty) ? .Removable : .NotRemovable
-      
+      return (!endHere && children.isEmpty) ? .Removable : .NotRemovable   
   }
   
   /// Remove the member from the Trie and return it if it was present.
@@ -148,19 +147,10 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
   }
   
   /// Returns `true` if the Trie contains a member.
-  public func contains
-    <S : SequenceType where S.Generator.Element == Element>
-    (seq: S) -> Bool {
+  public func contains<
+    S : SequenceType where S.Generator.Element == Element
+    >(seq: S) -> Bool {
       return contains(seq.generate())
-  }
-  
-  /// Returns true if the set is a subset of a finite sequence.
-  public func isSubsetOf<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) -> Bool {
-      return Trie(sequence).isSupersetOf(self)
   }
   
   /// Insert elements of a `Trie` into this `Trie`.
@@ -171,37 +161,12 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     }
   }
   
-  /// Remove all members in the Trie that occur in a finite sequence.
-  public mutating func subtractInPlace<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) {
-      for element in sequence { remove(element) }
-  }
-  
-  /// Insert elements of a finite sequence into this `Trie`.
-  public mutating func unionInPlace<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S) { unionInPlace(Trie(sequence)) }
-  
   /// Return a new Trie with items in both this set and a finite sequence.
   public func union(var with: Trie<Element>) -> Trie<Element> {
     with.unionInPlace(self)
     return with
   }
   
-  /// Return a new Trie with items in both this set and a finite sequence.
-  public func union<
-    S : SequenceType where
-    S.Generator.Element : SequenceType,
-    S.Generator.Element.Generator.Element == Element
-    >(sequence: S)  -> Trie<Element> {
-      return union(Trie(sequence))
-  }
-
   /**
   Returns a Trie which contains the results of applying `transform` to the members of
   `self`
