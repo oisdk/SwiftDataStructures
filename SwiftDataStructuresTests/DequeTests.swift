@@ -256,7 +256,7 @@ class DequeTests: XCTestCase {
     let maxSplits = (0...20)
     let splitFuncs = (1...10).map { n -> (Int -> Bool) in { $0 % n == 0 } }
     let allows = [true, false]
-    let arrays = (0...10).map { (a: Int) -> [Int] in
+    let arrays = (0...30).map { (a: Int) -> [Int] in
       (0..<a).map { _ in Int(arc4random_uniform(100)) }
     }
     let deques = arrays.map{Deque($0)}
