@@ -21,8 +21,13 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   
   public init() { self = .Empty }
   
-  private init(_ x: Element, color: Color = .B, left: Tree<Element> = .Empty, right: Tree<Element> = .Empty) {
-    self = .Node(color, left, x, right)
+  private init(
+    _ x: Element,
+    color: Color = .B,
+    left: Tree<Element> = .Empty,
+    right: Tree<Element> = .Empty
+    ) {
+      self = .Node(color, left, x, right)
   }
   
   /// Create a `Tree` from a sequence
@@ -108,7 +113,7 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   
   // MARK: Instance Methods
   
-  private func balanceL() -> Tree {
+  private func balL() -> Tree {
     switch self {
     case let .Node(.B, .Node(.R, .Node(.R, a, x, b), y, c), z, d):
       return .Node(.R, .Node(.B,a,x,b),y,.Node(.B,c,z,d))
@@ -119,7 +124,7 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     }
   }
   
-  private func balanceR() -> Tree {
+  private func balR() -> Tree {
     switch self {
     case let .Node(.B, a, x, .Node(.R, .Node(.R, b, y, c), z, d)):
       return .Node(.R, .Node(.B,a,x,b),y,.Node(.B,c,z,d))
@@ -147,8 +152,8 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   
   private func ins(x: Element) -> Tree {
     guard case let .Node(c, l, y, r) = self else { return Tree(x, color: .R) }
-    if x < y { return Tree(y, color: c, left: l.ins(x), right: r).balanceL() }
-    if y < x { return Tree(y, color: c, left: l, right: r.ins(x)).balanceR() }
+    if x < y { return Tree(y, color: c, left: l.ins(x), right: r).balL() }
+    if y < x { return Tree(y, color: c, left: l, right: r.ins(x)).balR() }
     return self
   }
   
@@ -205,31 +210,39 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   
   private func unbalancedR() -> (result: Tree, wasBlack: Bool) {
     guard case let .Node(c, l, x, .Node(rc, rl, rx, rr)) = self else {
-      preconditionFailure("Should not call unbalancedR on an empty Tree or a Tree with an empty right")
+      preconditionFailure(
+        "Should not call unbalancedR on an empty Tree or a Tree with an empty right"
+      )
     }
     switch rc {
     case .B:
-      return (Tree.Node(.B, l, x, .Node(.R, rl, rx, rr)).balanceR(), c == .B)
+      return (Tree.Node(.B, l, x, .Node(.R, rl, rx, rr)).balR(), c == .B)
     case .R:
       guard case let .Node(_, rll, rlx, rlr) = rl else {
         preconditionFailure("rl empty")
       }
-      return (Tree.Node(.B, Tree.Node(.B, l, x, .Node(.R, rll, rlx, rlr)).balanceR(), rx, rr), false)
+      return (
+        Tree.Node(.B, Tree.Node(.B, l, x, .Node(.R, rll, rlx, rlr)).balR(), rx, rr), false
+      )
     }
   }
   
   private func unbalancedL() -> (result: Tree, wasBlack: Bool) {
     guard case let .Node(c, .Node(lc, ll, lx, lr), x, r) = self else {
-      preconditionFailure("Should not call unbalancedL on an empty Tree or a Tree with an empty left")
+      preconditionFailure(
+        "Should not call unbalancedL on an empty Tree or a Tree with an empty left"
+      )
     }
     switch lc {
     case .B:
-      return (Tree.Node(.B, .Node(.R, ll, lx, lr), x, r).balanceL(), c == .B)
+      return (Tree.Node(.B, .Node(.R, ll, lx, lr), x, r).balL(), c == .B)
     case .R:
       guard case let .Node(_, lrl, lrx, lrr) = lr else {
         preconditionFailure("lr empty")
       }
-      return (Tree.Node(.B, ll, lx, Tree.Node(.B, .Node(.R, lrl, lrx, lrr), x, r).balanceL()), false)
+      return (
+        Tree.Node(.B, ll, lx, Tree.Node(.B, .Node(.R, lrl, lrx, lrr), x, r).balL()), false
+      )
     }
   }
   
@@ -349,6 +362,20 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     if case nil = remove(x) { insert(x) }
   }
   
+  public func reduce<T>(initial: T, @noescape combine: (T, Element) -> T) -> T {
+    guard case let .Node(_, l, x, r) = self else { return initial }
+    let lx = l.reduce(initial, combine: combine)
+    let xx = combine(lx, x)
+    let rx = r.reduce(xx, combine: combine)
+    return rx
+  }
+  
+  public func forEach(@noescape body: Element -> ()) {
+    guard case let .Node(_, l, x, r) = self else { return }
+    l.forEach(body)
+    body(x)
+    r.forEach(body)
+  }
 }
 
 /// :nodoc:
