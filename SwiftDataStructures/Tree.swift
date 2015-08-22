@@ -382,7 +382,11 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
 public struct TreeGenerator<Element : Comparable> : GeneratorType {
   private var (stack, curr): ([Tree<Element>], Tree<Element>)
   public mutating func next() -> Element? {
-    while case let .Node(_, l, _, _) = curr {
+    while case let .Node(_, l, x, r) = curr {
+      if case .Empty = l {
+        curr = r
+        return x
+      }
       stack.append(curr)
       curr = l
     }
