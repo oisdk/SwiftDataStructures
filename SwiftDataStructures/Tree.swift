@@ -361,6 +361,8 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   public mutating func XOR(x: Element) {
     if case nil = remove(x) { insert(x) }
   }
+
+  /// :nodoc:
   
   public func reduce<T>(initial: T, @noescape combine: (T, Element) -> T) -> T {
     guard case let .Node(_, l, x, r) = self else { return initial }
@@ -369,6 +371,8 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     let rx = r.reduce(xx, combine: combine)
     return rx
   }
+  
+  /// :nodoc:
   
   public func forEach(@noescape body: Element -> ()) {
     guard case let .Node(_, l, x, r) = self else { return }
