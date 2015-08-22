@@ -128,7 +128,7 @@ class TreeTests: XCTestCase {
     var tre = Tree(seq)
     
     for _ in 0...110 {
-      XCTAssertEqual(set.minElement().flatMap { set.remove($0) }, tre.removeMin())
+      XCTAssertEqual(set.minElement().flatMap { set.remove($0) }, tre.popFirst())
       
       XCTAssert(tre.isBalanced)
     }
@@ -144,7 +144,7 @@ class TreeTests: XCTestCase {
     
     for _ in 0...110 {
       
-      XCTAssertEqual(set.maxElement().flatMap { set.remove($0) }, tre.removeMax())
+      XCTAssertEqual(set.maxElement().flatMap { set.remove($0) }, tre.popLast())
       
       XCTAssert(tre.isBalanced)
     }
