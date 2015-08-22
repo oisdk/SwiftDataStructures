@@ -382,8 +382,15 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   }
 }
 
+/**
+A `Generator` for a Tree
+*/
+
 public struct TreeGenerator<Element : Comparable> : GeneratorType {
   private var (stack, curr): ([Tree<Element>], Tree<Element>)
+  /**
+  Advance to the next element and return it, or return `nil` if no next element exists.
+  */
   public mutating func next() -> Element? {
     while case let .Node(_, l, x, r) = curr {
       if case .Empty = l {
@@ -408,10 +415,13 @@ internal enum TreeBalance {
   case UnBalanced
 }
 
-/// :nodoc:
+/**
+A `Generator` for a Tree, that iterates over it in reverse.
+*/
 
 public struct ReverseTreeGenerator<Element : Comparable> : GeneratorType, SequenceType {
   private var (stack, curr): ([Tree<Element>], Tree<Element>)
+  /// :nodoc:
   public mutating func next() -> Element? {
     while case let .Node(_, l, x, r) = curr {
       if case .Empty = r {

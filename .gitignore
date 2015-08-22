@@ -31,3 +31,31 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/dgph
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/dgph
+
+*.dia
+
+*.swiftdeps
+
+*.xcuserstate
+
+*.swiftdeps
+
+*.dia
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal/x86_64/SwiftDataStructures-master.swiftdeps
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal/x86_64/StackIndex.swiftdeps
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal/x86_64/StackIndex.dia
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal/x86_64/Stack.swiftdeps
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal/x86_64/Stack.dia
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal/x86_64/Deque.swiftdeps
+
+build/SwiftDataStructures.build/Release/SwiftDataStructures.build/dgph
