@@ -353,8 +353,7 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   */
   
   public func reverse() -> ReverseTreeGenerator<Element> {
-    guard case let .Node(_, l, e, r) = self else { return .Empty }
-    return .Node(l, e, r.reverse())
+    return ReverseTreeGenerator(stack: [], curr: self)
   }
   
   /// Remove the member if it was present, insert it if it was not.
@@ -407,18 +406,22 @@ internal enum TreeBalance {
 
 /// :nodoc:
 
-public enum ReverseTreeGenerator<Element : Comparable> : GeneratorType, SequenceType {
-  case Empty
-  indirect case Node(Tree<Element>, Element, ReverseTreeGenerator)
+public struct ReverseTreeGenerator<Element : Comparable> : GeneratorType, SequenceType {
+  private var (stack, curr): ([Tree<Element>], Tree<Element>)
   public mutating func next() -> Element? {
-    guard case .Node(let t, let e, var g) = self else { return nil }
-    if let next = g.next() {
-      self = .Node(t, e, g)
-      return next
-    } else {
-      self = t.reverse()
-      return e
+    while case let .Node(_, l, x, r) = curr {
+      if case .Empty = r {
+        curr = l
+        return x
+      }
+      stack.append(curr)
+      curr = r
     }
+    if case let .Node(_, l, x, _)? = stack.popLast() {
+      curr = l
+      return x
+    }
+    return nil
   }
 }
 
