@@ -423,15 +423,15 @@ public struct TreeGenerator<Element : Comparable> : GeneratorType {
       if case .Empty = l {
         curr = r
         return x
+      } else {
+        stack.append(curr)
+        curr = l
       }
-      stack.append(curr)
-      curr = l
     }
-    if case let .Node(_, _, x, r)? = stack.popLast() {
-      curr = r
-      return x
-    }
-    return nil
+    guard case let .Node(_, _, x, r)? = stack.popLast()
+      else { return nil }
+    curr = r
+    return x
   }
 }
 
