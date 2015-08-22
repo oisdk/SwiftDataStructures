@@ -1,4 +1,0 @@
-Tree.swift
-	public func contains(x: Element) -> Bool
-	public struct TreeGenerator<Element : Comparable> : GeneratorType
-	public mutating func next() -> Element?
