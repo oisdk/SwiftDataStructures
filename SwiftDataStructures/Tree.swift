@@ -135,16 +135,16 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     }
   }
   
+  private func cont(x: Element, _ p: Element) -> Bool {
+    guard case let .Node(_, l, y, r) = self else { return x == p }
+    return x < y ? l.cont(x, p) : r.cont(x, y)
+  }
+  
   /**
   Returns `true` iff `self` contains `x`
   
   - Complexity: O(*log n*)
   */
-  
-  private func cont(x: Element, _ p: Element) -> Bool {
-    guard case let .Node(_, l, y, r) = self else { return x == p }
-    return x < y ? l.cont(x, p) : r.cont(x, y)
-  }
   
   public func contains(x: Element) -> Bool {
     guard case let .Node(_, l, y, r) = self else { return false }
