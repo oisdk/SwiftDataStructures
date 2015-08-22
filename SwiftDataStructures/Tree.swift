@@ -135,20 +135,22 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     }
   }
   
-  private func cont(x: Element, _ p: Element?) -> Bool {
-    guard case let .Node(_, l, y, r) = self else { return x == p }
-    return x < y ? l.cont(x, p) : r.cont(x, y)
-  }
-  
   /**
   Returns `true` iff `self` contains `x`
   
   - Complexity: O(*log n*)
   */
   
-  public func contains(x: Element) -> Bool {
-    return cont(x, nil)
+  private func cont(x: Element, _ p: Element) -> Bool {
+    guard case let .Node(_, l, y, r) = self else { return x == p }
+    return x < y ? l.cont(x, p) : r.cont(x, y)
   }
+  
+  public func contains(x: Element) -> Bool {
+    guard case let .Node(_, l, y, r) = self else { return false }
+    return x < y ? l.contains(x) : r.cont(x, y)
+  }
+
   
   private func ins(x: Element) -> Tree {
     guard case let .Node(c, l, y, r) = self else { return Tree(x, color: .R) }
@@ -176,8 +178,7 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   */
   
   public func generate() -> TreeGenerator<Element> {
-    guard case let .Node(_, l, e, r) = self else { return .Empty }
-    return .Node(l.generate(), e, r)
+    return TreeGenerator(stack: [], curr: self)
   }
   
   /**
@@ -378,28 +379,26 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   }
 }
 
+public struct TreeGenerator<Element : Comparable> : GeneratorType {
+  private var (stack, curr): ([Tree<Element>], Tree<Element>)
+  public mutating func next() -> Element? {
+    while case let .Node(_, l, _, _) = curr {
+      stack.append(curr)
+      curr = l
+    }
+    if case let .Node(_, _, x, r)? = stack.popLast() {
+      curr = r
+      return x
+    }
+    return nil
+  }
+}
+
 /// :nodoc:
 
 internal enum TreeBalance {
   case Balanced(blackHeight: Int)
   case UnBalanced
-}
-
-/// :nodoc:
-
-public enum TreeGenerator<Element : Comparable> : GeneratorType {
-  case Empty
-  indirect case Node(TreeGenerator, Element, Tree<Element>)
-  public mutating func next() -> Element? {
-    guard case .Node(var g, let e, let t) = self else { return nil }
-    if let next = g.next() {
-      self = .Node(g, e, t)
-      return next
-    } else {
-      self = t.generate()
-      return e
-    }
-  }
 }
 
 /// :nodoc:

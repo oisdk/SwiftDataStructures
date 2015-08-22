@@ -400,6 +400,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = donnacha.oisin.kidney.SwiftDataStructures;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
