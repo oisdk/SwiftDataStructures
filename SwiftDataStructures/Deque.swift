@@ -271,7 +271,7 @@ extension DequeType where
     case let .Back(r):
       back.replaceRange(r, with: newElements)
     case let .Over(f, b):
-      front.replaceRange(f, with: [])
+      front.removeRange(f)
       back.replaceRange(b, with: newElements)
     }
   }
