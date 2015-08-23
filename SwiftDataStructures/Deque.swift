@@ -12,7 +12,7 @@ public protocol DequeType :
   MutableSliceable,
   RangeReplaceableCollectionType,
   CustomDebugStringConvertible,
-ArrayLiteralConvertible {
+  ArrayLiteralConvertible {
   /// The type that represents the queues.
   typealias Container : RangeReplaceableCollectionType, MutableSliceable
   /// The front queue. It is stored in reverse.
@@ -102,7 +102,7 @@ private enum IndexRangeLocation<I : ForwardIndexType> {
 
 extension DequeType where
   Container.Index : RandomAccessIndexType,
-Container.Index.Distance : BidirectionalIndexType {
+  Container.Index.Distance : BidirectionalIndexType {
   
   private func translate(i: Range<Container.Index.Distance>) -> IndexRangeLocation<Container.Index> {
     if i.endIndex <= front.count {
@@ -137,7 +137,7 @@ extension DequeType where
   Container.Index.Distance : BidirectionalIndexType,
   SubSequence : DequeType,
   SubSequence.Container == Container.SubSequence,
-SubSequence.Generator.Element == Container.Generator.Element {
+  SubSequence.Generator.Element == Container.Generator.Element {
   
   public subscript(idxs: Range<Container.Index.Distance>) -> SubSequence {
     set { for (index, value) in zip(idxs, newValue) { self[index] = value } }
@@ -230,18 +230,18 @@ Container.Index.Distance : BidirectionalIndexType {
   public mutating func replaceRange<
     C : CollectionType where C.Generator.Element == Container.Generator.Element
     >(subRange: Range<Container.Index.Distance>, with newElements: C) {
-      defer { check() }
-      switch translate(subRange) {
-      case .Between:
-        back.replaceRange(back.startIndex..<back.startIndex, with: newElements)
-      case let .Front(r):
-        front.replaceRange(r, with: newElements.reverse())
-      case let .Back(r):
-        back.replaceRange(r, with: newElements)
-      case let .Over(f, b):
-        front.replaceRange(f, with: [])
-        back.replaceRange(b, with: newElements)
-      }
+    defer { check() }
+    switch translate(subRange) {
+    case .Between:
+      back.replaceRange(back.startIndex..<back.startIndex, with: newElements)
+    case let .Front(r):
+      front.replaceRange(r, with: newElements.reverse())
+    case let .Back(r):
+      back.replaceRange(r, with: newElements)
+    case let .Over(f, b):
+      front.replaceRange(f, with: [])
+      back.replaceRange(b, with: newElements)
+    }
   }
 }
 
@@ -275,7 +275,7 @@ extension DequeType where Container.Index : BidirectionalIndexType {
 public struct DequeGenerator<
   Container : RangeReplaceableCollectionType where
   Container.Index : BidirectionalIndexType
-> : GeneratorType {
+  > : GeneratorType {
   
   private let front, back: Container
   private var i: Container.Index
@@ -406,8 +406,8 @@ extension DequeType where Container.Index : BidirectionalIndexType {
     S : SequenceType where
     S.Generator.Element == Container.Generator.Element
     >(x: S) {
-      front.extend(x.reverse())
-      check()
+    front.extend(x.reverse())
+    check()
   }
 }
 
