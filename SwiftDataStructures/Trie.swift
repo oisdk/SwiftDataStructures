@@ -133,6 +133,10 @@ extension Trie {
   public var count: Int {
     return children.values.reduce(endHere ? 1 : 0) { $0 + $1.count }
   }
+  /// Returns true iff `self` is empty
+  public var isEmpty: Bool {
+    return children.isEmpty
+  }
 }
 
 // MARK: Completions

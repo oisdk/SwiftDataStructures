@@ -145,8 +145,9 @@ extension List {
   - Complexity: O(`count`)
   */
   public var last: Element? {
-    guard case let .Cons(head, tail) = self else { return nil }
-    return tail().isEmpty ? head : tail().last
+    guard case let .Cons(x, xs) = self else { return nil }
+    let t = xs()
+    return t.isEmpty ? x : t.last
   }
 }
 
@@ -221,9 +222,9 @@ extension List {
   private func divide(at: Int) -> (List<Element>, List<Element>) {
     switch (at, self) {
     case (0, _), (_, .Nil): return (.Nil, self)
-    case (_, let .Cons(head, tail)):
-      let (front, back) = tail().divide(at - 1)
-      return (head |> front, back)
+    case (_, let .Cons(x, xs)):
+      let (front, back) = xs().divide(at - 1)
+      return (x |> front, back)
     }
   }
   
@@ -254,8 +255,8 @@ extension List {
   
   public func prefixWhile(isElement: Element -> Bool) -> List<Element> {
     switch self {
-    case let .Cons(head, tail) where isElement(head):
-      return head |> tail().prefixWhile(isElement)
+    case let .Cons(x, xs) where isElement(x):
+      return x |> xs().prefixWhile(isElement)
     default: return .Nil
     }
   }
@@ -267,8 +268,8 @@ extension List {
   
   public func dropWhile(@noescape isNotElement: Element -> Bool) -> List<Element> {
     switch self {
-    case let .Cons(head, tail) where isNotElement(head):
-      return tail().dropWhile(isNotElement)
+    case let .Cons(x, xs) where isNotElement(x):
+      return xs().dropWhile(isNotElement)
     default: return self
     }
   }
@@ -284,7 +285,7 @@ extension List {
   public func prefix(n: Int) -> List<Element> {
     switch (n, self) {
     case (0, _), (_, .Nil): return .Nil
-    case let (_, .Cons(head, tail)): return head |> tail().prefix(n - 1)
+    case let (_, .Cons(x, xs)): return x |> xs().prefix(n - 1)
     }
   }
   

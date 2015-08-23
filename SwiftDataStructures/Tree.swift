@@ -418,8 +418,8 @@ extension Tree {
       let t = Tree.Node(c, l, y, r0)
       return d ? t.unbalancedL() : (t, false)
     }
-    if r ==  .Empty {
-      guard c == .B else { return (l, false) }
+    if case .Empty = r {
+      guard case .B = c else { return (l, false) }
       if case let .Node(.R, ll, lx, lr) = l { return (.Node(.B, ll, lx, lr), false) }
       return (l, true)
     }
