@@ -91,10 +91,7 @@ extension Tree {
   /// Returns `true` iff `self` is empty
   
   public var isEmpty: Bool {
-    switch self {
-    case .Empty: return true
-    case .Node: return false
-    }
+    return self == .Empty
   }
   
   /**
