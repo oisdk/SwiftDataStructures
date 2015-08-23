@@ -1,3 +1,7 @@
+/// :nodoc:
+
+public enum Color { case R, B }
+
 /**
 A [red-black binary search tree](https://en.wikipedia.org/wiki/Red–black_tree). Adapted
 from Airspeed Velocity's [implementation](http://airspeedvelocity.net/2015/07/22/a-persistent-tree-using-indirect-enums-in-swift/),
@@ -10,12 +14,20 @@ Elements must be comparable with [Strict total order](https://en.wikipedia.org/w
 Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Enums/Tree.html).
 */
 
-public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, CustomDebugStringConvertible, Equatable, SetType {
-  
+public enum Tree<Element: Comparable> : Equatable {
   case Empty
   indirect case Node(Color,Tree<Element>,Element,Tree<Element>)
-  
-  // MARK: Initializers
+}
+
+/// :nodoc:
+
+public func ==<E : Comparable>(lhs: Tree<E>, rhs: Tree<E>) -> Bool {
+  return lhs.elementsEqual(rhs)
+}
+
+// MARK: Initializers
+
+extension Tree : ArrayLiteralConvertible {
   
   /// Create an empty `Tree`.
   
@@ -42,14 +54,20 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   public init(arrayLiteral elements: Element...) {
     self.init(elements)
   }
-  
-  // MARK: Instance Properties
+}
+
+extension Tree: CustomDebugStringConvertible {
   
   /// A description of `self`, suitable for debugging
   
   public var debugDescription: String {
     return Array(self).debugDescription
   }
+}
+
+// MARK: Properties
+
+extension Tree {
   /**
   Returns the smallest element in `self` if it's present, or `nil` if `self` is empty
   
@@ -89,11 +107,11 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     guard case let .Node(_, l, _, r) = self else { return 0 }
     return 1 + l.count + r.count
   }
-  
-  public func underestimateCount() -> Int {
-    return 0
-  }
-  
+}
+
+// MARK: Balance
+
+extension Tree {
   internal var isBalanced: Bool {
     switch balance {
     case .Balanced: return true
@@ -115,8 +133,6 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     return .Balanced(blackHeight: x)
   }
   
-  // MARK: Instance Methods
-  
   private func balL() -> Tree {
     switch self {
     case let .Node(.B, .Node(.R, .Node(.R, a, x, b), y, c), z, d):
@@ -136,80 +152,6 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
       return .Node(.R, .Node(.B,a,x,b),y,.Node(.B,c,z,d))
     default:
       return self
-    }
-  }
-  
-  private func cont(x: Element, _ p: Element) -> Bool {
-    guard case let .Node(_, l, y, r) = self else { return x == p }
-    return x < y ? l.cont(x, p) : r.cont(x, y)
-  }
-  
-  /**
-  Returns `true` iff `self` contains `x`
-  
-  - Complexity: O(*log n*)
-  */
-  
-  public func contains(x: Element) -> Bool {
-    guard case let .Node(_, l, y, r) = self else { return false }
-    return x < y ? l.contains(x) : r.cont(x, y)
-  }
-
-  
-  private func ins(x: Element) -> Tree {
-    guard case let .Node(c, l, y, r) = self else { return Tree(x, color: .R) }
-    if x < y { return Tree(y, color: c, left: l.ins(x), right: r).balL() }
-    if y < x { return Tree(y, color: c, left: l, right: r.ins(x)).balR() }
-    return self
-  }
-  
-  /**
-  Inserts `x` into `self`
-  
-  - Complexity: O(*log n*)
-  */
-  
-  public mutating func insert(x: Element) {
-    guard case let .Node(_, l, y, r) = ins(x) else {
-      preconditionFailure("ins should not return an empty tree")
-    }
-    self = .Node(.B, l, y, r)
-  }
-  
-  /**
-  Runs a `TreeGenerator` over the elements of `self`. (The elements are presented in
-  order, from smallest to largest)
-  */
-  
-  public func generate() -> TreeGenerator<Element> {
-    return TreeGenerator(stack: [], curr: self)
-  }
-  
-  /**
-  Returns the smallest element in `self` if it's present, or `nil` if `self` is empty
-  
-  - Complexity: O(*log n*)
-  */
-  
-  public func minElement() ->  Element? {
-    switch self {
-    case .Empty: return nil
-    case .Node(_, .Empty, let e, _): return e
-    case .Node(_, let l, _, _): return l.minElement()
-    }
-  }
-  
-  /**
-  Returns the largest element in `self` if it's present, or `nil` if `self` is empty
-  
-  - Complexity: O(*log n*)
-  */
-  
-  public func maxElement() -> Element? {
-    switch self {
-    case .Empty: return nil
-    case .Node(_, _, let e, .Empty) : return e
-    case .Node(_, _, _, let r): return r.maxElement()
     }
   }
   
@@ -248,6 +190,128 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
       return (
         Tree.Node(.B, ll, lx, Tree.Node(.B, .Node(.R, lrl, lrx, lrr), x, r).balL()), false
       )
+    }
+  }
+}
+
+/// :nodoc:
+
+internal enum TreeBalance {
+  case Balanced(blackHeight: Int)
+  case UnBalanced
+}
+
+// MARK: Contains
+
+extension Tree {
+  private func cont(x: Element, _ p: Element) -> Bool {
+    guard case let .Node(_, l, y, r) = self else { return x == p }
+    return x < y ? l.cont(x, p) : r.cont(x, y)
+  }
+  
+  /**
+  Returns `true` iff `self` contains `x`
+  
+  - Complexity: O(*log n*)
+  */
+  
+  public func contains(x: Element) -> Bool {
+    guard case let .Node(_, l, y, r) = self else { return false }
+    return x < y ? l.contains(x) : r.cont(x, y)
+  }
+}
+
+// MARK: Insert
+
+extension Tree {
+  private func ins(x: Element) -> Tree {
+    guard case let .Node(c, l, y, r) = self else { return Tree(x, color: .R) }
+    if x < y { return Tree(y, color: c, left: l.ins(x), right: r).balL() }
+    if y < x { return Tree(y, color: c, left: l, right: r.ins(x)).balR() }
+    return self
+  }
+  
+  /**
+  Inserts `x` into `self`
+  
+  - Complexity: O(*log n*)
+  */
+  
+  public mutating func insert(x: Element) {
+    guard case let .Node(_, l, y, r) = ins(x) else {
+      preconditionFailure("ins should not return an empty tree")
+    }
+    self = .Node(.B, l, y, r)
+  }
+}
+
+// MARK: SequenceType
+
+extension Tree : SequenceType {
+  /**
+  Runs a `TreeGenerator` over the elements of `self`. (The elements are presented in
+  order, from smallest to largest)
+  */
+  
+  public func generate() -> TreeGenerator<Element> {
+    return TreeGenerator(stack: [], curr: self)
+  }
+}
+
+/**
+A `Generator` for a Tree
+*/
+
+public struct TreeGenerator<Element : Comparable> : GeneratorType {
+  private var (stack, curr): ([Tree<Element>], Tree<Element>)
+  /**
+  Advance to the next element and return it, or return `nil` if no next element exists.
+  */
+  public mutating func next() -> Element? {
+    while case let .Node(_, l, x, r) = curr {
+      if case .Empty = l {
+        curr = r
+        return x
+      } else {
+        stack.append(curr)
+        curr = l
+      }
+    }
+    guard case let .Node(_, _, x, r)? = stack.popLast()
+      else { return nil }
+    curr = r
+    return x
+  }
+}
+
+// MARK: Max, min
+
+extension Tree {
+  /**
+  Returns the smallest element in `self` if it's present, or `nil` if `self` is empty
+  
+  - Complexity: O(*log n*)
+  */
+  
+  public func minElement() ->  Element? {
+    switch self {
+    case .Empty: return nil
+    case .Node(_, .Empty, let e, _): return e
+    case .Node(_, let l, _, _): return l.minElement()
+    }
+  }
+  
+  /**
+  Returns the largest element in `self` if it's present, or `nil` if `self` is empty
+  
+  - Complexity: O(*log n*)
+  */
+  
+  public func maxElement() -> Element? {
+    switch self {
+    case .Empty: return nil
+    case .Node(_, _, let e, .Empty) : return e
+    case .Node(_, _, _, let r): return r.maxElement()
     }
   }
   
@@ -341,7 +405,11 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     self = t
     return x
   }
-  
+}
+
+// MARK: Delete
+
+extension Tree {
   private func del(x: Element) -> (Tree, Bool)? {
     guard case let .Node(c, l, y, r) = self else { return nil }
     if x < y {
@@ -378,7 +446,11 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     }
     return x
   }
-  
+}
+
+// MARK: Reverse
+
+extension Tree {
   /**
   Returns a sequence of the elements of `self` from largest to smallest
   */
@@ -386,64 +458,6 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
   public func reverse() -> ReverseTreeGenerator<Element> {
     return ReverseTreeGenerator(stack: [], curr: self)
   }
-  
-  /// Remove the member if it was present, insert it if it was not.
-  
-  public mutating func XOR(x: Element) {
-    if case nil = remove(x) { insert(x) }
-  }
-
-  /// :nodoc:
-  
-  public func reduce<T>(initial: T, @noescape combine: (T, Element) -> T) -> T {
-    guard case let .Node(_, l, x, r) = self else { return initial }
-    let lx = l.reduce(initial, combine: combine)
-    let xx = combine(lx, x)
-    let rx = r.reduce(xx, combine: combine)
-    return rx
-  }
-  
-  /// :nodoc:
-  
-  public func forEach(@noescape body: Element -> ()) {
-    guard case let .Node(_, l, x, r) = self else { return }
-    l.forEach(body)
-    body(x)
-    r.forEach(body)
-  }
-}
-
-/**
-A `Generator` for a Tree
-*/
-
-public struct TreeGenerator<Element : Comparable> : GeneratorType {
-  private var (stack, curr): ([Tree<Element>], Tree<Element>)
-  /**
-  Advance to the next element and return it, or return `nil` if no next element exists.
-  */
-  public mutating func next() -> Element? {
-    while case let .Node(_, l, x, r) = curr {
-      if case .Empty = l {
-        curr = r
-        return x
-      } else {
-        stack.append(curr)
-        curr = l
-      }
-    }
-    guard case let .Node(_, _, x, r)? = stack.popLast()
-      else { return nil }
-    curr = r
-    return x
-  }
-}
-
-/// :nodoc:
-
-internal enum TreeBalance {
-  case Balanced(blackHeight: Int)
-  case UnBalanced
 }
 
 /**
@@ -470,12 +484,35 @@ public struct ReverseTreeGenerator<Element : Comparable> : GeneratorType, Sequen
   }
 }
 
-/// :nodoc:
+// MARK: SetType
 
-public enum Color { case R, B }
+extension Tree: SetType {
+  /// Remove the member if it was present, insert it if it was not.
+  
+  public mutating func XOR(x: Element) {
+    if case nil = remove(x) { insert(x) }
+  }
+}
 
-/// :nodoc:
+// MARK: Higher-Order
 
-public func ==<E : Comparable>(lhs: Tree<E>, rhs: Tree<E>) -> Bool {
-  return lhs.elementsEqual(rhs)
+extension Tree {
+  /// :nodoc:
+  
+  public func reduce<T>(initial: T, @noescape combine: (T, Element) -> T) -> T {
+    guard case let .Node(_, l, x, r) = self else { return initial }
+    let lx = l.reduce(initial, combine: combine)
+    let xx = combine(lx, x)
+    let rx = r.reduce(xx, combine: combine)
+    return rx
+  }
+  
+  /// :nodoc:
+  
+  public func forEach(@noescape body: Element -> ()) {
+    guard case let .Node(_, l, x, r) = self else { return }
+    l.forEach(body)
+    body(x)
+    r.forEach(body)
+  }
 }
