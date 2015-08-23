@@ -90,6 +90,16 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     return 1 + l.count + r.count
   }
   
+  /**
+  Returns the number of elements in `self`
+  
+  - Complexity: O(`count`)
+  */
+  
+  public func underestimateCount() -> Int {
+    return count
+  }
+  
   internal var isBalanced: Bool {
     switch balance {
     case .Balanced: return true
@@ -454,15 +464,15 @@ public struct ReverseTreeGenerator<Element : Comparable> : GeneratorType, Sequen
       if case .Empty = r {
         curr = l
         return x
+      } else {
+        stack.append(curr)
+        curr = r
       }
-      stack.append(curr)
-      curr = r
     }
-    if case let .Node(_, l, x, _)? = stack.popLast() {
-      curr = l
-      return x
-    }
-    return nil
+    guard case let .Node(_, l, x, _)? = stack.popLast()
+      else { return nil }
+    curr = l
+    return x
   }
 }
 
