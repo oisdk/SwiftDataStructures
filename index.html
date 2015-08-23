@@ -27,13 +27,21 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
+          <a href="Constructors.html">Constructors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Constructors.html#/s:FF19SwiftDataStructuresU_ERRcERR">init(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
           <a href="Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Enums/List.html">List</a>
+                <a href="Enums.html#/s:O19SwiftDataStructures4List">List</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/Tree.html">Tree</a>
+                <a href="Enums.html#/s:O19SwiftDataStructures4Tree">Tree</a>
               </li>
             </ul>
           </li>
@@ -41,13 +49,58 @@
           <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Extensions/DequeType.html">DequeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions.html#/s:PSs30RangeReplaceableCollectionType">RangeReplaceableCollectionType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/SetType.html">SetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Tree.html">Tree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Trie.html">Trie</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
           <a href="Functions.html">Functions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU7_ERRL_8generateERR">generate()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU6_ERRL_8popFirstERR">popFirst()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU6_ERRL_7popLastERR">popLast()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU9_ERRL_7prependERR">prepend(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU9_ERRL_8prextendERR">prextend(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU4_ERRL_12replaceRangeERR">replaceRange(_:with:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU8_ERRL_10rotateLeftERR">rotateLeft()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU8_ERRL0_10rotateLeftERR">rotateLeft(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU8_ERRL_11rotateRightERR">rotateRight()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:FF19SwiftDataStructuresU8_ERRL0_11rotateRightERR">rotateRight(_:)</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_4ListQ___GS0_Q__">|&gt;(_:_:)</a>
               </li>
@@ -57,6 +110,9 @@
           <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Protocols/DequeType.html">DequeType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/SetType.html">SetType</a>
               </li>
             </ul>
@@ -64,6 +120,9 @@
           <li class="nav-group-name">
           <a href="Structs.html">Structs</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/ContiguousDeque.html">ContiguousDeque</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Structs/Deque.html">Deque</a>
               </li>
@@ -74,19 +133,10 @@
                 <a href="Structs.html#/s:V19SwiftDataStructures20ReverseTreeGenerator">ReverseTreeGenerator</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Stack.html">Stack</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/StackIndex.html">StackIndex</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/StackSlice.html">StackSlice</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Structs/TreeGenerator.html">TreeGenerator</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Trie.html">Trie</a>
+                <a href="Structs.html#/s:V19SwiftDataStructures4Trie">Trie</a>
               </li>
             </ul>
           </li>
@@ -104,34 +154,15 @@
 <a href='#deque' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='deque'>Deque</h2>
 
 <p>A <a href="https://en.wikipedia.org/wiki/Double-ended_queue">Deque</a> is a data structure comprised
-of two queues, with the first queue beginning at the start of the Deque, and the second
-beginning at the end (in reverse):</p>
-<pre class="highlight swift"><code><span class="kt">First</span> <span class="n">queue</span>   <span class="kt">Second</span> <span class="n">queue</span>
-<span class="n">v</span>              <span class="n">v</span>
-<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">|</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-</code></pre>
+of two queues. This implementation has a front queue, which is reversed, and a back queue,
+which is not. Operations at either end of the Deque have the same complexity as operations
+on the end of either queue.</p>
 
-<p>This allows for O(<em>1</em>) prepending, appending, and removal of first and last elements.</p>
-
-<p>This implementation of a Deque uses two reversed <code>ContiguousArray</code>s as the queues. (this
-means that the first array has reversed semantics, while the second does not) This allows
-for O(<em>1</em>) indexing.</p>
+<p>Three structs conform to the <code>DequeType</code> protocol: <code>Deque</code>, <code>DequeSlice</code>, and
+<code>ContiguousDeque</code>. These correspond to the standard library array types.</p>
 
 <p>Discussion of this specific implementation is available
 <a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
-
-<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/Deque.html">here</a>.</p>
-<a href='#stack' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='stack'>Stack</h2>
-
-<p>A <code>Stack</code> is a list-like data structure, implemented via a reversed
-<code>ContiguousArray</code>. It has performance characteristics similar to an array, except that
-operations on the <em>beginning</em> generally have complexity of amortized O(1), whereas
-operations on the <em>end</em> are usually O(<code>count</code>).</p>
-
-<p>Discussion of this specific implementation is available
-<a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
-
-<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/Stack.html">here</a>.</p>
 <a href='#list' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='list'>List</h2>
 
 <p>A singly-linked, lazy list. Head-tail decomposition can be accomplished with a
@@ -152,8 +183,6 @@ operations on the <em>end</em> are usually O(<code>count</code>).</p>
 
 <p>Discussion of this specific implementation is available
 <a href="https://bigonotetaking.wordpress.com/2015/07/29/deques-queues-and-lists-in-swift-with-indirect/">here</a>.</p>
-
-<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Enums/List.html">here</a>.</p>
 <a href='#trie' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='trie'>Trie</h2>
 
 <p>A <a href="https://en.wikipedia.org/wiki/Trie">Trie</a> is a prefix tree data structure. It has
@@ -166,8 +195,6 @@ length of the sequence being searched for.</p>
 
 <p>Discussion of this specific implementation is available
 <a href="https://bigonotetaking.wordpress.com/2015/08/11/a-trie-in-swift/">here</a>.</p>
-
-<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/Trie.html">here</a>.</p>
 <a href='#tree' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='tree'>Tree</h2>
 
 <p>A <a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">red-black binary search tree</a>. Adapted
@@ -178,12 +205,10 @@ which is implemented in the <a href="https://hackage.haskell.org/package/llrbtre
 
 <p>Elements must be comparable with <a href="https://en.wikipedia.org/wiki/Total_order#Strict_total_order">Strict total order</a>.</p>
 
-<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Enums/Tree.html">here</a>.</p>
-
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-22)</p>
+          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

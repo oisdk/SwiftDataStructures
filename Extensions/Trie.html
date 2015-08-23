@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Trie Struct Reference</title>
+    <title>Trie Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,8 +9,8 @@
     <script src="../js/jazzy.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/Trie" class="dashAnchor"></a>
-    <a title="Trie Struct Reference"></a>
+    <a name="//apple_ref/swift/Extension/Trie" class="dashAnchor"></a>
+    <a title="Trie Extension Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">SwiftDataStructures Docs</a> (100% documented)</p>
@@ -21,20 +21,28 @@
       <p id="breadcrumbs">
         <a href="../index.html">SwiftDataStructures Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Trie Struct Reference
+        Trie Extension Reference
       </p>
     </div>
     <div class="content-wrapper">
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
+          <a href="../Constructors.html">Constructors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Constructors.html#/s:FF19SwiftDataStructuresU_ERRcERR">init(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
           <a href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/List.html">List</a>
+                <a href="../Enums.html#/s:O19SwiftDataStructures4List">List</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/Tree.html">Tree</a>
+                <a href="../Enums.html#/s:O19SwiftDataStructures4Tree">Tree</a>
               </li>
             </ul>
           </li>
@@ -42,13 +50,58 @@
           <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/DequeType.html">DequeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:PSs30RangeReplaceableCollectionType">RangeReplaceableCollectionType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/SetType.html">SetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Tree.html">Tree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Trie.html">Trie</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
           <a href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU7_ERRL_8generateERR">generate()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU6_ERRL_8popFirstERR">popFirst()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU6_ERRL_7popLastERR">popLast()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU9_ERRL_7prependERR">prepend(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU9_ERRL_8prextendERR">prextend(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU4_ERRL_12replaceRangeERR">replaceRange(_:with:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU8_ERRL_10rotateLeftERR">rotateLeft()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU8_ERRL0_10rotateLeftERR">rotateLeft(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU8_ERRL_11rotateRightERR">rotateRight()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU8_ERRL0_11rotateRightERR">rotateRight(_:)</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_4ListQ___GS0_Q__">|&gt;(_:_:)</a>
               </li>
@@ -58,6 +111,9 @@
           <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/DequeType.html">DequeType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/SetType.html">SetType</a>
               </li>
             </ul>
@@ -65,6 +121,9 @@
           <li class="nav-group-name">
           <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousDeque.html">ContiguousDeque</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Structs/Deque.html">Deque</a>
               </li>
@@ -75,19 +134,10 @@
                 <a href="../Structs.html#/s:V19SwiftDataStructures20ReverseTreeGenerator">ReverseTreeGenerator</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Stack.html">Stack</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/StackIndex.html">StackIndex</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/StackSlice.html">StackSlice</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/TreeGenerator.html">TreeGenerator</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Trie.html">Trie</a>
+                <a href="../Structs.html#/s:V19SwiftDataStructures4Trie">Trie</a>
               </li>
             </ul>
           </li>
@@ -113,13 +163,70 @@ length of the sequence being searched for.</p>
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Initializers"></a>
-                  <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
-                  <a href="#/Initializers">
-                    <h3 class="section-name">Initializers</h3>
-                  </a>
-                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV19SwiftDataStructures4Trie16debugDescriptionSS"></a>
+                    <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures4Trie16debugDescriptionSS">debugDescription</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A textual representation of <code>self</code>, suitable for debugging.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV19SwiftDataStructures4Trie6insertUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_"></a>
+                    <a name="//apple_ref/swift/Method/insert(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie6insertUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_">insert(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Insert a member into the Trie.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">insert</span><span class="o">&lt;</span>
+    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
+    <span class="o">&gt;</span><span class="p">(</span><span class="nv">seq</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
               <ul>
                 <li class="item">
                   <div>
@@ -211,20 +318,13 @@ length of the sequence being searched for.</p>
               </ul>
             </div>
             <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Instance%20Properties"></a>
-                  <a name="//apple_ref/swift/Section/Instance Properties" class="dashAnchor"></a>
-                  <a href="#/Instance%20Properties">
-                    <h3 class="section-name">Instance Properties</h3>
-                  </a>
-                </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures4Trie16debugDescriptionSS"></a>
-                    <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures4Trie16debugDescriptionSS">debugDescription</a>
+                    <a name="/s:FV19SwiftDataStructures4Trie8generateUSs8Hashable__FGS0_Q__FT_GVS_13TrieGeneratorQ__"></a>
+                    <a name="//apple_ref/swift/Method/generate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie8generateUSs8Hashable__FGS0_Q__FT_GVS_13TrieGeneratorQ__">generate()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -232,20 +332,24 @@ length of the sequence being searched for.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A textual representation of <code>self</code>, suitable for debugging.</p>
+                        <p>Return a <em>generator</em> over the members.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">generate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TrieGenerator</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -280,70 +384,7 @@ length of the sequence being searched for.</p>
               </ul>
             </div>
             <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Instance%20Methods"></a>
-                  <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
-                  <a href="#/Instance%20Methods">
-                    <h3 class="section-name">Instance Methods</h3>
-                  </a>
-                </div>
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie6insertUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/insert(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie6insertUSs8Hashable__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_">insert(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Insert a member into the Trie.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">insert</span>
-    <span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span>
-    <span class="p">(</span><span class="nv">seq</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures4Trie8generateUSs8Hashable__FGS0_Q__FT_GVS_13TrieGeneratorQ__"></a>
-                    <a name="//apple_ref/swift/Method/generate()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures4Trie8generateUSs8Hashable__FGS0_Q__FT_GVS_13TrieGeneratorQ__">generate()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a <em>generator</em> over the members.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">generate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TrieGenerator</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -375,13 +416,19 @@ length of the sequence being searched for.</p>
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">completions</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">start</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">completions</span><span class="o">&lt;</span>
+    <span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
+    <span class="o">&gt;</span><span class="p">(</span><span class="nv">start</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Trie</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -411,6 +458,10 @@ length of the sequence being searched for.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -523,6 +574,10 @@ length of the sequence being searched for.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -638,7 +693,7 @@ of <code>self</code></p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-22)</p>
+          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

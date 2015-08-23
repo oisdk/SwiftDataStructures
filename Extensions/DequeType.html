@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DequeSlice Struct Reference</title>
+    <title>DequeType Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,8 +9,8 @@
     <script src="../js/jazzy.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/DequeSlice" class="dashAnchor"></a>
-    <a title="DequeSlice Struct Reference"></a>
+    <a name="//apple_ref/swift/Extension/DequeType" class="dashAnchor"></a>
+    <a title="DequeType Extension Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">SwiftDataStructures Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">SwiftDataStructures Reference</a>
         <img id="carat" src="../img/carat.png" />
-        DequeSlice Struct Reference
+        DequeType Extension Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -146,16 +146,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>DequeSlice</h1>
+            <h1>DequeType</h1>
             <p>A <a href="https://en.wikipedia.org/wiki/Double-ended_queue">Deque</a> is a data structure comprised
-of two queues. This implementation has a front queue, which is a reversed ArraySlice, and
-a back queue, which is an ArraySlice. Operations at either end of the Deque have the same
-complexity as operations on the end of either ArraySlice.</p>
+of two queues. This implementation has a front queue, which is reversed, and a back queue,
+which is not. Operations at either end of the Deque have the same complexity as operations
+on the end of either queue.</p>
 
-<p>Because an <code>ArraySlice</code> presents a view onto the storage of some larger array even after
-the original array&rsquo;s lifetime ends, storing the slice may prolong the lifetime of elements
-that are no longer accessible, which can manifest as apparent memory and object leakage.
-To prevent this effect, use <code>DequeSlice</code> only for transient computation.</p>
+<p>Three structs conform to the <code>DequeType</code> protocol: <code>Deque</code>, <code>DequeSlice</code>, and
+<code>ContiguousDeque</code>. These correspond to the standard library array types.</p>
 
           </section>
           <section class="section task-group-section">
@@ -164,9 +162,9 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures10DequeSlice5frontGVSs10ArraySliceQ__"></a>
-                    <a name="//apple_ref/swift/Property/front" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice5frontGVSs10ArraySliceQ__">front</a>
+                    <a name="/s:vP19SwiftDataStructures9DequeType16debugDescriptionERR"></a>
+                    <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vP19SwiftDataStructures9DequeType16debugDescriptionERR">debugDescription</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -174,26 +172,30 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The front and back queues. The front queue is stored in reverse</p>
+                        <p>A textual representation of <code>self</code>, suitable for debugging.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">front</span><span class="p">,</span> <span class="nv">back</span><span class="p">:</span> <span class="kt">ArraySlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FT_GS0_Q__"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FT_GS0_Q__">init()</a>
+                    <a name="/s:FP19SwiftDataStructures9DequeTypecERR"></a>
+                    <a name="//apple_ref/swift/Method/init(col:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures9DequeTypecERR">init(col:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -201,14 +203,119 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initialise an empty <code>DequeSlice</code></p>
+                        <p>Construct from a collection</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span> <span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">back</span><span class="p">)</span> <span class="o">=</span> <span class="p">([],</span> <span class="p">[])</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span>
+    <span class="kt">C</span> <span class="p">:</span> <span class="kt">CollectionType</span> <span class="k">where</span>
+    <span class="kt">C</span><span class="o">.</span><span class="kt">Index</span> <span class="p">:</span> <span class="kt">RandomAccessIndexType</span><span class="p">,</span>
+    <span class="kt">C</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Container</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="p">,</span>
+    <span class="kt">C</span><span class="o">.</span><span class="kt">Index</span><span class="o">.</span><span class="kt">Distance</span> <span class="o">==</span> <span class="kt">Container</span><span class="o">.</span><span class="kt">Index</span><span class="o">.</span><span class="kt">Distance</span>
+    <span class="o">&gt;</span><span class="p">(</span><span class="nv">col</span><span class="p">:</span> <span class="kt">C</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP19SwiftDataStructures9DequeType15reserveCapacityERR"></a>
+                    <a name="//apple_ref/swift/Method/reserveCapacity(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures9DequeType15reserveCapacityERR">reserveCapacity(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reserve enough space to store <code>minimumCapacity</code> elements.</p>
+
+<ul>
+<li>Postcondition: <code>capacity &gt;= minimumCapacity</code> and the <code>Deque</code> has mutable
+contiguous storage.</li>
+<li>Complexity: O(<code>count</code>).</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">reserveCapacity</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Container</span><span class="o">.</span><span class="kt">Index</span><span class="o">.</span><span class="kt">Distance</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP19SwiftDataStructures9DequeType7reverseERR"></a>
+                    <a name="//apple_ref/swift/Method/reverse()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures9DequeType7reverseERR">reverse()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a <code>Deque</code> containing the elements of <code>self</code> in reverse order.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reverse</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP19SwiftDataStructures9DequeType18underestimateCountERR"></a>
+                    <a name="//apple_ref/swift/Method/underestimateCount()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures9DequeType18underestimateCountERR">underestimateCount()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return a value less than or equal to the number of elements in <code>self</code>,
+<strong>nondestructively</strong>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">underestimateCount</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DequeSlice Struct Reference</title>
+    <title>ContiguousDeque Struct Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,8 +9,8 @@
     <script src="../js/jazzy.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/DequeSlice" class="dashAnchor"></a>
-    <a title="DequeSlice Struct Reference"></a>
+    <a name="//apple_ref/swift/Struct/ContiguousDeque" class="dashAnchor"></a>
+    <a title="ContiguousDeque Struct Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">SwiftDataStructures Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">SwiftDataStructures Reference</a>
         <img id="carat" src="../img/carat.png" />
-        DequeSlice Struct Reference
+        ContiguousDeque Struct Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -146,16 +146,11 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>DequeSlice</h1>
+            <h1>ContiguousDeque</h1>
             <p>A <a href="https://en.wikipedia.org/wiki/Double-ended_queue">Deque</a> is a data structure comprised
-of two queues. This implementation has a front queue, which is a reversed ArraySlice, and
-a back queue, which is an ArraySlice. Operations at either end of the Deque have the same
-complexity as operations on the end of either ArraySlice.</p>
-
-<p>Because an <code>ArraySlice</code> presents a view onto the storage of some larger array even after
-the original array&rsquo;s lifetime ends, storing the slice may prolong the lifetime of elements
-that are no longer accessible, which can manifest as apparent memory and object leakage.
-To prevent this effect, use <code>DequeSlice</code> only for transient computation.</p>
+of two queues. This implementation has a front queue, which is a reversed ContiguousArray,
+and a back queue, which is a ContiguousArray. Operations at either end of the Deque have
+the same complexity as operations on the end of either ContiguousArray.</p>
 
           </section>
           <section class="section task-group-section">
@@ -164,9 +159,9 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures10DequeSlice5frontGVSs10ArraySliceQ__"></a>
+                    <a name="/s:vV19SwiftDataStructures15ContiguousDeque5frontGVSs15ContiguousArrayQ__"></a>
                     <a name="//apple_ref/swift/Property/front" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice5frontGVSs10ArraySliceQ__">front</a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures15ContiguousDeque5frontGVSs15ContiguousArrayQ__">front</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -181,7 +176,7 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">front</span><span class="p">,</span> <span class="nv">back</span><span class="p">:</span> <span class="kt">ArraySlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">front</span><span class="p">,</span> <span class="nv">back</span><span class="p">:</span> <span class="kt">ContiguousArray</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -191,9 +186,9 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FT_GS0_Q__"></a>
+                    <a name="/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__FT_GS0_Q__"></a>
                     <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FT_GS0_Q__">init()</a>
+                    <a class="token" href="#/s:FV19SwiftDataStructures15ContiguousDequecU__FMGS0_Q__FT_GS0_Q__">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -201,7 +196,7 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initialise an empty <code>DequeSlice</code></p>
+                        <p>Initialise an empty <code>ContiguousDeque</code></p>
 
                       </div>
                       <div class="declaration">

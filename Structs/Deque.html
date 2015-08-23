@@ -28,13 +28,21 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
+          <a href="../Constructors.html">Constructors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Constructors.html#/s:FF19SwiftDataStructuresU_ERRcERR">init(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
           <a href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/List.html">List</a>
+                <a href="../Enums.html#/s:O19SwiftDataStructures4List">List</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/Tree.html">Tree</a>
+                <a href="../Enums.html#/s:O19SwiftDataStructures4Tree">Tree</a>
               </li>
             </ul>
           </li>
@@ -42,13 +50,58 @@
           <a href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Extensions/DequeType.html">DequeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:PSs30RangeReplaceableCollectionType">RangeReplaceableCollectionType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/SetType.html">SetType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Tree.html">Tree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Trie.html">Trie</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
           <a href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU7_ERRL_8generateERR">generate()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU6_ERRL_8popFirstERR">popFirst()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU6_ERRL_7popLastERR">popLast()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU9_ERRL_7prependERR">prepend(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU9_ERRL_8prextendERR">prextend(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU4_ERRL_12replaceRangeERR">replaceRange(_:with:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU8_ERRL_10rotateLeftERR">rotateLeft()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU8_ERRL0_10rotateLeftERR">rotateLeft(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU8_ERRL_11rotateRightERR">rotateRight()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:FF19SwiftDataStructuresU8_ERRL0_11rotateRightERR">rotateRight(_:)</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:ZF19SwiftDataStructuresoi2ogU__FTQ_KT_GOS_4ListQ___GS0_Q__">|&gt;(_:_:)</a>
               </li>
@@ -58,6 +111,9 @@
           <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/DequeType.html">DequeType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/SetType.html">SetType</a>
               </li>
             </ul>
@@ -65,6 +121,9 @@
           <li class="nav-group-name">
           <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ContiguousDeque.html">ContiguousDeque</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Structs/Deque.html">Deque</a>
               </li>
@@ -75,19 +134,10 @@
                 <a href="../Structs.html#/s:V19SwiftDataStructures20ReverseTreeGenerator">ReverseTreeGenerator</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Stack.html">Stack</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/StackIndex.html">StackIndex</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/StackSlice.html">StackSlice</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/TreeGenerator.html">TreeGenerator</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Trie.html">Trie</a>
+                <a href="../Structs.html#/s:V19SwiftDataStructures4Trie">Trie</a>
               </li>
             </ul>
           </li>
@@ -98,24 +148,9 @@
           <section class="section">
             <h1>Deque</h1>
             <p>A <a href="https://en.wikipedia.org/wiki/Double-ended_queue">Deque</a> is a data structure comprised
-of two queues, with the first queue beginning at the start of the Deque, and the second
-beginning at the end (in reverse):</p>
-
-<pre class="highlight swift"><code><span class="kt">First</span> <span class="n">queue</span>   <span class="kt">Second</span> <span class="n">queue</span>
-<span class="n">v</span>              <span class="n">v</span>
-<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">|</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-</code></pre>
-
-<p>This allows for O(<em>1</em>) prepending, appending, and removal of first and last elements.</p>
-
-<p>This implementation of a Deque uses two reversed <code>ContiguousArray</code>s as the queues. (this
-means that the first array has reversed semantics, while the second does not) This allows
-for O(<em>1</em>) indexing.</p>
-
-<p>Discussion of this specific implementation is available
-<a href="https://bigonotetaking.wordpress.com/2015/08/09/yet-another-root-of-all-evil/">here</a>.</p>
-
-<p>Full documentation is available <a href="http://oisdk.github.io/SwiftDataStructures/Structs/Deque.html">here</a>.</p>
+of two queues. This implementation has a front queue, which is a reversed array, and a
+back queue, which is an array. Operations at either end of the Deque have the same
+complexity as operations on the end of either array.</p>
 
           </section>
           <section class="section task-group-section">
@@ -124,9 +159,9 @@ for O(<em>1</em>) indexing.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:sV19SwiftDataStructures5Deque9subscriptFSiQ_"></a>
-                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:sV19SwiftDataStructures5Deque9subscriptFSiQ_">subscript(_:)</a>
+                    <a name="/s:vV19SwiftDataStructures5Deque5frontGSaQ__"></a>
+                    <a name="//apple_ref/swift/Property/front" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV19SwiftDataStructures5Deque5frontGSaQ__">front</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -134,141 +169,14 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Access the element at <code>position</code>.</p>
-
-<ul>
-<li>Requires: <code>0 &lt;= position &lt; endIndex</code></li>
-</ul>
+                        <p>The front and back queues. The front queue is stored in reverse.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:sV19SwiftDataStructures5Deque9subscriptFGVSs5RangeSi_GVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:sV19SwiftDataStructures5Deque9subscriptFGVSs5RangeSi_GVS_10DequeSliceQ__">subscript(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Access the elements at the given subRange.</p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">idxs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Initializers"></a>
-                  <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
-                  <a href="#/Initializers">
-                    <h3 class="section-name">Initializers</h3>
-                  </a>
-                </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5DequecU__FMGS0_Q__FGVS_10DequeSliceQ__GS0_Q__"></a>
-                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5DequecU__FMGS0_Q__FGVS_10DequeSliceQ__GS0_Q__">init(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initilalize from a <code>DequeSlice</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5DequecU__FMGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___"></a>
-                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5DequecU__FMGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_GS0_Qd___">init(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Construct from an arbitrary sequence with elements of type <code>Element</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">seq</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5DequecU__FMGS0_Q__Ft12arrayLiteralGSaQ___GS0_Q__"></a>
-                    <a name="//apple_ref/swift/Method/init(arrayLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5DequecU__FMGS0_Q__Ft12arrayLiteralGSaQ___GS0_Q__">init(arrayLiteral:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Create an instance containing <code>elements</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">arrayLiteral</span> <span class="nv">elements</span><span class="p">:</span> <span class="kt">Element</span><span class="o">...</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">front</span><span class="p">,</span> <span class="nv">back</span><span class="p">:</span> <span class="p">[</span><span class="kt">Element</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -288,1172 +196,14 @@ for O(<em>1</em>) indexing.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Constructs an empty <code>Deque</code></p>
+                        <p>Initialise an empty <code>Deque</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Instance%20Properties"></a>
-                  <a name="//apple_ref/swift/Section/Instance Properties" class="dashAnchor"></a>
-                  <a href="#/Instance%20Properties">
-                    <h3 class="section-name">Instance Properties</h3>
-                  </a>
-                </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV19SwiftDataStructures5Deque16debugDescriptionSS"></a>
-                    <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures5Deque16debugDescriptionSS">debugDescription</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A textual representation of <code>self</code>, suitable for debugging.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV19SwiftDataStructures5Deque10startIndexSi"></a>
-                    <a name="//apple_ref/swift/Property/startIndex" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures5Deque10startIndexSi">startIndex</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The position of the first element in a non-empty <code>Deque</code>.</p>
-
-<p>In an empty <code>Deque</code>, <code>startIndex == endIndex</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">startIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">0</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV19SwiftDataStructures5Deque8endIndexSi"></a>
-                    <a name="//apple_ref/swift/Property/endIndex" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures5Deque8endIndexSi">endIndex</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <code>Deque</code>&rsquo;s <q>past the end</q> position.</p>
-
-<p><code>endIndex</code> is not a valid argument to <code>subscript</code>, and is always reachable from
-<code>startIndex</code> by zero or more applications of <code>successor()</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">endIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">return</span> <span class="n">front</span><span class="o">.</span><span class="n">endIndex</span> <span class="o">+</span> <span class="n">back</span><span class="o">.</span><span class="n">endIndex</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV19SwiftDataStructures5Deque5countSi"></a>
-                    <a name="//apple_ref/swift/Property/count" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures5Deque5countSi">count</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the number of elements.</p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV19SwiftDataStructures5Deque5firstGSqQ__"></a>
-                    <a name="//apple_ref/swift/Property/first" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures5Deque5firstGSqQ__">first</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the first element of <code>self</code>, or <code>nil</code> if <code>self</code> is empty.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">first</span><span class="p">:</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV19SwiftDataStructures5Deque4lastGSqQ__"></a>
-                    <a name="//apple_ref/swift/Property/last" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures5Deque4lastGSqQ__">last</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the last element of <code>self</code>, or <code>nil</code> if <code>self</code> is empty.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">last</span><span class="p">:</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV19SwiftDataStructures5Deque7isEmptySb"></a>
-                    <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures5Deque7isEmptySb">isEmpty</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns <code>true</code> iff <code>self</code> is empty.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Instance%20Methods"></a>
-                  <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
-                  <a href="#/Instance%20Methods">
-                    <h3 class="section-name">Instance Methods</h3>
-                  </a>
-                </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque8generateU__FGS0_Q__FT_GVS_14DequeGeneratorQ__"></a>
-                    <a name="//apple_ref/swift/Method/generate()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque8generateU__FGS0_Q__FT_GVS_14DequeGeneratorQ__">generate()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a <code>DequeGenerator</code> over the elements of this <code>Deque</code>.</p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">generate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">DequeGenerator</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque18underestimateCountU__FGS0_Q__FT_Si"></a>
-                    <a name="//apple_ref/swift/Method/underestimateCount()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque18underestimateCountU__FGS0_Q__FT_Si">underestimateCount()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a value less than or equal to the number of elements in <code>self</code>,
-<strong>nondestructively</strong>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">underestimateCount</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque9dropFirstU__FGS0_Q__FT_GVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/dropFirst()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque9dropFirstU__FGS0_Q__FT_GVS_10DequeSliceQ__">dropFirst()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a <code>DequeSlice</code> containing all but the first element.</p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropFirst</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque9dropFirstU__FGS0_Q__FSiGVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/dropFirst(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque9dropFirstU__FGS0_Q__FSiGVS_10DequeSliceQ__">dropFirst(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a <code>DequeSlice</code> containing all but the first n elements.</p>
-
-<ul>
-<li>Requires: <code>n &gt;= 0</code></li>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropFirst</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque8dropLastU__FGS0_Q__FT_GVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/dropLast()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque8dropLastU__FGS0_Q__FT_GVS_10DequeSliceQ__">dropLast()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a <code>DequeSlice</code> containing all but the last element.</p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropLast</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque8dropLastU__FGS0_Q__FSiGVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/dropLast(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque8dropLastU__FGS0_Q__FSiGVS_10DequeSliceQ__">dropLast(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a <code>DequeSlice</code> containing all but the last n elements.</p>
-
-<ul>
-<li>Requires: <code>n &gt;= 0</code></li>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dropLast</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque6prefixU__FGS0_Q__FSiGVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/prefix(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque6prefixU__FGS0_Q__FSiGVS_10DequeSliceQ__">prefix(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a <code>DequeSlice</code>, up to <code>maxLength</code> in length, containing the initial
-elements of <code>self</code>.</p>
-
-<p>If maxLength exceeds <code>self.count</code>, the result contains all the elements of <code>self</code>.</p>
-
-<ul>
-<li>Requires: <code>maxLength &gt;= 0</code></li>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefix</span><span class="p">(</span><span class="nv">maxLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque6suffixU__FGS0_Q__FSiGVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/suffix(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque6suffixU__FGS0_Q__FSiGVS_10DequeSliceQ__">suffix(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a <code>DequeSlice</code>, up to <code>maxLength</code> in length, containing the final
-elements of <code>self</code>.</p>
-
-<p>If <code>maxLength</code> exceeds <code>self.count</code>, the result contains all the elements of <code>self</code>.</p>
-
-<ul>
-<li>Requires: <code>maxLength &gt;= 0</code></li>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">suffix</span><span class="p">(</span><span class="nv">maxLength</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque5splitU__FGS0_Q__FTSi16allowEmptySlicesSb11isSeparatorFQ_Sb_GSaGVS_10DequeSliceQ___"></a>
-                    <a name="//apple_ref/swift/Method/split(_:allowEmptySlices:isSeparator:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque5splitU__FGS0_Q__FTSi16allowEmptySlicesSb11isSeparatorFQ_Sb_GSaGVS_10DequeSliceQ___">split(_:allowEmptySlices:isSeparator:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the maximal <code>DequeSlice</code>s of <code>self</code>, in order, that don&rsquo;t contain
-elements satisfying the predicate <code>isSeparator</code>.</p>
-
-<ul>
-<li>Parameter maxSplits: The maximum number of <code>DequeSlice</code>s to return, minus 1.
-If <code>maxSplit</code> + 1 <code>DequeSlice</code>s are returned, the last one is a suffix of
-<code>self</code> containing the remaining elements. The default value is <code>Int.max</code>.</li>
-<li>Parameter allowEmptySubsequences: If <code>true</code>, an empty <code>DequeSlice</code> is
-produced in the result for each pair of consecutive elements satisfying <code>isSeparator</code>.
-The default value is false.</li>
-<li>Requires: maxSplit &gt;= 0</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">split</span><span class="p">(</span>
-    <span class="nv">maxSplit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-    <span class="nv">allowEmptySlices</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
-    <span class="k">@noescape</span> <span class="nv">isSeparator</span><span class="p">:</span> <span class="kt">Element</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque8popFirstU__FRGS0_Q__FT_GSqQ__"></a>
-                    <a name="//apple_ref/swift/Method/popFirst()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque8popFirstU__FRGS0_Q__FT_GSqQ__">popFirst()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>If <code>!self.isEmpty</code>, remove the first element and return it, otherwise return <code>nil</code>.</p>
-
-<ul>
-<li>Complexity: Amortized O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">popFirst</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque7popLastU__FRGS0_Q__FT_GSqQ__"></a>
-                    <a name="//apple_ref/swift/Method/popLast()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque7popLastU__FRGS0_Q__FT_GSqQ__">popLast()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>If <code>!self.isEmpty</code>, remove the last element and return it, otherwise return <code>nil</code>.</p>
-
-<ul>
-<li>Complexity: Amortized O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">popLast</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque10prefixUpToU__FGS0_Q__FSiGVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/prefixUpTo(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque10prefixUpToU__FGS0_Q__FSiGVS_10DequeSliceQ__">prefixUpTo(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns <code>self[startIndex..&lt;end]</code></p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefixUpTo</span><span class="p">(</span><span class="nv">end</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque13prefixThroughU__FGS0_Q__FSiGVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/prefixThrough(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque13prefixThroughU__FGS0_Q__FSiGVS_10DequeSliceQ__">prefixThrough(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns <code>prefixUpTo(position.successor())</code></p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">prefixThrough</span><span class="p">(</span><span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque7reverseU__FGS0_Q__FT_GS0_Q__"></a>
-                    <a name="//apple_ref/swift/Method/reverse()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque7reverseU__FGS0_Q__FT_GS0_Q__">reverse()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a <code>Deque</code> containing the elements of <code>self</code> in reverse order.</p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reverse</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Deque</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque10suffixFromU__FGS0_Q__FSiGVS_10DequeSliceQ__"></a>
-                    <a name="//apple_ref/swift/Method/suffixFrom(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque10suffixFromU__FGS0_Q__FSiGVS_10DequeSliceQ__">suffixFrom(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns <code>self[start..&lt;endIndex]</code></p>
-
-<ul>
-<li>Complexity: O(1)</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">suffixFrom</span><span class="p">(</span><span class="nv">start</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DequeSlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque6appendU__FRGS0_Q__FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/append(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque6appendU__FRGS0_Q__FQ_T_">append(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Append <code>x</code> to <code>self</code>.</p>
-
-<p>Applying <code>successor()</code> to the index of the new element yields <code>self.endIndex</code>.</p>
-
-<ul>
-<li>Complexity: Amortized O(1).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">append</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque6extendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/extend(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque6extendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_">extend(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Append the elements of <code>newElements</code> to <code>self</code>.</p>
-
-<ul>
-<li>Complexity: O(<em>length of result</em>).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">extend</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">newElements</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque6insertU__FRGS0_Q__FTQ_7atIndexSi_T_"></a>
-                    <a name="//apple_ref/swift/Method/insert(_:atIndex:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque6insertU__FRGS0_Q__FTQ_7atIndexSi_T_">insert(_:atIndex:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Insert <code>newElement</code> at index <code>i</code>.</p>
-
-<ul>
-<li>Requires: <code>i &lt;= count</code>.</li>
-<li>Complexity: O(<code>count</code>).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">newElement</span><span class="p">:</span> <span class="kt">Element</span><span class="p">,</span> <span class="n">atIndex</span> <span class="nv">i</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque7prependU__FRGS0_Q__FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/prepend(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque7prependU__FRGS0_Q__FQ_T_">prepend(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Prepend <code>x</code> to <code>self</code>.</p>
-
-<p>The index of the new element is <code>self.startIndex</code>.</p>
-
-<ul>
-<li>Complexity: Amortized O(1).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">prepend</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque8prextendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_"></a>
-                    <a name="//apple_ref/swift/Method/prextend(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque8prextendU__FRGS0_Q__USs12SequenceType_USs13GeneratorType__FQ_T_">prextend(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Prepend the elements of <code>newElements</code> to <code>self</code>.</p>
-
-<ul>
-<li>Complexity: O(<em>length of result</em>).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">prextend</span><span class="o">&lt;</span><span class="kt">S</span> <span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">newElements</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque9removeAllU__FRGS0_Q__FT12keepCapacitySb_T_"></a>
-                    <a name="//apple_ref/swift/Method/removeAll(keepCapacity:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque9removeAllU__FRGS0_Q__FT12keepCapacitySb_T_">removeAll(keepCapacity:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove all elements.</p>
-
-<ul>
-<li>Postcondition: <code>capacity == 0</code> iff <code>keepCapacity</code> is <code>false</code>.</li>
-<li>Complexity: O(<code>self.count</code>).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeAll</span><span class="p">(</span><span class="nv">keepCapacity</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque13removeAtIndexU__FRGS0_Q__FSiQ_"></a>
-                    <a name="//apple_ref/swift/Method/removeAtIndex(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque13removeAtIndexU__FRGS0_Q__FSiQ_">removeAtIndex(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove and return the element at index <code>i</code>.</p>
-
-<p>Invalidates all indices with respect to <code>self</code>.</p>
-
-<ul>
-<li>Complexity: O(<code>count</code>).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeAtIndex</span><span class="p">(</span><span class="nv">i</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Element</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque11removeFirstU__FRGS0_Q__FT_Q_"></a>
-                    <a name="//apple_ref/swift/Method/removeFirst()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque11removeFirstU__FRGS0_Q__FT_Q_">removeFirst()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove the element at <code>startIndex</code> and return it.</p>
-
-<ul>
-<li>Complexity: Amortized O(1)</li>
-<li>Requires: <code>!self.isEmpty</code>.</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeFirst</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Element</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque11removeFirstU__FRGS0_Q__FSiT_"></a>
-                    <a name="//apple_ref/swift/Method/removeFirst(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque11removeFirstU__FRGS0_Q__FSiT_">removeFirst(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove the first <code>n</code> elements.</p>
-
-<ul>
-<li>Complexity: O(<code>self.count</code>)</li>
-<li>Requires: <code>!self.isEmpty</code>.</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeFirst</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque10removeLastU__FRGS0_Q__FT_Q_"></a>
-                    <a name="//apple_ref/swift/Method/removeLast()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque10removeLastU__FRGS0_Q__FT_Q_">removeLast()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove an element from the end.</p>
-
-<ul>
-<li>Complexity: Amortized O(1)</li>
-<li>Requires: <code>!self.isEmpty</code></li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeLast</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Element</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque10removeLastU__FRGS0_Q__FSiT_"></a>
-                    <a name="//apple_ref/swift/Method/removeLast(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque10removeLastU__FRGS0_Q__FSiT_">removeLast(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove the last <code>n</code> elements.</p>
-
-<ul>
-<li>Complexity: O(<code>self.count</code>)</li>
-<li>Requires: <code>!self.isEmpty</code>.</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeLast</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque11removeRangeU__FRGS0_Q__FGVSs5RangeSi_T_"></a>
-                    <a name="//apple_ref/swift/Method/removeRange(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque11removeRangeU__FRGS0_Q__FGVSs5RangeSi_T_">removeRange(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Remove the indicated subRange of elements.</p>
-
-<p>Invalidates all indices with respect to <code>self</code>.</p>
-
-<ul>
-<li>Complexity: O(<code>self.count</code>).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">removeRange</span><span class="p">(</span><span class="nv">subRange</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque12replaceRangeU__FRGS0_Q__USs14CollectionType_USs13GeneratorType_Ss16ForwardIndexType_Ss18_SignedIntegerType_Ss33_BuiltinIntegerLiteralConvertible____FTGVSs5RangeSi_4withQ__T_"></a>
-                    <a name="//apple_ref/swift/Method/replaceRange(_:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque12replaceRangeU__FRGS0_Q__USs14CollectionType_USs13GeneratorType_Ss16ForwardIndexType_Ss18_SignedIntegerType_Ss33_BuiltinIntegerLiteralConvertible____FTGVSs5RangeSi_4withQ__T_">replaceRange(_:with:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Replace the given <code>subRange</code> of elements with <code>newElements</code>.</p>
-
-<p>Invalidates all indices with respect to <code>self</code>.</p>
-
-<ul>
-<li>Complexity: O(<code>subRange.count</code>) if <code>subRange.endIndex == self.endIndex</code> and
-<code>isEmpty(newElements)</code>, O(<code>self.count + newElements.count</code>) otherwise.</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="n">replaceRange</span><span class="o">&lt;</span>
-    <span class="kt">C</span> <span class="p">:</span> <span class="kt">CollectionType</span> <span class="k">where</span> <span class="kt">C</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">Element</span>
-    <span class="o">&gt;</span><span class="p">(</span><span class="nv">subRange</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">with</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">C</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV19SwiftDataStructures5Deque15reserveCapacityU__FRGS0_Q__FSiT_"></a>
-                    <a name="//apple_ref/swift/Method/reserveCapacity(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures5Deque15reserveCapacityU__FRGS0_Q__FSiT_">reserveCapacity(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Reserve enough space to store <code>minimumCapacity</code> elements.</p>
-
-<ul>
-<li>Postcondition: <code>capacity &gt;= minimumCapacity</code> and the <code>Deque</code> has mutable
-contiguous storage.</li>
-<li>Complexity: O(<code>count</code>).</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="Swift">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">mutating</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">reserveCapacity</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span> <span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">back</span><span class="p">)</span> <span class="o">=</span> <span class="p">([],</span> <span class="p">[])</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1465,7 +215,7 @@ contiguous storage.</li>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-22)</p>
+          <p>&copy; 2015 <a class="link" href="https://github.com/oisdk" target="_blank" rel="external">Oisin Kidney</a>. All rights reserved. (Last updated: 2015-08-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

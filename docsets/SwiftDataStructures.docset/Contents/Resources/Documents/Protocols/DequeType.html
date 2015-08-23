@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DequeSlice Struct Reference</title>
+    <title>DequeType Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,8 +9,8 @@
     <script src="../js/jazzy.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/DequeSlice" class="dashAnchor"></a>
-    <a title="DequeSlice Struct Reference"></a>
+    <a name="//apple_ref/swift/Protocol/DequeType" class="dashAnchor"></a>
+    <a title="DequeType Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">SwiftDataStructures Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">SwiftDataStructures Reference</a>
         <img id="carat" src="../img/carat.png" />
-        DequeSlice Struct Reference
+        DequeType Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -146,16 +146,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>DequeSlice</h1>
+            <h1>DequeType</h1>
             <p>A <a href="https://en.wikipedia.org/wiki/Double-ended_queue">Deque</a> is a data structure comprised
-of two queues. This implementation has a front queue, which is a reversed ArraySlice, and
-a back queue, which is an ArraySlice. Operations at either end of the Deque have the same
-complexity as operations on the end of either ArraySlice.</p>
+of two queues. This implementation has a front queue, which is reversed, and a back queue,
+which is not. Operations at either end of the Deque have the same complexity as operations
+on the end of either queue.</p>
 
-<p>Because an <code>ArraySlice</code> presents a view onto the storage of some larger array even after
-the original array&rsquo;s lifetime ends, storing the slice may prolong the lifetime of elements
-that are no longer accessible, which can manifest as apparent memory and object leakage.
-To prevent this effect, use <code>DequeSlice</code> only for transient computation.</p>
+<p>Three structs conform to the <code>DequeType</code> protocol: <code>Deque</code>, <code>DequeSlice</code>, and
+<code>ContiguousDeque</code>. These correspond to the standard library array types.</p>
 
           </section>
           <section class="section task-group-section">
@@ -164,9 +162,9 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV19SwiftDataStructures10DequeSlice5frontGVSs10ArraySliceQ__"></a>
+                    <a name="/s:vP19SwiftDataStructures9DequeType5frontQQPS0_9Container"></a>
                     <a name="//apple_ref/swift/Property/front" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV19SwiftDataStructures10DequeSlice5frontGVSs10ArraySliceQ__">front</a>
+                    <a class="token" href="#/s:vP19SwiftDataStructures9DequeType5frontQQPS0_9Container">front</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -174,14 +172,14 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The front and back queues. The front queue is stored in reverse</p>
+                        <p>The front queue. It is stored in reverse.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">front</span><span class="p">,</span> <span class="nv">back</span><span class="p">:</span> <span class="kt">ArraySlice</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">front</span><span class="p">:</span> <span class="kt">Container</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -191,9 +189,9 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FT_GS0_Q__"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV19SwiftDataStructures10DequeSlicecU__FMGS0_Q__FT_GS0_Q__">init()</a>
+                    <a name="/s:P19SwiftDataStructures9DequeType9Container"></a>
+                    <a name="//apple_ref/swift/Alias/Container" class="dashAnchor"></a>
+                    <a class="token" href="#/s:P19SwiftDataStructures9DequeType9Container">Container</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -201,14 +199,68 @@ To prevent this effect, use <code>DequeSlice</code> only for transient computati
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initialise an empty <code>DequeSlice</code></p>
+                        <p>The type that represents the queues.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span> <span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">back</span><span class="p">)</span> <span class="o">=</span> <span class="p">([],</span> <span class="p">[])</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">typealias</span> <span class="kt">Container</span> <span class="p">:</span> <span class="kt">RangeReplaceableCollectionType</span><span class="p">,</span> <span class="kt">MutableSliceable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vP19SwiftDataStructures9DequeType4backQQPS0_9Container"></a>
+                    <a name="//apple_ref/swift/Property/back" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vP19SwiftDataStructures9DequeType4backQQPS0_9Container">back</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The back queue.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">back</span> <span class="p">:</span> <span class="kt">Container</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP19SwiftDataStructures9DequeTypecUS0__USs16MutableSliceableSs30RangeReplaceableCollectionType_Ss13GeneratorType__Ss16ForwardIndexType_Ss18_SignedIntegerType_Ss33_BuiltinIntegerLiteralConvertible__Ss10_Sliceable_S3___S4__S5__S6______S3___S4__S5__S6___S7__S3___S4__S5__S6______FMQPS0_FT_S8_"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP19SwiftDataStructures9DequeTypecUS0__USs16MutableSliceableSs30RangeReplaceableCollectionType_Ss13GeneratorType__Ss16ForwardIndexType_Ss18_SignedIntegerType_Ss33_BuiltinIntegerLiteralConvertible__Ss10_Sliceable_S3___S4__S5__S6______S3___S4__S5__S6___S7__S3___S4__S5__S6______FMQPS0_FT_S8_">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Constructs an empty <code>Deque</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
