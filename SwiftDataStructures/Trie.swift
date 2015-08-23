@@ -95,7 +95,7 @@ extension Trie : SequenceType {
   
   /// Return a *generator* over the members.
   public func generate() -> TrieGenerator<Element>  {
-    return TrieGenerator(self)
+    return TrieGenerator(children: children.generate(), curHead: [], innerGen: {nil})
   }
 }
 
@@ -118,7 +118,6 @@ public struct TrieGenerator<Letter : Hashable> : GeneratorType {
       if child.endHere { return curHead }
     }
   }
-  private init(_ from: Trie<Letter>) { children = from.children.generate() }
 }
 
 

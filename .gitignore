@@ -81,3 +81,5 @@ build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal
 build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal/x86_64/SwiftDataStructures.LinkFileList
 
 build/SwiftDataStructures.build/Release/SwiftDataStructures.build/Objects-normal/x86_64/Trie.d
+
+*.xcscheme
