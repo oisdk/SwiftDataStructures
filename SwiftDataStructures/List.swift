@@ -1,3 +1,5 @@
+// MARK: Cons
+
 infix operator |> {
 associativity right
 precedence 100
@@ -24,6 +26,8 @@ public func |> <T>(lhs: T, @autoclosure(escaping) rhs: () -> List<T>) -> List<T>
   return .Cons(lhs, rhs)
 }
 
+// MARK: Definition
+
 /**
 A singly-linked, lazy list. Head-tail decomposition can be accomplished with a
 `switch` statement:
@@ -49,12 +53,27 @@ Discussion of this specific implementation is available
 Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Enums/List.html).
 */
 
-public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertible, GeneratorType, SequenceType {
+public enum List<Element> {
   case Nil
   case Cons(Element, () -> List<Element>)
+}
 
-  // MARK: Initializers
+// MARK: SequenceType
 
+extension List: GeneratorType, SequenceType {
+  /**
+  Returns the next element if it exists, or nil if it does not.
+  */
+  public mutating func next() -> Element? {
+    guard case let .Cons(head, tail) = self else { return nil }
+    self = tail()
+    return head
+  }
+}
+
+// MARK: Initializers
+
+extension List : ArrayLiteralConvertible {
   private init<G : GeneratorType where G.Element == Element>(var gen: G) {
     if let head = gen.next() {
       self = head |> List(gen: gen)
@@ -76,14 +95,21 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   public init(arrayLiteral elements: Element...) {
     self = List(elements.generate())
   }
-  
-  // MARK: Instance Properties
+}
+
+// MARK: DebugDescription
+
+extension List : CustomDebugStringConvertible {
   
   /// A textual representation of `self`, suitable for debugging.
   public var debugDescription: String {
     return "[" + ", ".join(map{String(reflecting: $0)}) + "]"
   }
-  
+}
+
+// MARK: Properties
+
+extension List {
   /**
   The number of elements in `self`
   
@@ -122,42 +148,64 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
     guard case let .Cons(head, tail) = self else { return nil }
     return tail().isEmpty ? head : tail().last
   }
-  
-  // MARK: Instance Methods
+}
+
+// MARK: -ending
+
+extension List {
   /**
-  Returns the next element if it exists, or nil if it does not.
-  */
-  public mutating func next() -> Element? {
-    guard case let .Cons(head, tail) = self else { return nil }
-    self = tail()
-    return head
-  }
-  /// Return a *generator* over the elements of this *sequence*.
-  ///
-  /// - Complexity: O(1).
-  public func generate() -> List<Element> {
-    return self
-  }
-  /**
-  Returns a `List` containing all but the first element.
-  
-  - Complexity: O(1)
-  */
-  public func dropFirst() -> List<Element> {
-    if case let .Cons(_, t) = self { return t() }
-    return .Nil
-  }
-  /**
-  Returns a `List` containing all but the last element.
+  Returns a `List` with `with` appended.
   
   - Complexity: O(`count`)
   */
-  public func dropLast() -> List<Element> {
-    guard case let .Cons(x, xs) = self else { return .Nil }
-    let tail = xs()
-    if tail.isEmpty { return .Nil }
-    return x |> tail.dropLast()
+  
+  public func appended(@autoclosure(escaping) with: () -> Element) -> List<Element> {
+    guard case let .Cons(x, xs) = self else { return [with()] }
+    return x |> xs().appended(with)
   }
+  
+  /**
+  Returns a `List` extended by the elements of `with`.
+  
+  - Complexity: O(`count`)
+  */
+  
+  public func extended(@autoclosure(escaping) with: () -> List<Element>) -> List<Element> {
+    guard case let .Cons(x, xs) = self else { return with() }
+    return x |> xs().extended(with)
+  }
+  
+  /**
+  Returns a `List` extended by the elements of `with`.
+  
+  - Complexity: O(`count`)
+  */
+  
+  public func extended<
+    S : SequenceType where S.Generator.Element == Element
+    >(@autoclosure(escaping) with: () -> S) -> List<Element> {
+      return extended(List(with()))
+  }
+  
+  /**
+  Return `self` prepended with the elements of `with`.
+  */
+  public func prextended(with: List<Element>) -> List<Element> {
+    return with.extended(self)
+  }
+  /**
+  Return `self` prepended with the elements of `with`.
+  */
+  public func prextended<
+    S : SequenceType where S.Generator.Element == Element
+    >(newElements: S) -> List<Element> {
+      return List(newElements).extended(self)
+  }
+}
+
+// MARK: Dropping
+
+extension List {
   /**
   Returns a `List` containing all but the first N elements.
   
@@ -188,46 +236,47 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   Returns a `List` containing all but the last n elements.
   
   - Requires: `n >= 0`
-  - Complexity: O(n)
+  - Complexity: O(`count`)
   */
   public func dropLast(n: Int) -> List<Element> {
     let (front, back) = divide(n)
     return back.dropLast(Deque(front))
   }
-  
-  /**
-  Returns a `List` with `with` appended.
-  
-  - Complexity: O(`count`)
-  */
-  
-  public func appended(@autoclosure(escaping) with: () -> Element) -> List<Element> {
-    guard case let .Cons(x, xs) = self else { return [with()] }
-    return x |> xs().appended(with)
-  }
-  
-  /**
-  Returns a `List` extended by the elements of `with`.
-  
-  - Complexity: O(`count`)
-  */
-  
-  public func extended(@autoclosure(escaping) with: () -> List<Element>) -> List<Element> {
-    guard case let .Cons(x, xs) = self else { return with() }
-    return x |> xs().extended(with)
-  }
-  
-  /**
-  Returns a `List` extended by the elements of `with`.
-  
-  - Complexity: O(`count`)
-  */
-  
-  public func extended<S : SequenceType where S.Generator.Element == Element>(@autoclosure(escaping) with: () -> S) -> List<Element> {
-    return extended(List(with()))
-  }
+}
 
+// MARK: Conditional Dropping
+
+extension List {
+  /**
+  Returns a `List` of the initial elements of `self`, up until the first element that
+  returns false for `isElement`
+  */
   
+  public func prefixWhile(isElement: Element -> Bool) -> List<Element> {
+    switch self {
+    case let .Cons(head, tail) where isElement(head):
+      return head |> tail().prefixWhile(isElement)
+    default: return .Nil
+    }
+  }
+  
+  /**
+  Returns a `List` of `self` with the first elements that satisfy `isNotElement`
+  dropped.
+  */
+  
+  public func dropWhile(@noescape isNotElement: Element -> Bool) -> List<Element> {
+    switch self {
+    case let .Cons(head, tail) where isNotElement(head):
+      return tail().dropWhile(isNotElement)
+    default: return self
+    }
+  }
+}
+
+// MARK: Slicing
+
+extension List {
   /**
   Returns a `List` of the initial elements of `self`, of maximum length `n`.
   */
@@ -272,33 +321,11 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
     let rest = back.split(maxSplit - 1, allowEmptySlices: allowEmptySlices, isSeparator: isSeparator)
     return (!front.isEmpty || allowEmptySlices) ? [front] + rest : rest
   }
-  /// :nodoc:
-  public func map<T>(transform: Element -> T) -> List<T> {
-    guard case let .Cons(x, xs) = self else { return .Nil }
-    return transform(x) |> xs().map(transform)
-  }
-  /// :nodoc:
-  public func flatMap<T>(transform: Element -> List<T>) -> List<T> {
-    guard case let .Cons(x, xs) = self else { return .Nil }
-    return transform(x).extended(xs().flatMap(transform))
-  }
-  /// :nodoc:
-  public func flatMap<S : SequenceType>(transform: Element -> S) -> List<S.Generator.Element> {
-    guard case let .Cons(x, xs) = self else { return .Nil }
-    return List<S.Generator.Element>(transform(x)).extended(xs().flatMap(transform))
-  }
-  /// :nodoc:
-  public func flatMap<T>(transform: Element -> T?) -> List<T> {
-    guard case let .Cons(x, xs) = self else { return .Nil }
-    return transform(x).map { $0 |> xs().flatMap(transform) } ?? xs().flatMap(transform)
-  }
-  /**
-  Return a value less than or equal to the number of elements in `self`,
-  **nondestructively**.
-  */
-  public func underestimateCount() -> Int {
-    return 0
-  }
+}
+
+// MARK: Stacklike
+
+extension List {
   /**
   Remove the first element and return it.
   
@@ -320,26 +347,11 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
     self = xs()
     return x
   }
-  /**
-  Return `self` prepended with the elements of `with`.
-  */
-  public func prextended(with: List<Element>) -> List<Element> {
-    return with.extended(self)
-  }
-  /**
-  Return `self` prepended with the elements of `with`.
-  */
-  public func prextended<S : SequenceType where S.Generator.Element == Element>(newElements: S) -> List<Element> {
-    return List(newElements).extended(self)
-  }
-  /// :nodoc:
-  public func filter(includeElement: Element -> Bool) -> List<Element> {
-    guard case let .Cons(x, xs) = self else { return .Nil }
-    return includeElement(x) ?
-      x |> xs().filter(includeElement) :
-      xs().filter(includeElement)
-  }
+}
 
+// MARK: Reverse
+
+extension List {
   private func rev(other: List<Element>) -> List<Element> {
     guard case let .Cons(x, xs) = self else { return other }
     return xs().rev(x |> other)
@@ -347,6 +359,38 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
   /// :nodoc:
   public func reverse() -> List<Element> {
     return rev(.Nil)
+  }
+}
+
+// MARK: Higher-Order
+
+extension List {
+  /// :nodoc:
+  public func map<T>(transform: Element -> T) -> List<T> {
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return transform(x) |> xs().map(transform)
+  }
+  /// :nodoc:
+  public func flatMap<T>(transform: Element -> List<T>) -> List<T> {
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return transform(x).extended(xs().flatMap(transform))
+  }
+  /// :nodoc:
+  public func flatMap<S : SequenceType>(transform: Element -> S) -> List<S.Generator.Element> {
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return List<S.Generator.Element>(transform(x)).extended(xs().flatMap(transform))
+  }
+  /// :nodoc:
+  public func flatMap<T>(transform: Element -> T?) -> List<T> {
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return transform(x).map { $0 |> xs().flatMap(transform) } ?? xs().flatMap(transform)
+  }
+  /// :nodoc:
+  public func filter(includeElement: Element -> Bool) -> List<Element> {
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return includeElement(x) ?
+      x |> xs().filter(includeElement) :
+      xs().filter(includeElement)
   }
   /**
   Returns a `List` of the result of calling `combine` on successive elements of `self`
@@ -424,31 +468,5 @@ public enum List<Element> : CustomDebugStringConvertible, ArrayLiteralConvertibl
     guard case let .Cons(x, xs) = self else { return nil }
     guard let ac = xs().reduceR(combine) else { return x }
     return combine(element: x, accumulator: ac)
-  }
-  
-  /**
-  Returns a `List` of the initial elements of `self`, up until the first element that
-  returns false for `isElement`
-  */
-  
-  public func prefixWhile(isElement: Element -> Bool) -> List<Element> {
-    switch self {
-    case let .Cons(head, tail) where isElement(head):
-      return head |> tail().prefixWhile(isElement)
-    default: return .Nil
-    }
-  }
-  
-  /**
-  Returns a `List` of `self` with the first elements that satisfy `isNotElement` 
-  dropped.
-  */
-  
-  public func dropWhile(@noescape isNotElement: Element -> Bool) -> List<Element> {
-    switch self {
-    case let .Cons(head, tail) where isNotElement(head):
-      return tail().dropWhile(isNotElement)
-    default: return self
-    }
   }
 }

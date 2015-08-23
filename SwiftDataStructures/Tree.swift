@@ -90,14 +90,8 @@ public enum Tree<Element: Comparable> : SequenceType, ArrayLiteralConvertible, C
     return 1 + l.count + r.count
   }
   
-  /**
-  Returns the number of elements in `self`
-  
-  - Complexity: O(`count`)
-  */
-  
   public func underestimateCount() -> Int {
-    return count
+    return 0
   }
   
   internal var isBalanced: Bool {

@@ -24,6 +24,15 @@ public protocol DequeType :
 }
 
 extension DequeType {
+  /// A textual representation of `self`, suitable for debugging.
+  public var debugDescription: String {
+    return "[" +
+      ", ".join(front.reverse().map { String(reflecting: $0) }) + " | " +
+      ", ".join(back.map { String(reflecting: $0) }) + "]"
+  }
+}
+
+extension DequeType {
   
   internal init(balancedF: Container, balancedB: Container) {
     self.init()
@@ -52,7 +61,11 @@ extension DequeType where Container.Index.Distance == Int {
   public init(arrayLiteral elements: Container.Generator.Element...) {
     self.init(col: elements)
   }
-  public init<S : SequenceType where S.Generator.Element == Container.Generator.Element>(_ seq: S) {
+  /// Initialise from a sequence.
+  public init<
+    S : SequenceType where
+    S.Generator.Element == Container.Generator.Element
+    >(_ seq: S) {
     self.init(col: Array(seq))
   }
 }
@@ -61,25 +74,31 @@ private enum IndexLocation<I> {
   case Front(I), Back(I)
 }
 
-extension DequeType where Container.Index : RandomAccessIndexType, Container.Index.Distance : ForwardIndexType {
+extension DequeType where
+  Container.Index : RandomAccessIndexType,
+  Container.Index.Distance : ForwardIndexType {
   
   private func translate(i: Container.Index.Distance) -> IndexLocation<Container.Index> {
     return i < front.count ?
       .Front(front.endIndex.predecessor().advancedBy(-i)) :
       .Back(back.startIndex.advancedBy(i - front.count))
   }
+  
   /**
   The position of the first element in a non-empty `Deque`.
   
   In an empty `Deque`, `startIndex == endIndex`.
   */
+  
   public var startIndex: Container.Index.Distance { return 0 }
+  
   /**
   The `Deque`'s "past the end" position.
   
   `endIndex` is not a valid argument to `subscript`, and is always reachable from
   `startIndex` by zero or more applications of `successor()`.
   */
+  
   public var endIndex  : Container.Index.Distance { return front.count + back.count }
   public subscript(i: Container.Index.Distance) -> Container.Generator.Element {
     get {
@@ -104,7 +123,9 @@ extension DequeType where
   Container.Index : RandomAccessIndexType,
   Container.Index.Distance : BidirectionalIndexType {
   
-  private func translate(i: Range<Container.Index.Distance>) -> IndexRangeLocation<Container.Index> {
+  private func translate
+    (i: Range<Container.Index.Distance>)
+    -> IndexRangeLocation<Container.Index> {
     if i.endIndex <= front.count {
       let s = front.endIndex.advancedBy(-i.endIndex)
       if s == front.startIndex && i.isEmpty { return .Between }
@@ -121,16 +142,6 @@ extension DequeType where
     return .Over(f, b)
   }
 }
-
-extension DequeType {
-  /// A textual representation of `self`, suitable for debugging.
-  public var debugDescription: String {
-    return "[" +
-      ", ".join(front.reverse().map { String(reflecting: $0) }) + " | " +
-      ", ".join(back.map { String(reflecting: $0) }) + "]"
-  }
-}
-
 
 extension DequeType where
   Container.Index : RandomAccessIndexType,
@@ -168,6 +179,7 @@ private enum Balance {
 }
 
 extension DequeType {
+  
   private var balance: Balance {
     let (f, b) = (front.count, back.count)
     if f == 0 {
@@ -180,6 +192,10 @@ extension DequeType {
       }
     }
     return .Balanced
+  }
+  
+  internal var isBalanced: Bool {
+    return balance == .Balanced
   }
 }
 
@@ -217,7 +233,8 @@ extension DequeType {
 
 extension DequeType where
   Container.Index : RandomAccessIndexType,
-Container.Index.Distance : BidirectionalIndexType {
+  Container.Index.Distance : BidirectionalIndexType {
+  
   /**
   Replace the given `subRange` of elements with `newElements`.
   
@@ -271,6 +288,7 @@ extension DequeType where Container.Index : BidirectionalIndexType {
     return back.popLast() ?? front.popLast()
   }
 }
+
 /// :nodoc:
 public struct DequeGenerator<
   Container : RangeReplaceableCollectionType where
@@ -303,13 +321,8 @@ extension DequeType where Container.Index : BidirectionalIndexType {
   }
 }
 
-extension DequeType {
-  internal var isBalanced: Bool {
-    return balance == .Balanced
-  }
-}
-
 extension DequeType where Container.Index : BidirectionalIndexType {
+  
   /**
   Removes an element from the end of `self`, and prepends it to `self`
   
