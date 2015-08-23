@@ -1,3 +1,5 @@
+// MARK: Definition
+
 /**
 A [Deque](https://en.wikipedia.org/wiki/Double-ended_queue) is a data structure comprised
 of two queues. This implementation has a front queue, which is reversed, and a back queue,
@@ -23,6 +25,8 @@ public protocol DequeType :
   init()
 }
 
+// MARK: DebugDescription
+
 extension DequeType {
   /// A textual representation of `self`, suitable for debugging.
   public var debugDescription: String {
@@ -32,8 +36,9 @@ extension DequeType {
   }
 }
 
+// MARK: Initializers
+
 extension DequeType {
-  
   internal init(balancedF: Container, balancedB: Container) {
     self.init()
     front = balancedF
@@ -69,6 +74,8 @@ extension DequeType where Container.Index.Distance == Int {
     self.init(col: Array(seq))
   }
 }
+
+// MARK: Indexing
 
 private enum IndexLocation<I> {
   case Front(I), Back(I)
@@ -114,6 +121,8 @@ extension DequeType where
     }
   }
 }
+
+// MARK: Index Ranges
 
 private enum IndexRangeLocation<I : ForwardIndexType> {
   case Front(Range<I>), Over(Range<I>, Range<I>), Back(Range<I>), Between
@@ -174,6 +183,8 @@ extension DequeType where
   }
 }
 
+// MARK: Balance
+
 private enum Balance {
   case FrontEmpty, BackEmpty, Balanced
 }
@@ -217,6 +228,8 @@ extension DequeType where Container.Index : BidirectionalIndexType {
   }
 }
 
+// MARK: ReserveCapacity
+
 extension DequeType {
   /**
   Reserve enough space to store `minimumCapacity` elements.
@@ -230,6 +243,8 @@ extension DequeType {
     back.reserveCapacity(n / 2)
   }
 }
+
+// MARK: ReplaceRange
 
 extension DequeType where
   Container.Index : RandomAccessIndexType,
@@ -268,6 +283,8 @@ extension RangeReplaceableCollectionType where Index : BidirectionalIndexType {
   }
 }
 
+// MARK: StackLike
+
 extension DequeType where Container.Index : BidirectionalIndexType {
   /**
   If `!self.isEmpty`, remove the first element and return it, otherwise return `nil`.
@@ -288,6 +305,8 @@ extension DequeType where Container.Index : BidirectionalIndexType {
     return back.popLast() ?? front.popLast()
   }
 }
+
+// MARK: SequenceType
 
 /// :nodoc:
 public struct DequeGenerator<
@@ -320,6 +339,8 @@ extension DequeType where Container.Index : BidirectionalIndexType {
     return DequeGenerator(front: front, back: back, i: front.endIndex, onBack: false)
   }
 }
+
+// MARK: Rotations
 
 extension DequeType where Container.Index : BidirectionalIndexType {
   
@@ -389,6 +410,8 @@ extension DequeType where Container.Index : BidirectionalIndexType {
   }
 }
 
+// MARK: Reverse
+
 extension DequeType {
   /**
   Return a `Deque` containing the elements of `self` in reverse order.
@@ -397,6 +420,8 @@ extension DequeType {
     return Self(balancedF: back, balancedB: front)
   }
 }
+
+// MARK: -ending
 
 extension DequeType where Container.Index : BidirectionalIndexType {
   /**
@@ -424,6 +449,8 @@ extension DequeType where Container.Index : BidirectionalIndexType {
   }
 }
 
+// MARK: Underestimate Count
+
 extension DequeType {
   /**
   Return a value less than or equal to the number of elements in `self`,
@@ -433,6 +460,8 @@ extension DequeType {
     return front.underestimateCount() + back.underestimateCount()
   }
 }
+
+// MARK: Structs
 /**
 A [Deque](https://en.wikipedia.org/wiki/Double-ended_queue) is a data structure comprised
 of two queues. This implementation has a front queue, which is a reversed array, and a
