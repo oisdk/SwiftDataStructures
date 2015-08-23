@@ -13,11 +13,49 @@ Discussion of this specific implementation is available
 Full documentation is available [here](http://oisdk.github.io/SwiftDataStructures/Structs/Trie.html).
 */
 
-public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable, SequenceType, SetType {
+public struct Trie<Element : Hashable> : Equatable {
   private var children: [Element:Trie<Element>]
   private var endHere : Bool
+}
+
+/// :nodoc:
+public func ==<T>(lhs: Trie<T>, rhs: Trie<T>) -> Bool {
+  return lhs.endHere == rhs.endHere && lhs.children == rhs.children
+}
+
+// MARK: DebugDescription
+
+extension Trie : CustomDebugStringConvertible {
+  /// A textual representation of `self`, suitable for debugging.
+  public var debugDescription: String {
+    return ", ".join(map {"".join($0.map { String(reflecting: $0) })})
+  }
+}
+
+// MARK: Insert
+
+extension Trie {
+  private mutating func insert<
+    G : GeneratorType where G.Element == Element
+    >(var gen: G) {
+    if let head = gen.next() {
+      children[head]?.insert(gen) ?? {children[head] = Trie(gen: gen)}()
+    } else {
+      endHere = true
+    }
+  }
   
-  // MARK: Initializers
+  /// Insert a member into the Trie.
+  public mutating func insert<
+    S : SequenceType where S.Generator.Element == Element
+    >(seq: S) {
+    insert(seq.generate())
+  }
+}
+
+// MARK: Initializers
+
+extension Trie {
   
   /// Create an empty `Trie`
   public init() {
@@ -31,16 +69,6 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     } else {
       (children, endHere) = ([:], true)
     }
-  }
-
-  private mutating func insert<
-    G : GeneratorType where G.Element == Element
-    >(var gen: G) {
-      if let head = gen.next() {
-        children[head]?.insert(gen) ?? {children[head] = Trie(gen: gen)}()
-      } else {
-        endHere = true
-      }
   }
 
   /// Construct from an arbitrary sequence of sequences with elements of type `Element`.
@@ -59,13 +87,44 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     (_ seq: S) {
       self.init(gen: seq.generate())
   }
+}
+
+// MARK: SequenceType
+
+extension Trie : SequenceType {
   
-  // MARK: Instance Properties
-  
-  /// A textual representation of `self`, suitable for debugging.
-  public var debugDescription: String {
-    return ", ".join(map {"".join($0.map { String(reflecting: $0) })})
+  /// Return a *generator* over the members.
+  public func generate() -> TrieGenerator<Element>  {
+    return TrieGenerator(self)
   }
+}
+
+/// :nodoc:
+public struct TrieGenerator<Letter : Hashable> : GeneratorType {
+  private var children: DictionaryGenerator<Letter, Trie<Letter>>
+  private var curHead : [Letter] = []
+  private var innerGen: () -> [Letter]? = {nil}
+  /// Advance to the next element and return it, or `nil` if no next
+  /// element exists.
+  ///
+  /// - Requires: No preceding call to `self.next()` has returned `nil`.
+  public mutating func next() -> [Letter]? {
+    for ;; {
+      if let next = innerGen() { return curHead + next }
+      guard let (head, child) = children.next() else { return nil }
+      curHead = [head]
+      var g = child.generate()
+      innerGen = {g.next()}
+      if child.endHere { return curHead }
+    }
+  }
+  private init(_ from: Trie<Letter>) { children = from.children.generate() }
+}
+
+
+// MARK: Properties
+
+extension Trie {
   
   /**
   Returns the number of members of `self`.
@@ -75,28 +134,18 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
   public var count: Int {
     return children.values.reduce(endHere ? 1 : 0) { $0 + $1.count }
   }
-  
-  // MARK: Instance Methods
-  
-  /// Insert a member into the Trie.
-  public mutating func insert
-    <S : SequenceType where S.Generator.Element == Element>
-    (seq: S) {
-      insert(seq.generate())
-  }
-  
-  /// Return a *generator* over the members.
+}
 
-  public func generate() -> TrieGenerator<Element>  {
-    return TrieGenerator(self)
-  }
+// MARK: Completions
 
-  private func completions
-    <G : GeneratorType where G.Element == Element>
-    (var start: G) -> Trie<Element> {
-      guard let head = start.next() else  { return self }
-      guard let child = children[head] else { return Trie() }
-      return child.completions(start)
+extension Trie {
+
+  private func completions<
+    G : GeneratorType where G.Element == Element
+    >(var start: G) -> Trie<Element> {
+    guard let head = start.next() else  { return self }
+    guard let child = children[head] else { return Trie() }
+    return child.completions(start)
   }
   /**
   Returns a Trie of the suffixes of the members of `self` which start with `start`.
@@ -113,10 +162,16 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
   // ["lly", "seph", "nah"]
   ```
   */
-  public func completions<S : SequenceType where S.Generator.Element == Element>(start: S) -> Trie<Element> {
+  public func completions<
+    S : SequenceType where S.Generator.Element == Element
+    >(start: S) -> Trie<Element> {
     return completions(start.generate())
   }
+}
 
+// MARK: Remove
+
+extension Trie {
   private mutating func remove<
     G : GeneratorType where G.Element == Element
     >(var gen g: G) -> RemoveState {
@@ -138,7 +193,15 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
       if remove(gen: result.generate()) == .NotPresent { return nil }
       return result
   }
-  
+}
+
+private enum RemoveState {
+  case NotPresent, NotRemovable, Removable
+}
+
+// MARK: SetType
+
+extension Trie : SetType {
   private mutating func XOR<
     G : GeneratorType where G.Element == Element
     >(var gen g: G) -> Bool {
@@ -158,7 +221,6 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
   }
   
   /// Remove the member if it was present, insert it if it was not.
-  
   public mutating func XOR<
     S : SequenceType where S.Generator.Element == Element
     >(seq: S) {
@@ -192,7 +254,11 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     with.unionInPlace(self)
     return with
   }
-  
+}
+
+// MARK: Higher-order
+
+extension Trie {
   /**
   Returns a Trie which contains the results of applying `transform` to the members of
   `self`
@@ -237,33 +303,4 @@ public struct Trie<Element : Hashable> : CustomDebugStringConvertible, Equatable
     for element in self where includeElement(element) { ret.insert(element) }
     return ret
   }
-}
-
-/// :nodoc:
-public struct TrieGenerator<Letter : Hashable> : GeneratorType {
-  private var children: DictionaryGenerator<Letter, Trie<Letter>>
-  private var curHead : [Letter] = []
-  private var innerGen: () -> [Letter]? = {nil}
-  /// Advance to the next element and return it, or `nil` if no next
-  /// element exists.
-  ///
-  /// - Requires: No preceding call to `self.next()` has returned `nil`.
-  public mutating func next() -> [Letter]? {
-    for ;; {
-      if let next = innerGen() { return curHead + next }
-      guard let (head, child) = children.next() else { return nil }
-      curHead = [head]
-      var g = child.generate()
-      innerGen = {g.next()}
-      if child.endHere { return curHead }
-    }
-  }
-  private init(_ from: Trie<Letter>) { children = from.children.generate() }
-}
-private enum RemoveState {
-  case NotPresent, NotRemovable, Removable
-}
-/// :nodoc:
-public func ==<T>(lhs: Trie<T>, rhs: Trie<T>) -> Bool {
-  return lhs.endHere == rhs.endHere && lhs.children == rhs.children
 }
