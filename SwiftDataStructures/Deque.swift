@@ -55,7 +55,7 @@ extension DequeType {
       let mid = col.count / 2
       let midInd = col.startIndex.advancedBy(mid)
       front.reserveCapacity(mid)
-      back.reserveCapacity(mid)
+      back.reserveCapacity(mid.successor())
       front.extend(col[col.startIndex..<midInd].reverse())
       back.extend(col[midInd..<col.endIndex])
   }
