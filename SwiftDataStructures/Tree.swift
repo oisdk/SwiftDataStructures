@@ -116,17 +116,23 @@ extension Tree {
     }
   }
   
+  internal var color: Color {
+    if case .Node(.R, _, _, _) = self { return .R }
+    return .B
+  }
+  
   internal var balance: TreeBalance {
     guard case let .Node(c, l, _, r) = self else { return .Balanced(blackHeight: 1) }
-    if case let .Node(_, _, lx, _) = l, case let .Node(_, _, rx, _) = r {
-      guard lx < rx else { return .UnBalanced }
-    }
-    guard case let .Balanced(x) = l.balance else { return .UnBalanced }
-    guard case let .Balanced(y) = r.balance else { return .UnBalanced }
-    guard x == y else { return .UnBalanced }
-    if c == .B { return .Balanced(blackHeight: x + 1) }
-    if case .Node(.R, _, _, _) = l { return .UnBalanced }
-    if case .Node(.R, _, _, _) = r { return .UnBalanced }
+    if
+      case let .Node(_, _, lx, _) = l,
+      case let .Node(_, _, rx, _) = r
+      where lx >= rx { return .UnBalanced }
+    guard
+      case let .Balanced(x) = l.balance,
+      case let .Balanced(y) = r.balance
+      where x == y else { return .UnBalanced }
+    if case .B = c { return .Balanced(blackHeight: x + 1) }
+    guard case .B = l.color, case .B = r.color else { return .UnBalanced }
     return .Balanced(blackHeight: x)
   }
   
