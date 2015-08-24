@@ -108,6 +108,13 @@ extension Tree {
 
 // MARK: Balance
 
+/// :nodoc:
+
+internal enum TreeBalance {
+  case Balanced(blackHeight: Int)
+  case UnBalanced
+}
+
 extension Tree {
   internal var isBalanced: Bool {
     switch balance {
@@ -195,13 +202,6 @@ extension Tree {
       )
     }
   }
-}
-
-/// :nodoc:
-
-internal enum TreeBalance {
-  case Balanced(blackHeight: Int)
-  case UnBalanced
 }
 
 // MARK: Contains
