@@ -30,9 +30,9 @@ public protocol DequeType :
 extension DequeType {
   /// A textual representation of `self`, suitable for debugging.
   public var debugDescription: String {
-    return "[" +
-      ", ".join(front.reverse().map { String(reflecting: $0) }) + " | " +
-      ", ".join(back.map { String(reflecting: $0) }) + "]"
+    let fStr = front.reverse().map { String(reflecting: $0) }.joinWithSeparator(", ")
+    let bStr = back.map { String(reflecting: $0) }.joinWithSeparator(", ")
+    return "[" + fStr + " | " + bStr + "]"
   }
 }
 
@@ -56,8 +56,8 @@ extension DequeType {
       let midInd = col.startIndex.advancedBy(mid)
       front.reserveCapacity(mid)
       back.reserveCapacity(mid.successor())
-      front.extend(col[col.startIndex..<midInd].reverse())
-      back.extend(col[midInd..<col.endIndex])
+      front.appendContentsOf(col[col.startIndex..<midInd].reverse())
+      back.appendContentsOf(col[midInd..<col.endIndex])
   }
 }
 
@@ -324,8 +324,10 @@ public struct DequeGenerator<
   */
   public mutating func next() -> Container.Generator.Element? {
     if onBack { return i == back.endIndex ? nil : back[i++] }
-    if i == front.startIndex { onBack = true; return next() }
-    return front[--i]
+    guard i == front.startIndex else { return front[--i] }
+    onBack = true
+    i = back.startIndex
+    return next()
   }
 }
 
@@ -444,7 +446,7 @@ extension DequeType where Container.Index : BidirectionalIndexType {
     S : SequenceType where
     S.Generator.Element == Container.Generator.Element
     >(x: S) {
-    front.extend(x.reverse())
+    front.appendContentsOf(x.reverse())
     check()
   }
 }

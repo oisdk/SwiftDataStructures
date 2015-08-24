@@ -103,7 +103,7 @@ extension List : CustomDebugStringConvertible {
   
   /// A textual representation of `self`, suitable for debugging.
   public var debugDescription: String {
-    return "[" + ", ".join(map{String(reflecting: $0)}) + "]"
+    return Array(self).debugDescription
   }
 }
 
@@ -297,10 +297,10 @@ extension List {
     return zip(0..<n, reverse()).reduce(List.Nil) { $1.1 |> $0 }
   }
   
-  private func divide(@noescape isSplit: Element -> Bool) -> (List<Element>, List<Element>) {
+  private func divide(@noescape isSplit: Element throws -> Bool) rethrows -> (List<Element>, List<Element>) {
     guard case let .Cons(x, xs) = self else { return (.Nil, .Nil) }
-    if isSplit(x) { return (.Nil, xs()) }
-    let (front, back) = xs().divide(isSplit)
+    if try isSplit(x) { return (.Nil, xs()) }
+    let (front, back) = try xs().divide(isSplit)
     return (x |> front, back)
   }
   
@@ -316,10 +316,10 @@ extension List {
   The default value is false.
   - Requires: maxSplit >= 0
   */
-  public func split(maxSplit: Int, allowEmptySlices: Bool, @noescape isSeparator: Element -> Bool) -> [List<Element>] {
+  public func split(maxSplit: Int, allowEmptySlices: Bool, @noescape isSeparator: Element throws -> Bool) rethrows -> [List<Element>] {
     if isEmpty || maxSplit == 0 { return [] }
-    let (front, back) = divide(isSeparator)
-    let rest = back.split(maxSplit - 1, allowEmptySlices: allowEmptySlices, isSeparator: isSeparator)
+    let (front, back) = try divide(isSeparator)
+    let rest = try back.split(maxSplit - 1, allowEmptySlices: allowEmptySlices, isSeparator: isSeparator)
     return (!front.isEmpty || allowEmptySlices) ? [front] + rest : rest
   }
 }

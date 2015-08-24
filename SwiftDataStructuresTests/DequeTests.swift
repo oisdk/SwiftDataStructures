@@ -162,8 +162,7 @@ class DequeTests: XCTestCase {
   
   func testReplaceRange() {
     
-    for var ar in randArs() {
-      print(Deque(ar).debugDescription)
+    for ar in randArs() {
       let replacement = (0..<arc4random_uniform(6)).map { _ in Int(arc4random_uniform(10000)) }
       for start in ar.indices {
         for end in (start...ar.endIndex) {

@@ -2,23 +2,25 @@ import XCTest
 import Foundation
 @testable import SwiftDataStructures
 
+extension String {
+  private var trimSort: [String] {
+    return characters
+      .split {$0 == " "}
+      .map(String.init)
+      .map {
+        $0.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+      }.sort()
+  }
+}
+
 class TrieTests: XCTestCase {
-  
   func testDebugString() {
     
-    let expectation = "123, 345, 234"
+    let expectation = "[123, 345, 234]".trimSort
     
-    let reality = Trie([[1, 2, 3], [3, 4, 5], [2, 3, 4]]).debugDescription
+    let reality = Trie([[1, 2, 3], [3, 4, 5], [2, 3, 4]]).debugDescription.trimSort
     
-    let realitySort = reality.characters.split{ $0 == " " }.map(String.init).map{
-      $0.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: " ,"))
-      }.sort()
-    
-    let expectationSort = expectation.characters.split{ $0 == " " }.map(String.init).map{
-      $0.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: " ,"))
-      }.sort()
-    
-    XCTAssertEqual(expectationSort, realitySort)
+    XCTAssertEqual(expectation, reality)
     
   }
   

@@ -28,7 +28,10 @@ public func ==<T>(lhs: Trie<T>, rhs: Trie<T>) -> Bool {
 extension Trie : CustomDebugStringConvertible {
   /// A textual representation of `self`, suitable for debugging.
   public var debugDescription: String {
-    return ", ".join(map {"".join($0.map { String(reflecting: $0) })})
+    let ar = Array(self).map { s in
+      s.map { String(reflecting: $0) }.joinWithSeparator("")
+    }
+    return "[" + ar.joinWithSeparator(", ") + "]"
   }
 }
 
