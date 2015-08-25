@@ -1,13 +1,10 @@
 // MARK: Cons
 
-infix operator |> {
-associativity right
-precedence 100
-}
+infix operator |> { associativity right precedence 100}
 /**
 The [cons](https://en.wikipedia.org/wiki/Cons) operator.
 
-This operator lazy. i.e:
+This operator is lazy. i.e:
 
 ```swift
 func printAndGiveList() -> List<Int> {
