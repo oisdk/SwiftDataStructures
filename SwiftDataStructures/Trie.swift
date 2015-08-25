@@ -269,10 +269,10 @@ extension Trie {
   Returns a Trie which contains the results of applying `transform` to the members of
   `self`
   */
-  public func map<S : SequenceType>(@noescape transform: [Element] -> S) -> Trie<S.Generator.Element> {
+  public func map<S : SequenceType>(@noescape transform: [Element] throws -> S) rethrows -> Trie<S.Generator.Element> {
     var result = Trie<S.Generator.Element>()
     for seq in self {
-      result.insert(transform(seq))
+      result.insert(try transform(seq))
     }
     return result
   }
@@ -281,10 +281,10 @@ extension Trie {
   Returns a Trie which contains the non-nil results of applying `transform` to the members
   of `self`
   */
-  public func flatMap<S : SequenceType>(@noescape transform: [Element] -> S?) -> Trie<S.Generator.Element> {
+  public func flatMap<S : SequenceType>(@noescape transform: [Element] throws -> S?) rethrows -> Trie<S.Generator.Element> {
     var result = Trie<S.Generator.Element>()
     for seq in self {
-      if let transformed = transform(seq) {
+      if let transformed = try transform(seq) {
         result.insert(transformed)
       }
     }
@@ -293,10 +293,10 @@ extension Trie {
   /**
   Returns a Trie which contains the merged results of applying `transform` to `self`.
   */
-  public func flatMap<T>(@noescape transform: [Element] -> Trie<T>) -> Trie<T> {
+  public func flatMap<T>(@noescape transform: [Element] throws -> Trie<T>) rethrows -> Trie<T> {
     var ret = Trie<T>()
     for seq in self {
-      ret.unionInPlace(transform(seq))
+      ret.unionInPlace(try transform(seq))
     }
     return ret
   }
@@ -304,9 +304,9 @@ extension Trie {
   /**
   Returns a Trie which contains the members of `self` which satisfy `includeElement`.
   */
-  public func filter(@noescape includeElement: [Element] -> Bool) -> Trie<Element> {
+  public func filter(@noescape includeElement: [Element] throws -> Bool) rethrows -> Trie<Element> {
     var ret = Trie()
-    for element in self where includeElement(element) { ret.insert(element) }
+    for element in self where try includeElement(element) { ret.insert(element) }
     return ret
   }
 }

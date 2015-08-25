@@ -4,21 +4,30 @@ import Foundation
 
 extension String {
   private var trimSort: [String] {
+    let nums = Set("0123456789".characters)
     return characters
-      .split {$0 == " "}
+      .split { !nums.contains($0) }
       .map(String.init)
-      .map {
-        $0.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
-      }.sort()
+      .sort()
   }
+}
+
+private func randAr(n: Int = 10) -> [Int] {
+  return (0..<n).map { _ in Int(arc4random_uniform(100)) }
+}
+
+private func randArs() -> [[Int]] {
+  return (0..<5).map(randAr)
 }
 
 class TrieTests: XCTestCase {
   func testDebugString() {
     
-    let expectation = "[123, 345, 234]".trimSort
+    let ars = randArs()
     
-    let reality = Trie([[1, 2, 3], [3, 4, 5], [2, 3, 4]]).debugDescription.trimSort
+    let expectation = Set(ars.map {$0.map(String.init).joinWithSeparator("")}).debugDescription.trimSort
+
+    let reality = Trie(ars).debugDescription.trimSort
     
     XCTAssertEqual(expectation, reality)
     

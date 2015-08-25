@@ -502,20 +502,20 @@ extension Tree: SetType {
 extension Tree {
   /// :nodoc:
   
-  public func reduce<T>(initial: T, @noescape combine: (T, Element) -> T) -> T {
+  public func reduce<T>(initial: T, @noescape combine: (T, Element) throws -> T) rethrows -> T {
     guard case let .Node(_, l, x, r) = self else { return initial }
-    let lx = l.reduce(initial, combine: combine)
-    let xx = combine(lx, x)
-    let rx = r.reduce(xx, combine: combine)
+    let lx = try l.reduce(initial, combine: combine)
+    let xx = try combine(lx, x)
+    let rx = try r.reduce(xx, combine: combine)
     return rx
   }
   
   /// :nodoc:
   
-  public func forEach(@noescape body: Element -> ()) {
+  public func forEach(@noescape body: Element throws -> ()) rethrows {
     guard case let .Node(_, l, x, r) = self else { return }
-    l.forEach(body)
-    body(x)
-    r.forEach(body)
+    try l.forEach(body)
+    try body(x)
+    try r.forEach(body)
   }
 }
