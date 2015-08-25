@@ -40,6 +40,17 @@ extension List {
 }
 ```
 
+Or a `guard case`:
+
+```swift
+extension List {
+  public func map<T>(transform: Element -> T) -> List<T> {
+    guard case let .Cons(x, xs) = self else { return .Nil }
+    return transform(x) |> xs().map(transform)
+  }
+}
+```
+
 Where `|>` is the [cons](https://en.wikipedia.org/wiki/Cons) operator.
 
 Operations on the beginning of the list are O(1), whereas other operations are O(n).
@@ -57,7 +68,7 @@ public enum List<Element> {
 
 // MARK: SequenceType
 
-extension List: GeneratorType, SequenceType {
+extension List: GeneratorType, LazySequenceType {
   /**
   Returns the next element if it exists, or nil if it does not.
   */
