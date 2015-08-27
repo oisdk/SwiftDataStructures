@@ -186,7 +186,7 @@ extension Trie {
         return children.isEmpty ? .Removable : .NotRemovable
       }
       guard let removeState = children[head]?.remove(gen: g) else { return .NotPresent }
-      guard removeState == .Removable else { return removeState }
+      guard case .Removable = removeState else { return removeState }
       children.removeValueForKey(head)
       return (!endHere && children.isEmpty) ? .Removable : .NotRemovable   
   }
@@ -281,7 +281,8 @@ extension Trie {
   Returns a Trie which contains the non-nil results of applying `transform` to the members
   of `self`
   */
-  public func flatMap<S : SequenceType>(@noescape transform: [Element] throws -> S?) rethrows -> Trie<S.Generator.Element> {
+  public func flatMap<S : SequenceType>
+    (@noescape transform: [Element] throws -> S?) rethrows -> Trie<S.Generator.Element> {
     var result = Trie<S.Generator.Element>()
     for seq in self {
       if let transformed = try transform(seq) {

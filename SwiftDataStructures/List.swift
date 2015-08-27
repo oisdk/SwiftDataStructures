@@ -1,5 +1,4 @@
 // MARK: Cons
-
 infix operator |> { associativity right precedence 100}
 /**
 The [cons](https://en.wikipedia.org/wiki/Cons) operator.
