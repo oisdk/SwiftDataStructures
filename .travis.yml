@@ -1,2 +1,4 @@
 language: swift
 osx_image: xcode7
+xcode_project: SwiftDataStructures.xcodeproj
+xcode_scheme: SwiftDataStructures
