@@ -16,10 +16,6 @@ private func randAr(n: Int = 10) -> [Int] {
   return (0..<n).map { _ in Int(arc4random_uniform(100)) }
 }
 
-private func randArs() -> [[Int]] {
-  return (0..<5).map(randAr)
-}
-
 class TrieTests: XCTestCase {
   func testDebugString() {
     

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		706F3EA71B8CDB7A002F2103 /* ListMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706F3EA61B8CDB79002F2103 /* ListMethods.swift */; settings = {ASSET_TAGS = (); }; };
+		707762931B98D08E00717B49 /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707762921B98D08E00717B49 /* CollectionType.swift */; settings = {ASSET_TAGS = (); }; };
+		707762951B98D09A00717B49 /* MutableCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707762941B98D09A00717B49 /* MutableCollectionType.swift */; settings = {ASSET_TAGS = (); }; };
+		707762971B98D0A000717B49 /* MutableSliceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707762961B98D0A000717B49 /* MutableSliceable.swift */; settings = {ASSET_TAGS = (); }; };
+		707762991B98D0A400717B49 /* RangeReplaceableCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707762981B98D0A400717B49 /* RangeReplaceableCollectionType.swift */; settings = {ASSET_TAGS = (); }; };
 		70B18ABD1B7CBD3900FEB474 /* SwiftDataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 70B18ABC1B7CBD3900FEB474 /* SwiftDataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		70B18AC41B7CBD3900FEB474 /* SwiftDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70B18AB91B7CBD3900FEB474 /* SwiftDataStructures.framework */; };
 		70B18AD81B7CBD4F00FEB474 /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B18AD31B7CBD4F00FEB474 /* Deque.swift */; };
@@ -33,6 +37,10 @@
 
 /* Begin PBXFileReference section */
 		706F3EA61B8CDB79002F2103 /* ListMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMethods.swift; sourceTree = "<group>"; };
+		707762921B98D08E00717B49 /* CollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
+		707762941B98D09A00717B49 /* MutableCollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableCollectionType.swift; sourceTree = "<group>"; };
+		707762961B98D0A000717B49 /* MutableSliceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableSliceable.swift; sourceTree = "<group>"; };
+		707762981B98D0A400717B49 /* RangeReplaceableCollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeReplaceableCollectionType.swift; sourceTree = "<group>"; };
 		70B18AB91B7CBD3900FEB474 /* SwiftDataStructures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B18ABC1B7CBD3900FEB474 /* SwiftDataStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftDataStructures.h; sourceTree = "<group>"; };
 		70B18ABE1B7CBD3900FEB474 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +112,10 @@
 		70B18AC71B7CBD3900FEB474 /* SwiftDataStructuresTests */ = {
 			isa = PBXGroup;
 			children = (
+				707762921B98D08E00717B49 /* CollectionType.swift */,
+				707762941B98D09A00717B49 /* MutableCollectionType.swift */,
+				707762961B98D0A000717B49 /* MutableSliceable.swift */,
+				707762981B98D0A400717B49 /* RangeReplaceableCollectionType.swift */,
 				70B18ADE1B7CBD6A00FEB474 /* DequeTests.swift */,
 				70B18AF51B7CC00600FEB474 /* ListTests.swift */,
 				70B18B011B7CDC9600FEB474 /* TrieTests.swift */,
@@ -234,10 +246,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				707762931B98D08E00717B49 /* CollectionType.swift in Sources */,
 				70B18AE31B7CBD6A00FEB474 /* DequeTests.swift in Sources */,
+				707762991B98D0A400717B49 /* RangeReplaceableCollectionType.swift in Sources */,
 				70B18B021B7CDC9600FEB474 /* TrieTests.swift in Sources */,
 				70DA1B4A1B8505D000E812B7 /* TreeTests.swift in Sources */,
+				707762951B98D09A00717B49 /* MutableCollectionType.swift in Sources */,
 				70B18AFB1B7CC00600FEB474 /* ListTests.swift in Sources */,
+				707762971B98D0A000717B49 /* MutableSliceable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
