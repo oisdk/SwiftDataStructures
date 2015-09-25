@@ -390,7 +390,7 @@ extension DequeType where Container.Index : BidirectionalIndexType {
   - Complexity: Amortized O(1)
   */
   public mutating func rotateRight(x: Container.Generator.Element) {
-    back.popLast() ?? front.popLast()
+    let _ = back.popLast() ?? front.popLast()
     front.append(x)
     check()
   }
@@ -406,7 +406,7 @@ extension DequeType where Container.Index : BidirectionalIndexType {
   - Complexity: Amortized O(1)
   */
   public mutating func rotateLeft(x: Container.Generator.Element) {
-    front.popLast() ?? back.popLast()
+    let _ = front.popLast() ?? back.popLast()
     back.append(x)
     check()
   }

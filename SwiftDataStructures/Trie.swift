@@ -42,7 +42,9 @@ extension Trie {
     G : GeneratorType where G.Element == Element
     >(var gen: G) {
     if let head = gen.next() {
-      children[head]?.insert(gen) ?? {children[head] = Trie(gen: gen)}()
+      if case nil = children[head]?.insert(gen) {
+        children[head] = Trie(gen: gen)
+      }
     } else {
       endHere = true
     }
