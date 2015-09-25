@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/oisdk/SwiftDataStructures.svg?branch=master)](https://travis-ci.org/oisdk/SwiftDataStructures)
+
 # SwiftDataStructures
 
 SwiftDataStructures is a framework of commonly-used data structures for Swift.
