@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 
-extension MutableSliceable where
+extension MutableCollectionType where
   Self : SameOrder,
   Generator.Element == Int,
   SubSequence.Generator.Element == Int,

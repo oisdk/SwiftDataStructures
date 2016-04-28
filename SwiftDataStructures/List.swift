@@ -81,9 +81,10 @@ extension List: GeneratorType, LazySequenceType {
 // MARK: Initializers
 
 extension List : ArrayLiteralConvertible {
-  private init<G : GeneratorType where G.Element == Element>(var gen: G) {
-    if let head = gen.next() {
-      self = head |> List(gen: gen)
+  private init<G : GeneratorType where G.Element == Element>(gen: G) {
+    var g = gen
+    if let head = g.next() {
+      self = head |> List(gen: g)
     } else {
       self = .Nil
     }
@@ -235,7 +236,8 @@ extension List {
     }
   }
   
-  private func dropLast(var ahead: Deque<Element>) -> List<Element> {
+  private func dropLast(ahead: Deque<Element>) -> List<Element> {
+    var ahead = ahead
     guard case let .Cons(x, xs) = self else { return .Nil }
     ahead.append(x)
     return ahead.removeFirst() |> xs().dropLast(ahead)

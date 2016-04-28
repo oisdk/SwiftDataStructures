@@ -11,12 +11,12 @@ Three structs conform to the `DequeType` protocol: `Deque`, `DequeSlice`, and
 */
 
 public protocol DequeType :
-  MutableSliceable,
+  MutableCollectionType,
   RangeReplaceableCollectionType,
   CustomDebugStringConvertible,
   ArrayLiteralConvertible {
   /// The type that represents the queues.
-  typealias Container : RangeReplaceableCollectionType, MutableSliceable
+  associatedtype Container : RangeReplaceableCollectionType, MutableCollectionType
   /// The front queue. It is stored in reverse.
   var front: Container { get set }
   /// The back queue.
@@ -323,8 +323,15 @@ public struct DequeGenerator<
   - Requires: `next()` has not been applied to a copy of `self`.
   */
   public mutating func next() -> Container.Generator.Element? {
-    if onBack { return i == back.endIndex ? nil : back[i++] }
-    guard i == front.startIndex else { return front[--i] }
+    if onBack {
+      if i == back.endIndex { return nil }
+      defer { i._successorInPlace() }
+      return back[i]
+    }
+    guard i == front.startIndex else {
+      i._predecessorInPlace()
+      return front[i]
+    }
     onBack = true
     i = back.startIndex
     return next()

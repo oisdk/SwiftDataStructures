@@ -177,9 +177,11 @@ class TrieTests: XCTestCase {
     
     let expectation = Trie([[1, 2, 3], [2, 3, 4], [3, 4, 5]])
     
-    let reality = Trie([[1, 2, 3], [2, 3, 4]]).flatMap {
+    let flatMapClos: [Int] -> Trie<Int> = {
       seq in Trie([0, 1].map { num in seq.map { $0 + num } })
     }
+    
+    let reality = Trie([[1, 2, 3], [2, 3, 4]]).flatMap(flatMapClos)
     
     XCTAssertEqual(expectation, reality)
     

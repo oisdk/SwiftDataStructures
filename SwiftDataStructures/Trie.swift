@@ -40,10 +40,11 @@ extension Trie : CustomDebugStringConvertible {
 extension Trie {
   private mutating func insert<
     G : GeneratorType where G.Element == Element
-    >(var gen: G) {
+    >(g: G) {
+    var gen = g
     if let head = gen.next() {
       if case nil = children[head]?.insert(gen) {
-        children[head] = Trie(gen: gen)
+        children[head] = Trie(g: gen)
       }
     } else {
       endHere = true
@@ -68,9 +69,10 @@ extension Trie {
     endHere  = false
   }
   
-  private init<G : GeneratorType where G.Element == Element>(var gen: G) {
+  private init<G : GeneratorType where G.Element == Element>(g: G) {
+    var gen = g
     if let head = gen.next() {
-      (children, endHere) = ([head:Trie(gen:gen)], false)
+      (children, endHere) = ([head:Trie(g:gen)], false)
     } else {
       (children, endHere) = ([:], true)
     }
@@ -90,7 +92,7 @@ extension Trie {
   public init
     <S : SequenceType where S.Generator.Element == Element>
     (_ seq: S) {
-      self.init(gen: seq.generate())
+      self.init(g: seq.generate())
   }
 }
 
@@ -114,7 +116,7 @@ public struct TrieGenerator<Letter : Hashable> : GeneratorType {
   ///
   /// - Requires: No preceding call to `self.next()` has returned `nil`.
   public mutating func next() -> [Letter]? {
-    for ;; {
+    while true {
       if let next = innerGen() { return curHead + next }
       guard let (head, child) = children.next() else { return nil }
       curHead = [head]
@@ -150,7 +152,8 @@ extension Trie {
 
   private func completions<
     G : GeneratorType where G.Element == Element
-    >(var start: G) -> Trie<Element> {
+    >(g: G) -> Trie<Element> {
+    var start = g
     guard let head = start.next() else  { return self }
     guard let child = children[head] else { return Trie() }
     return child.completions(start)
@@ -182,7 +185,8 @@ extension Trie {
 extension Trie {
   private mutating func remove<
     G : GeneratorType where G.Element == Element
-    >(var gen g: G) -> RemoveState {
+    >(gen gen: G) -> RemoveState {
+      var g = gen
       guard let head = g.next() else {
         endHere = false
         return children.isEmpty ? .Removable : .NotRemovable
@@ -212,13 +216,14 @@ private enum RemoveState {
 extension Trie : SetType {
   private mutating func XOR<
     G : GeneratorType where G.Element == Element
-    >(var gen g: G) -> Bool {
+    >(gen gen: G) -> Bool {
+      var g = gen
       guard let head = g.next() else {
         defer { endHere = !endHere }
         return endHere && children.isEmpty
       }
       guard let removable = children[head]?.XOR(gen: g) else {
-        children[head] = Trie(gen: g)
+        children[head] = Trie(g: g)
         return false
       }
       if removable {
@@ -237,7 +242,8 @@ extension Trie : SetType {
     
   private func contains<
     G : GeneratorType where G.Element == Element
-    >(var gen: G) -> Bool {
+    >(g: G) -> Bool {
+      var gen = g
       guard let head = gen.next() else { return endHere }
       return children[head]?.contains(gen) ?? false
   }
@@ -258,9 +264,10 @@ extension Trie : SetType {
   }
   
   /// Return a new Trie with items in both this set and a finite sequence.
-  public func union(var with: Trie<Element>) -> Trie<Element> {
-    with.unionInPlace(self)
-    return with
+  public func union(with: Trie<Element>) -> Trie<Element> {
+    var mwith = with
+    mwith.unionInPlace(self)
+    return mwith
   }
 }
 

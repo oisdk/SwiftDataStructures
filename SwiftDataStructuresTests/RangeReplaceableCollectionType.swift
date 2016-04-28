@@ -3,7 +3,7 @@ import Foundation
 
 extension RangeReplaceableCollectionType where
   Self : SameOrder,
-  Self : MutableSliceable,
+  Self : MutableCollectionType,
   Generator.Element == Int,
   SubSequence.Generator.Element == Int,
   SubSequence : FlexibleInitable {
